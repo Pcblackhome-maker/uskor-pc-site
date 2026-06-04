@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Максимальный FPS без лагов | Ускорь ПК</title>
+  <meta name="description" content="Настройка Windows, видеокарты, охлаждение и драйверы для игр. Повышаем FPS в Cyberpunk, Hogwarts Legacy и других.">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="decor-spot spot-1"></div>
+  <div class="decor-spot spot-2"></div>
+  <div class="decor-spot spot-3"></div>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="landing">
+    <a href="/" class="back-btn"><span>←</span> На главную</a>
+    <div class="content-box" style="display:block;">
+      <h2>🎮 Максимальный FPS без лагов</h2>
+      <div class="accordion-item">
+        <div class="accordion-header active" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">1. Настройки Windows для игр</div>
+        <div class="accordion-body open">
+          <p>Включите «Игровой режим» (<code>Win + G</code> → Настройки). Отключите визуальные эффекты: «Свойства системы» → «Дополнительно» → «Быстродействие» → «Обеспечить наилучшее быстродействие». Отключите фоновые приложения. Эти простые шаги особенно заметны в требовательных новинках вроде <strong>Cyberpunk 2077</strong> или <strong>Alan Wake 2</strong> – лишние 5–10 кадров никогда не помешают.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">2. Настройка видеокарты</div>
+        <div class="accordion-body">
+          <p><strong>NVIDIA:</strong> Панель управления → «Регулировка настроек изображения» → «Производительность».<br><strong>AMD:</strong> Radeon Software → «Глобальные настройки графики» → «Производительность».<br>Отключите вертикальную синхронизацию (VSync) в играх, если FPS низкий. Для <strong>Hogwarts Legacy</strong> и других проектов на Unreal Engine это даёт наибольший прирост плавности.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">3. Охлаждение и пыль</div>
+        <div class="accordion-body">
+          <p>Перегрев приводит к троттлингу (снижению частот). Раз в полгода чистите ноутбук от пыли, используйте охлаждающую подставку. Если процессор выше 85°C, пора менять термопасту. Даже в <strong>Baldur's Gate 3</strong> при высоких настройках система может нагреваться так, что частоты падают на 15–20%.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">4. Обновление драйверов</div>
+        <div class="accordion-body">
+          <p>Устаревшие драйверы – частая причина низкой производительности. Скачайте последние версии с официальных сайтов:</p>
+          <ul>
+            <li><a href="https://www.nvidia.com/ru-ru/drivers/" target="_blank" rel="noopener" style="color:#ff6b35;">NVIDIA (для GeForce)</a></li>
+            <li><a href="https://www.amd.com/ru/support" target="_blank" rel="noopener" style="color:#ff6b35;">AMD (Radeon, Ryzen)</a></li>
+            <li><a href="https://www.intel.com/content/www/ru/ru/download-center/home.html" target="_blank" rel="noopener" style="color:#ff6b35;">Intel (встроенная графика, чипсет)</a></li>
+          </ul>
+          <p>Также установите GeForce Experience или Radeon Software для автоматического обновления. Это гарантирует, что свежий патч для <strong>Starfield</strong> не застанет вас врасплох.</p>
+        </div>
+      </div>
+      <a href="#" class="btn-tilda affiliate-link" style="margin-top:20px;" target="_blank">Игровые SSD со скидкой</a>
+      <a href="https://boosty.to/igrip/donate" class="donate-link" target="_blank">☕ Помогло? Угости автора кофе</a>
+      <div style="margin-top:25px; background:#f0f8ff; padding:20px; border-radius:12px; text-align:center;"><strong>🤔 Остались вопросы?</strong><br>Не нашли ответа? <a href="#" onclick="scrollToForm(); return false;">Опишите проблему в форме ниже</a> — я отвечу лично.</div>
+      <div class="faq-section">
+        <h3>❓ Часто задаваемые вопросы</h3>
+        <div class="faq-item"><div class="faq-question">Почему FPS плавает даже на мощном ПК?</div><div class="faq-answer">Часто виноваты фоновые процессы, перегрев или неоптимизированные настройки графики. Пройдите шаги выше.</div></div>
+        <div class="faq-item"><div class="faq-question">Влияет ли монитор на FPS?</div><div class="faq-answer">Косвенно: если монитор с высокой частотой обновления (144 Гц), вы будете замечать больше кадров, но сам FPS зависит от железа.</div></div>
+        <div class="faq-item"><div class="faq-question">Можно ли играть на встроенной графике?</div><div class="faq-answer">В нетребовательные игры (CS2, Dota 2, Minecraft) – да. Для AAA-проектов нужна дискретная видеокарта.</div></div>
+      </div>
+    </div>
+    <div class="site-footer">
+      © 2026 <span>Ускорь ПК</span> · <a href="/privacy">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/privacy">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('readingProgress').style.width = (winScroll / height) * 100 + '%';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', winScroll > 500);
+    });
+    function acceptCookies() {
+      localStorage.setItem('cookie_accepted','true');
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    if (localStorage.getItem('cookie_accepted') === 'true') {
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', function() {
+      this.parentElement.classList.toggle('open');
+    }));
+  </script>
+</body>
+</html>
