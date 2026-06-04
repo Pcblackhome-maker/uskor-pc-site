@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ускорь ПК без мастера — бесплатные инструкции и советы</title>
+  <meta name="description" content="Проверенные способы ускорить ноутбук или компьютер: автозагрузка, чистка диска, выбор SSD, защита от вирусов. Бесплатные гайды и удалённая помощь.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="decor-spot spot-1"></div>
+  <div class="decor-spot spot-2"></div>
+  <div class="decor-spot spot-3"></div>
+  <div class="reading-progress" id="readingProgress"></div>
+  <div class="landing">
+    <div class="hero">
+      <h1>🚀 Ускорь свой ПК без мастера</h1>
+      <p>Выбери, что тебе нужно сегодня. Все советы проверены на сотнях ноутбуков и ПК.</p>
+      <div class="btn-group">
+        <a href="/instruction.html" class="nav-btn"><span>📋</span> Пошаговая инструкция</a>
+        <a href="/programs.html" class="nav-btn"><span>⚡</span> Программы и железо</a>
+        <a href="/ssd.html" class="nav-btn"><span>🖥️</span> Как выбрать SSD</a>
+        <a href="/monitor.html" class="nav-btn"><span>🖥️</span> Как выбрать монитор</a>
+        <a href="/windows11.html" class="nav-btn"><span>🪟</span> Секреты Windows 11</a>
+        <a href="/virus.html" class="nav-btn"><span>🛡️</span> Чистка от вирусов</a>
+        <a href="/gaming.html" class="nav-btn"><span>🎮</span> Ускорение для игр</a>
+        <a href="/build.html" class="nav-btn"><span>🔧</span> Сборка ПК</a>
+        <a href="/guide.html" class="nav-btn guide-btn"><span>📘</span> Платный гайд</a>
+      </div>
+    </div>
+    <div class="articles-preview" id="articlesPreview"></div>
+    <div class="affiliate-banner">
+      <a target="_blank" rel="nofollow" href="https://rzekl.com/g/3nvsyfsfjdf10c2e97fc16525dc3e8/?i=4"><img src="https://ad.admitad.com/b/3nvsyfsfjdf10c2e97fc16525dc3e8/" alt="AliExpress WW"/></a>
+    </div>
+    <div class="contact-form">
+      <h2>📩 Не нашли ответа?</h2>
+      <p>Опишите проблему – я отвечу лично в течение дня.</p>
+      <form action="https://formspree.io/f/xgoqbbvl" method="POST">
+        <div class="form-group"><label>Ваше имя</label><input type="text" name="name" placeholder="Иван" required></div>
+        <div class="form-group"><label>Email или Telegram</label><input type="text" name="contact" placeholder="куда ответить" required></div>
+        <div class="form-group"><label>Опишите проблему</label><textarea name="message" placeholder="Компьютер тормозит при запуске Photoshop..." required></textarea></div>
+        <button type="submit" class="submit-btn">Отправить заявку</button>
+      </form>
+    </div>
+    <div class="site-footer">
+      © 2026 <span>Ускорь ПК</span> · Сделано с заботой о вашем компьютере · <a href="/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('readingProgress').style.width = (winScroll / height) * 100 + '%';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', winScroll > 500);
+    });
+    function acceptCookies() {
+      localStorage.setItem('cookie_accepted','true');
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    if (localStorage.getItem('cookie_accepted') === 'true') {
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    const articles = [
+      { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
+      { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
+      { id: "ssd", icon: "🖥️", title: "Как выбрать SSD", desc: "Какой диск купить, чтобы ноутбук летал: типы, объёмы, бренды." },
+      { id: "monitor", icon: "🖥️", title: "Как выбрать монитор", desc: "Герцы, разрешение, матрицы – выбор для игр и работы." },
+      { id: "windows11", icon: "🪟", title: "Секреты Windows 11", desc: "Визуальные эффекты, автозагрузка, схема питания." },
+      { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
+      { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
+      { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." }
+    ];
+    document.getElementById('articlesPreview').innerHTML = articles.map(a => `
+      <a href="/${a.id}.html" class="preview-card">
+        <span class="icon">${a.icon}</span>
+        <h3>${a.title}</h3>
+        <p>${a.desc}</p>
+        <span class="read-link">Читать →</span>
+      </a>
+    `).join('');
+  </script>
+</body>
+</html>
