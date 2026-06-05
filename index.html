@@ -155,6 +155,76 @@ function renderBookmarks() {
   }
 }
 renderBookmarks();
+    const ADMIN_PIN = '1234'; // Смени на свой!
+
+// Тройной клик по "Сделано" → запрос пина
+let adminClicks = 0, adminTimer;
+document.querySelector('.site-footer span')?.addEventListener('click', function() {
+  adminClicks++;
+  if (adminClicks === 1) adminTimer = setTimeout(() => adminClicks = 0, 800);
+  if (adminClicks === 3) {
+    clearTimeout(adminTimer);
+    adminClicks = 0;
+    document.getElementById('pinOverlay').classList.add('show');
+    document.getElementById('pinInput').focus();
+  }
+});
+
+function checkPin() {
+  const pin = document.getElementById('pinInput').value;
+  if (pin === ADMIN_PIN) {
+    document.getElementById('pinOverlay').classList.remove('show');
+    document.getElementById('adminPanel').classList.add('show');
+    document.getElementById('pinInput').value = '';
+    loadAdminStats();
+  } else {
+    alert('Неверный PIN');
+  }
+}
+
+function loadAdminStats() {
+  let count = localStorage.getItem('site_page_views');
+  document.getElementById('adminPageCount').textContent = count || 0;
+}
+
+// Загрузка контента статьи в редактор
+document.getElementById('articleSelect').addEventListener('change', function() {
+  const id = this.value;
+  if (!id) { document.getElementById('articleContent').value = ''; return; }
+  
+  // Пытаемся загрузить сохранённую версию
+  const saved = localStorage.getItem('edited_' + id);
+  if (saved) {
+    document.getElementById('articleContent').value = saved;
+  } else {
+    // Загружаем текущий контент со страницы (если мы на ней) или показываем заглушку
+    fetch(`/article/${id}.html`)
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('articleContent').value = html;
+      })
+      .catch(() => alert('Не удалось загрузить статью. Открой её вручную.'));
+  }
+});
+
+function saveArticle() {
+  const id = document.getElementById('articleSelect').value;
+  const content = document.getElementById('articleContent').value;
+  if (!id || !content) return alert('Выбери статью и введи текст');
+  localStorage.setItem('edited_' + id, content);
+  alert('Сохранено локально! Чтобы увидеть изменения, обнови страницу статьи (только для тебя).');
+}
+
+function exportArticle() {
+  const content = document.getElementById('articleContent').value;
+  if (!content) return alert('Нечего экспортировать');
+  const blob = new Blob([content], {type: 'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = document.getElementById('articleSelect').value + '.html';
+  a.click();
+  alert('Файл скачан. Замени им соответствующий файл в репозитории GitHub, чтобы опубликовать для всех.');
+}
   </script>
   <!-- Админ-панель -->
 <div class="pin-overlay" id="pinOverlay">
