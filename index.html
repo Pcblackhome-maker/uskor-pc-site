@@ -117,10 +117,12 @@
       </a>
     `).join('');
   </script>
+  <script>
   // Плавный скролл к карточкам
-document.querySelector('a[href="#articlesPreview"]')?.addEventListener('click', function(e) {
-  e.preventDefault();
-  document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
+  document.querySelector('a[href="#articlesPreview"]')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
 </body>
 </html>
