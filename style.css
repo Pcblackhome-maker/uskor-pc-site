@@ -1427,3 +1427,19 @@ body.dark .admin-panel input, body.dark .admin-panel textarea {
 }
 .step button:hover { background: #e55a2b; }
 .done-message h4 { color: #ff6b35; }
+.search-icon { cursor: pointer; margin-left: auto; font-size: 20px; }
+.search-modal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); z-index: 10002;
+  display: none; justify-content: center; align-items: flex-start; padding-top: 80px;
+}
+.search-modal.open { display: flex; }
+.search-box {
+  background: white; border-radius: 16px; padding: 20px;
+  width: 90%; max-width: 500px;
+}
+.search-box input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; }
+.search-box button { float: right; background: none; border: none; font-size: 20px; cursor: pointer; }
+#searchResults { list-style: none; padding: 0; margin-top: 15px; }
+#searchResults li { padding: 8px 0; border-bottom: 1px solid #eee; }
+#searchResults a { text-decoration: none; color: #333; font-weight: 500; }
