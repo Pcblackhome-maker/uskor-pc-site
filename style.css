@@ -1044,3 +1044,31 @@ body.dark .admin-panel {
 .admin-panel .counter { font-weight: 700; color: #ff6b35; font-size: 22px; display: block; margin: 5px 0 15px; }
 .admin-panel a { display: block; margin: 4px 0; color: #ff6b35; text-decoration: none; font-weight: 500; }
 .admin-panel a:hover { text-decoration: underline; }
+}
+.helpful-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+.helpful-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #444;
+  transition: all 0.2s;
+  user-select: none;
+}
+.helpful-btn:hover { background: #e0e0e0; }
+.helpful-btn.active { background: #ff6b35; color: white; }
+body.dark .helpful-btn { background: #2a2a4a; color: #ccc; }
+body.dark .helpful-btn:hover { background: #3a3a5a; }
+body.dark .helpful-btn.active { background: #ff9f6e; color: #1a1d2e; }
+.helpful-count { font-weight: 600; }
