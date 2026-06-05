@@ -1305,3 +1305,22 @@ body.dark .bookmarks-widget { background: #232640; }
 .bookmarks-widget li { margin-bottom: 8px; }
 .bookmarks-widget a { color: #ff6b35; text-decoration: none; font-weight: 500; }
 .bookmarks-widget a:hover { text-decoration: underline; }
+.quick-tips {
+  background: #fff5f0;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+body.dark .quick-tips { background: #2a2a4a; }
+.quick-tips h4 { margin-bottom: 10px; color: #ff6b35; }
+.quick-tips ul { list-style: none; padding: 0; }
+.quick-tips li { margin-bottom: 8px; }
+.quick-tips a { color: #333; text-decoration: none; font-weight: 500; }
+body.dark .quick-tips a { color: #ddd; }
+.quick-tips a:hover { text-decoration: underline; }
+
+/* На мобильных скрываем боковую панель */
+@media (max-width: 768px) {
+  .quick-tips { display: none; }
+}
