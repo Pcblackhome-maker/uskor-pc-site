@@ -232,6 +232,19 @@ if (filteredTips.length > 0) {
 } else {
   document.getElementById('quickTips').style.display = 'none';
 }
+    // Поиск
+fetch('/search.json')
+  .then(res => res.json())
+  .then(data => { window.searchData = data; });
+document.getElementById('searchInput').addEventListener('input', function(e) {
+  const query = e.target.value.toLowerCase();
+  const results = document.getElementById('searchResults');
+  if (!window.searchData || query.length < 2) { results.innerHTML = ''; return; }
+  const filtered = window.searchData.filter(item => 
+    item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
+  );
+  results.innerHTML = filtered.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join('');
+});
   </script>
   <div class="search-modal" id="searchModal">
   <div class="search-box">
