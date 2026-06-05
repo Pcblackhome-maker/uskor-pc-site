@@ -156,5 +156,42 @@ function renderBookmarks() {
 }
 renderBookmarks();
   </script>
+  <!-- Админ-панель -->
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <h3>🔐 Введите PIN</h3>
+    <input type="password" id="pinInput" maxlength="4" placeholder="****">
+    <br>
+    <button onclick="checkPin()">Войти</button>
+  </div>
+</div>
+
+<div class="admin-panel" id="adminPanel">
+  <button class="close-btn" onclick="document.getElementById('adminPanel').classList.remove('show')">✕</button>
+  <h3>🔒 Админ-панель</h3>
+  
+  <label>📊 Посещений (локально):</label>
+  <span id="adminPageCount">0</span>
+  
+  <label>🖊️ Редактировать статью:</label>
+  <select id="articleSelect">
+    <option value="">-- Выбери --</option>
+    <option value="instruction">Пошаговая инструкция</option>
+    <option value="programs">Программы и железо</option>
+    <option value="ssd">Как выбрать SSD</option>
+    <option value="monitor">Как выбрать монитор</option>
+    <option value="windows11">Секреты Windows 11</option>
+    <option value="virus">Чистка от вирусов</option>
+    <option value="gaming">Ускорение для игр</option>
+    <option value="build">Сборка ПК</option>
+  </select>
+  
+  <label>Содержимое (HTML):</label>
+  <textarea id="articleContent" rows="10" placeholder="Выбери статью..."></textarea>
+  
+  <button onclick="saveArticle()">💾 Сохранить локально</button>
+  <button onclick="exportArticle()">📋 Экспортировать HTML</button>
+  <button class="reset-btn" onclick="if(confirm('Сбросить все локальные данные?')){localStorage.clear();location.reload();}">🗑 Сбросить всё</button>
+</div>
 </body>
 </html>
