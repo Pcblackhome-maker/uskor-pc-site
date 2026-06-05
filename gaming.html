@@ -37,14 +37,16 @@
       <a href="/monitor.html"><span>🖥️</span> Монитор</a>
       <a href="/windows11.html"><span>🪟</span> Windows 11</a>
       <a href="/virus.html"><span>🛡️</span> Вирусы</a>
-      <a href="/gaming.html" class="nav-btn active"><span>🎮</span> Игры</a>
+      <a href="/gaming.html" class="active"><span>🎮</span> Игры</a>
       <a href="/build.html"><span>🔧</span> Сборка</a>
       <a href="/guide.html"><span>📘</span> Платный гайд</a>
     </nav>
   </header>
-<div class="breadcrumbs">
-  <a href="/">Главная</a> → <span>🎮 Максимальный FPS без лагов</span>
-</div>
+
+  <div class="breadcrumbs">
+    <a href="/">Главная</a> → <span>🎮 Максимальный FPS без лагов</span>
+  </div>
+
   <div class="landing">
     <div class="content-box" style="display:block;">
       <h2>🎮 Максимальный FPS без лагов</h2>
@@ -87,9 +89,23 @@
         <div class="faq-item"><div class="faq-question">Влияет ли монитор на FPS?</div><div class="faq-answer">Косвенно: если монитор с высокой частотой обновления (144 Гц), вы будете замечать больше кадров, но сам FPS зависит от железа.</div></div>
         <div class="faq-item"><div class="faq-question">Можно ли играть на встроенной графике?</div><div class="faq-answer">В нетребовательные игры (CS2, Dota 2, Minecraft) – да. Для AAA-проектов нужна дискретная видеокарта.</div></div>
       </div>
+
+      <div class="helpful-buttons" data-article-id="gaming">
+        <span>Помогла статья?</span>
+        <button class="helpful-btn" data-vote="yes">👍 <span class="helpful-count">0</span></button>
+        <button class="helpful-btn" data-vote="no">👎 <span class="helpful-count">0</span></button>
+      </div>
+
+      <button class="share-trigger" onclick="document.getElementById('sharePopup').classList.add('open')">📤 Поделиться</button>
+      <div class="share-popup" id="sharePopup">
+        <a href="" target="_blank" class="share-link" data-type="telegram">📨 Telegram</a>
+        <a href="" target="_blank" class="share-link" data-type="vk">📘 VK</a>
+        <button onclick="navigator.clipboard.writeText(window.location.href)">📋 Копировать ссылку</button>
+        <button class="close-share" onclick="document.getElementById('sharePopup').classList.remove('open')">✕</button>
+      </div>
     </div>
     <div class="site-footer">
-      © 2026 <span>Ускорь ПК</span> · <a href="/privacy.html">Политика конфиденциальности</a>
+      © 2026 <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/privacy.html">Политика конфиденциальности</a>
     </div>
   </div>
 
@@ -116,6 +132,46 @@
     document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', function() {
       this.parentElement.classList.toggle('open');
     }));
+
+    (function() {
+      const widget = document.querySelector('.helpful-buttons[data-article-id="gaming"]');
+      if (!widget) return;
+      const articleId = widget.dataset.articleId;
+      const yesBtn = widget.querySelector('[data-vote="yes"]');
+      const noBtn = widget.querySelector('[data-vote="no"]');
+      const yesCount = yesBtn.querySelector('.helpful-count');
+      const noCount = noBtn.querySelector('.helpful-count');
+      let saved = JSON.parse(localStorage.getItem('helpful_' + articleId) || '{"yes":0,"no":0,"voted":null}');
+      yesCount.textContent = saved.yes;
+      noCount.textContent = saved.no;
+      if (saved.voted === 'yes') yesBtn.classList.add('active');
+      if (saved.voted === 'no') noBtn.classList.add('active');
+      yesBtn.addEventListener('click', () => {
+        if (saved.voted) return;
+        saved.yes++;
+        saved.voted = 'yes';
+        localStorage.setItem('helpful_' + articleId, JSON.stringify(saved));
+        yesCount.textContent = saved.yes;
+        yesBtn.classList.add('active');
+      });
+      noBtn.addEventListener('click', () => {
+        if (saved.voted) return;
+        saved.no++;
+        saved.voted = 'no';
+        localStorage.setItem('helpful_' + articleId, JSON.stringify(saved));
+        noCount.textContent = saved.no;
+        noBtn.classList.add('active');
+      });
+    })();
+
+    (function() {
+      const popup = document.getElementById('sharePopup');
+      if (!popup) return;
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
+      popup.querySelector('a[data-type="telegram"]').href = `https://t.me/share/url?url=${url}&text=${title}`;
+      popup.querySelector('a[data-type="vk"]').href = `https://vk.com/share.php?url=${url}&title=${title}`;
+    })();
   </script>
 </body>
 </html>
