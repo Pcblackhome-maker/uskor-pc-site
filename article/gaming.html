@@ -184,6 +184,38 @@
       popup.querySelector('a[data-type="telegram"]').href = `https://t.me/share/url?url=${url}&text=${title}`;
       popup.querySelector('a[data-type="vk"]').href = `https://vk.com/share.php?url=${url}&title=${title}`;
     })();
+    // Закладки
+function getBookmarks() {
+  return JSON.parse(localStorage.getItem('bookmarks') || '[]');
+}
+function saveBookmarks(bookmarks) {
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+}
+function toggleBookmark(btn) {
+  const id = btn.dataset.articleId;
+  const title = btn.dataset.articleTitle;
+  let bookmarks = getBookmarks();
+  const exists = bookmarks.find(b => b.id === id);
+  if (exists) {
+    bookmarks = bookmarks.filter(b => b.id !== id);
+    btn.classList.remove('saved');
+    btn.textContent = '🔖 В закладки';
+  } else {
+    bookmarks.push({ id, title });
+    btn.classList.add('saved');
+    btn.textContent = '🔖 В закладках';
+  }
+  saveBookmarks(bookmarks);
+}
+// Инициализация кнопок при загрузке
+document.querySelectorAll('.bookmark-btn').forEach(btn => {
+  const id = btn.dataset.articleId;
+  const bookmarks = getBookmarks();
+  if (bookmarks.find(b => b.id === id)) {
+    btn.classList.add('saved');
+    btn.textContent = '🔖 В закладках';
+  }
+});
   </script>
 </body>
 </html>
