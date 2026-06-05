@@ -36,7 +36,7 @@
 
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
-    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')" style="cursor:pointer; margin-left:auto; font-size:20px;">🔍</span>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
     <nav>
       <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
       <a href="/article/programs.html" class="active"><span>⚡</span> Программы</a>
@@ -57,77 +57,79 @@
   <div class="landing">
     <div class="content-box" style="display:block;">
       <h2>⚡ Программы и железо для ускорения</h2>
-      <p style="margin-bottom:20px; color:#555;">Я собрал проверенные инструменты и недорогие аксессуары, которые реально помогают. Ниже они разбиты на две категории – выбирайте, что нужно именно вам.</p>
+      <p style="margin-bottom:25px; color:#555;">Я собрал проверенные инструменты и недорогие аксессуары, которые реально помогают. Ниже они разбиты на две категории – выбирайте, что нужно именно вам.</p>
 
-      <h3 style="margin-top:25px;">🛠️ Программы</h3>
-      <div class="table-wrapper">
-        <table class="clean-table">
-          <tr><th>Программа</th><th>Что делает</th><th>Цена</th><th>Ссылка</th></tr>
-          <tr itemscope itemtype="https://schema.org/Product">
-            <td itemprop="name">CCleaner Professional</td>
-            <td itemprop="description">Глубокая очистка реестра, удаление временных файлов, управление автозагрузкой. Автоматически чистит браузеры и исправляет ошибки. Идеально для новичков – всё в один клик.</td>
-            <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="RUB">
-              <span itemprop="price">0</span> (пробный период)
-            </td>
-            <td><a href="ВАША_ССЫЛКА_CCLEANER" class="btn-tilda affiliate-link" itemprop="url">Скачать</a></td>
-          </tr>
-          <tr itemscope itemtype="https://schema.org/Product">
-            <td itemprop="name">Kaspersky Antivirus</td>
-            <td itemprop="description">Защита от вирусов и шпионского ПО. Фоновые угрозы часто загружают процессор – антивирус их устранит и не даст тормозить системе.</td>
-            <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="RUB">
-              <span itemprop="price">0</span> (30 дней)
-            </td>
-            <td><a href="ВАША_ССЫЛКА_KASPERSKY" class="btn-tilda affiliate-link" itemprop="url">Попробовать</a></td>
-          </tr>
-        </table>
+      <!-- ====== ПРОГРАММЫ ====== -->
+      <h3 style="margin-top:30px; margin-bottom:20px;">🛠️ Программы</h3>
+      <div class="product-grid">
+        <!-- CCleaner -->
+        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+          <div class="product-icon">🧹</div>
+          <h4 itemprop="name">CCleaner Professional</h4>
+          <p itemprop="description">Глубокая очистка реестра, временных файлов, управление автозагрузкой. Всё в один клик – идеально для новичков.</p>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price" content="0">Бесплатный пробный период</span>
+          </div>
+          <a href="ВАША_ССЫЛКА_CCLEANER" class="btn-tilda affiliate-link" itemprop="url">Скачать</a>
+        </div>
+        <!-- Kaspersky -->
+        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+          <div class="product-icon">🛡️</div>
+          <h4 itemprop="name">Kaspersky Antivirus</h4>
+          <p itemprop="description">Защита от вирусов и шпионского ПО. Убирает фоновые угрозы, которые тормозят систему.</p>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price" content="0">Пробный период 30 дней</span>
+          </div>
+          <a href="ВАША_ССЫЛКА_KASPERSKY" class="btn-tilda affiliate-link" itemprop="url">Попробовать</a>
+        </div>
       </div>
 
-      <h3 style="margin-top:25px;">💻 Железо и аксессуары</h3>
-      <div class="table-wrapper">
-        <table class="clean-table">
-          <tr><th>Товар</th><th>Описание</th><th>Цена</th><th>Ссылка</th></tr>
-          <tr itemscope itemtype="https://schema.org/Product">
-            <td itemprop="name">SSD-накопитель на 240 ГБ</td>
-            <td itemprop="description">Замена старого HDD на SSD – самый мощный апгрейд. Скорость загрузки Windows и игр сокращается в 3-5 раз.</td>
-            <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="RUB">
-              от <span itemprop="price">1500</span> ₽
-            </td>
-            <td><a href="ВАША_ССЫЛКА_СИТИЛИНК_SSD" class="btn-tilda affiliate-link" itemprop="url">Выбрать на Ситилинк</a></td>
-          </tr>
-          <tr itemscope itemtype="https://schema.org/Product">
-            <td itemprop="name">Коврик для мыши с RGB-подсветкой</td>
-            <td itemprop="description">Яркий коврик улучшает скольжение мыши, что важно в шутерах вроде Valorant или Apex Legends. Дешёвый способ добавить стиля.</td>
-            <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="RUB">
-              от <span itemprop="price">400</span> ₽
-            </td>
-            <td><a href="https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J" class="btn-tilda affiliate-link" itemprop="url">Смотреть на Joom</a></td>
-          </tr>
-          <tr itemscope itemtype="https://schema.org/Product">
-            <td itemprop="name">Охлаждающая подставка для ноутбука</td>
-            <td itemprop="description">Перегрев снижает FPS. Подставка с вентиляторами помогает держать температуру в норме, особенно в требовательных играх.</td>
-            <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="RUB">
-              от <span itemprop="price">800</span> ₽
-            </td>
-            <td><a href="https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J" class="btn-tilda affiliate-link" itemprop="url">Смотреть на Joom</a></td>
-          </tr>
-          <tr itemscope itemtype="https://schema.org/Product">
-            <td itemprop="name">Дешёвые аксессуары для ПК</td>
-            <td itemprop="description">Кабели, переходники, стикеры – мелочи для апгрейда и украшения сетапа.</td>
-            <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="RUB">
-              от <span itemprop="price">50</span> ₽
-            </td>
-            <td><a href="https://rzekl.com/c/1e8d114494f10c2e97fc16525dc3e8/" class="btn-tilda affiliate-link" itemprop="url">Перейти на Alik</a></td>
-          </tr>
-        </table>
+      <!-- ====== ЖЕЛЕЗО И АКСЕССУАРЫ ====== -->
+      <h3 style="margin-top:40px; margin-bottom:20px;">💻 Железо и аксессуары</h3>
+      <div class="product-grid">
+        <!-- SSD -->
+        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+          <div class="product-icon">💾</div>
+          <h4 itemprop="name">SSD-накопитель на 240 ГБ</h4>
+          <p itemprop="description">Замена старого HDD на SSD – самый мощный апгрейд. Скорость загрузки Windows и игр сокращается в 3-5 раз.</p>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            от <span itemprop="price">1 500</span> ₽
+          </div>
+          <a href="ВАША_ССЫЛКА_СИТИЛИНК_SSD" class="btn-tilda affiliate-link" itemprop="url">Выбрать на Ситилинк</a>
+        </div>
+        <!-- Коврик Joom -->
+        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+          <div class="product-icon">🖱️</div>
+          <h4 itemprop="name">Коврик для мыши с RGB</h4>
+          <p itemprop="description">Яркий коврик улучшает скольжение мыши, что важно в шутерах. Дёшево и стильно.</p>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            от <span itemprop="price">400</span> ₽
+          </div>
+          <a href="https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J" class="btn-tilda affiliate-link" itemprop="url">Смотреть на Joom</a>
+        </div>
+        <!-- Подставка Joom -->
+        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+          <div class="product-icon">❄️</div>
+          <h4 itemprop="name">Охлаждающая подставка</h4>
+          <p itemprop="description">Перегрев снижает FPS. Подставка с вентиляторами держит температуру в норме.</p>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            от <span itemprop="price">800</span> ₽
+          </div>
+          <a href="https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J" class="btn-tilda affiliate-link" itemprop="url">Смотреть на Joom</a>
+        </div>
+        <!-- AliExpress мелочи -->
+        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+          <div class="product-icon">🔌</div>
+          <h4 itemprop="name">Аксессуары для ПК</h4>
+          <p itemprop="description">Кабели, переходники, стикеры – мелочи для апгрейда и украшения сетапа.</p>
+          <div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            от <span itemprop="price">50</span> ₽
+          </div>
+          <a href="https://rzekl.com/c/1e8d114494f10c2e97fc16525dc3e8/" class="btn-tilda affiliate-link" itemprop="url">Перейти на Alik</a>
+        </div>
       </div>
 
-      <div class="advice-block"><strong>✨ Рекомендация:</strong> Начните с бесплатного CCleaner и Kaspersky, чтобы почистить систему. Потом загляните в железо – SSD и коврик дадут самый заметный эффект.</div>
+      <div class="advice-block" style="margin-top:30px;"><strong>✨ Рекомендация:</strong> Начните с бесплатного CCleaner и Kaspersky, чтобы почистить систему. Потом загляните в железо – SSD и коврик дадут самый заметный эффект.</div>
       <a href="https://boosty.to/igrip/donate" class="donate-link affiliate-link" target="_blank">☕ Помогло? Угости автора кофе</a>
       <div style="margin-top:25px; background:#f0f8ff; padding:20px; border-radius:12px; text-align:center;">
         <strong>🤔 Остались вопросы?</strong><br>Я отвечаю лично в течение дня. <a href="/#contact-form">Напишите мне через форму на главной</a>.
@@ -280,13 +282,48 @@
     document.querySelectorAll('.affiliate-link').forEach(link => {
       link.addEventListener('click', function() { if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click'); });
     });
+
+    // Похожие статьи
+    const relatedArticles = {
+      programs: ['instruction', 'ssd', 'virus']
+    };
+    const allArticleData = {
+      instruction: { title: "Пошаговая инструкция", desc: "5 шагов для ускорения ПК", url: "/article/instruction.html" },
+      programs: { title: "Программы и железо", desc: "Утилиты и аксессуары", url: "/article/programs.html" },
+      ssd: { title: "Как выбрать SSD", desc: "Советы по выбору диска", url: "/article/ssd.html" },
+      monitor: { title: "Как выбрать монитор", desc: "Герцы, матрицы, разрешение", url: "/article/monitor.html" },
+      windows11: { title: "Секреты Windows 11", desc: "Настройка системы", url: "/article/windows11.html" },
+      virus: { title: "Чистка от вирусов", desc: "Антивирусы и сканеры", url: "/article/virus.html" },
+      gaming: { title: "Максимальный FPS", desc: "Ускорение для игр", url: "/article/gaming.html" },
+      build: { title: "Сборка ПК", desc: "Пошаговая инструкция", url: "/article/build.html" }
+    };
+    function getCurrentArticleId() {
+      const path = window.location.pathname;
+      const match = path.match(/\/article\/(.+)\.html/);
+      return match ? match[1] : null;
+    }
+    function renderRelatedArticles() {
+      const currentId = getCurrentArticleId();
+      if (!currentId || !relatedArticles[currentId]) return;
+      const relatedIds = relatedArticles[currentId];
+      const selected = relatedIds.slice(0, 3);
+      const html = selected.map(id => {
+        const article = allArticleData[id];
+        if (!article) return '';
+        return `<li><a href="${article.url}">${article.title}</a> – ${article.desc}</li>`;
+      }).join('');
+      const list = document.getElementById('quickTipsList');
+      if (list && html) {
+        list.innerHTML = html;
+      } else if (list) {
+        list.innerHTML = '<li>Связанных статей пока нет</li>';
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderRelatedArticles);
+    } else {
+      renderRelatedArticles();
+    }
   </script>
-  <div class="search-modal" id="searchModal">
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
-    <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
-    <ul id="searchResults"></ul>
-  </div>
-</div>
 </body>
 </html>
