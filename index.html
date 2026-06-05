@@ -141,6 +141,8 @@
     <h3>🔒 Админ-панель</h3>
     <label>📊 Посещений (локально):</label>
     <span id="adminPageCount">0</span>
+    <label>👥 Сейчас онлайн (вкладок):</label>
+    <span id="onlineCount">1</span>
     <label>🖊️ Редактировать статью:</label>
     <select id="articleSelect">
       <option value="">-- Выбери --</option>
@@ -340,6 +342,40 @@
       alert('Файл скачан. Замените им файл в репозитории GitHub, чтобы опубликовать.');
     }
 
+    // === СЧЁТЧИК ОНЛАЙН ===
+    const CHANNEL_NAME = 'uskor-pc-online';
+    const onlineChannel = new BroadcastChannel(CHANNEL_NAME);
+    let sessionId = Date.now() + Math.random();
+    const activeSessions = new Set();
+    activeSessions.add(sessionId);
+
+    function updateOnlineDisplay() {
+      onlineChannel.postMessage({type: 'ping', id: sessionId});
+      setTimeout(() => {
+        const el = document.getElementById('onlineCount');
+        if (el) el.textContent = activeSessions.size;
+      }, 300);
+    }
+
+    onlineChannel.onmessage = (e) => {
+      if (e.data.type === 'pong') {
+        activeSessions.add(e.data.id);
+      } else if (e.data.type === 'bye') {
+        activeSessions.delete(e.data.id);
+      }
+    };
+
+    setInterval(() => {
+      activeSessions.clear();
+      activeSessions.add(sessionId);
+      updateOnlineDisplay();
+    }, 5000);
+
+    window.addEventListener('beforeunload', () => {
+      onlineChannel.postMessage({type: 'bye', id: sessionId});
+    });
+    updateOnlineDisplay();
+
     // === ОТСЛЕЖИВАНИЕ ПАРТНЁРСКИХ КЛИКОВ ===
     document.querySelectorAll('.affiliate-link').forEach(link => {
       link.addEventListener('click', function() {
@@ -353,68 +389,6 @@
       count = count ? parseInt(count) + 1 : 1;
       localStorage.setItem('site_page_views', count);
     })();
-    const ADMIN_PIN = '1234'; // Поменяй на свой
-
-let adminClicks = 0, adminTimer;
-document.querySelector('.site-footer span')?.addEventListener('click', function() {
-  adminClicks++;
-  if (adminClicks === 1) adminTimer = setTimeout(() => adminClicks = 0, 800);
-  if (adminClicks === 3) {
-    clearTimeout(adminTimer);
-    adminClicks = 0;
-    document.getElementById('pinOverlay').classList.add('show');
-    document.getElementById('pinInput').focus();
-  }
-});
-
-function checkPin() {
-  const pin = document.getElementById('pinInput').value;
-  if (pin === ADMIN_PIN) {
-    document.getElementById('pinOverlay').classList.remove('show');
-    document.getElementById('adminPanel').classList.add('show');
-    document.getElementById('pinInput').value = '';
-    loadAdminStats();
-  } else {
-    alert('Неверный PIN');
-  }
-}
-
-function loadAdminStats() {
-  document.getElementById('adminPageCount').textContent = localStorage.getItem('site_page_views') || 0;
-}
-
-document.getElementById('articleSelect').addEventListener('change', function() {
-  const id = this.value;
-  if (!id) { document.getElementById('articleContent').value = ''; return; }
-  const saved = localStorage.getItem('edited_' + id);
-  if (saved) {
-    document.getElementById('articleContent').value = saved;
-  } else {
-    fetch(`/article/${id}.html`)
-      .then(res => res.text())
-      .then(html => { document.getElementById('articleContent').value = html; })
-      .catch(() => alert('Не удалось загрузить статью.'));
-  }
-});
-
-function saveArticle() {
-  const id = document.getElementById('articleSelect').value;
-  const content = document.getElementById('articleContent').value;
-  if (!id || !content) return alert('Выбери статью и введи текст');
-  localStorage.setItem('edited_' + id, content);
-  alert('Сохранено локально!');
-}
-
-function exportArticle() {
-  const content = document.getElementById('articleContent').value;
-  if (!content) return alert('Нечего экспортировать');
-  const blob = new Blob([content], {type: 'text/html'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = document.getElementById('articleSelect').value + '.html';
-  a.click();
-  alert('Файл скачан. Замените им файл в репозитории GitHub, чтобы опубликовать.');
-}
   </script>
 </body>
 </html>
