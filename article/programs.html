@@ -281,5 +281,12 @@
       link.addEventListener('click', function() { if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click'); });
     });
   </script>
+  <div class="search-modal" id="searchModal">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+    <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+    <ul id="searchResults"></ul>
+  </div>
+</div>
 </body>
 </html>
