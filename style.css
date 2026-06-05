@@ -905,7 +905,6 @@ body.dark .preview-card h3 {
 body.dark .preview-card p {
   color: #bbb;
 }
-
 /* =========================================
    МЕДИА-ЗАПРОСЫ
    ========================================= */
@@ -933,4 +932,39 @@ body.dark .preview-card p {
   .donate-link { padding: 10px 20px; font-size: 14px; margin: 30px 0 15px; }
   .print-btn { margin-left: 5px; }
   .articles-preview { grid-template-columns: 1fr; }
+}
+/* Хлебные крошки */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 20px 5px;
+  font-size: 14px;
+  color: #888;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.breadcrumbs a {
+  color: #ff6b35;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.breadcrumbs a:hover {
+  color: #e55a2b;
+  text-decoration: underline;
+}
+.breadcrumbs span {
+  color: #555;
+  font-weight: 500;
+}
+body.dark .breadcrumbs {
+  color: #aaa;
+}
+body.dark .breadcrumbs a {
+  color: #ff9f6e;
+}
+body.dark .breadcrumbs span {
+  color: #ddd;
 }
