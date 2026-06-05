@@ -1247,3 +1247,59 @@ body.dark .back-btn {
   .checklist-widget { padding: 20px 15px; }
   .bookmarks-widget { padding: 20px 15px; }
 }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+.product-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(255,107,53,0.15);
+}
+body.dark .product-card {
+  background: #232640;
+}
+.product-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+.product-card h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+body.dark .product-card h4 {
+  color: #f0f0f0;
+}
+.product-card p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  flex: 1;
+}
+body.dark .product-card p {
+  color: #bbb;
+}
+.product-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ff6b35;
+  margin-bottom: 15px;
+}
+body.dark .product-price {
+  color: #ff9f6e;
+}
