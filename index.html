@@ -140,6 +140,21 @@ if (savedState) {
   updateChecklist();
 }
 checkboxes.forEach(cb => cb.addEventListener('change', updateChecklist));
+    function getBookmarks() {
+  return JSON.parse(localStorage.getItem('bookmarks') || '[]');
+}
+function renderBookmarks() {
+  const bookmarks = getBookmarks();
+  const widget = document.getElementById('bookmarksWidget');
+  const list = document.getElementById('bookmarksList');
+  if (bookmarks.length === 0) {
+    widget.style.display = 'none';
+  } else {
+    widget.style.display = 'block';
+    list.innerHTML = bookmarks.map(b => `<li><a href="/article/${b.id}.html">${b.title}</a></li>`).join('');
+  }
+}
+renderBookmarks();
   </script>
 </body>
 </html>
