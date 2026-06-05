@@ -284,5 +284,12 @@
       document.getElementById('quickTips')?.setAttribute('style', 'display:none');
     }
   </script>
+  <div class="search-modal" id="searchModal">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+    <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+    <ul id="searchResults"></ul>
+  </div>
+</div>
 </body>
 </html>
