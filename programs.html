@@ -27,9 +27,95 @@
   <div class="decor-spot spot-2"></div>
   <div class="decor-spot spot-3"></div>
   <div class="reading-progress" id="readingProgress"></div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🖥️ Как выбрать монитор для игр и работы | Ускорь ПК</title>
+  <meta name="description" content="Герцы, разрешение, тип матрицы, время отклика. Простые советы по выбору монитора.">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="decor-spot spot-1"></div>
+  <div class="decor-spot spot-2"></div>
+  <div class="decor-spot spot-3"></div>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- НОВАЯ ШАПКА -->
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <nav>
+      <a href="/instruction.html"><span>📋</span> Инструкция</a>
+      <a href="/programs.html"><span>⚡</span> Программы</a>
+      <a href="/ssd.html"><span>🖥️</span> SSD</a>
+      <a href="/monitor.html"><span>🖥️</span> Монитор</a>
+      <a href="/windows11.html"><span>🪟</span> Windows 11</a>
+      <a href="/virus.html"><span>🛡️</span> Вирусы</a>
+      <a href="/gaming.html"><span>🎮</span> Игры</a>
+      <a href="/build.html"><span>🔧</span> Сборка</a>
+      <a href="/guide.html"><span>📘</span> Платный гайд</a>
+    </nav>
+  </header>
 
   <div class="landing">
-    <a href="/" class="back-btn"><span>←</span> На главную</a>
+    <!-- Убираем старую кнопку "На главную", теперь она не нужна -->
+    <div class="content-box" style="display:block;">
+      <h2>🖥️ Как выбрать монитор для игр и работы</h2>
+      <!-- Весь остальной контент статьи (accordion, faq, donate) без изменений -->
+      <div class="accordion-item">
+        <div class="accordion-header active" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">1. Частота обновления: 60 Гц, 144 Гц или 240 Гц?</div>
+        <div class="accordion-body open">...</div>
+      </div>
+      <!-- ... остальные шаги, faq, донат кнопка и т.д. точно как в исходном monitor.html -->
+    </div>
+    <div class="site-footer">
+      © 2026 <span>Ускорь ПК</span> · <a href="/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <!-- Кнопка вверх, куки-баннер, скрипты как раньше -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('readingProgress').style.width = (winScroll / height) * 100 + '%';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', winScroll > 500);
+    });
+    function acceptCookies() {
+      localStorage.setItem('cookie_accepted','true');
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    if (localStorage.getItem('cookie_accepted') === 'true') {
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', function() {
+      this.parentElement.classList.toggle('open');
+    }));
+  </script>
+</body>
+</html>
+  <div class="landing">
     <div class="content-box" style="display:block;">
       <h2>⚡ Программы и железо для ускорения</h2>
       <p style="margin-bottom:20px; color:#555;">Я собрал проверенные инструменты и недорогие аксессуары, которые реально помогают. Ниже они разбиты на две категории – выбирайте, что нужно именно вам.</p>
