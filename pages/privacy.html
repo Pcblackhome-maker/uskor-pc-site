@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Политика конфиденциальности — Ускорь ПК</title>
+  <meta name="description" content="Политика конфиденциальности сайта Ускорь ПК.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="decor-spot spot-1"></div>
+  <div class="decor-spot spot-2"></div>
+  <div class="decor-spot spot-3"></div>
+
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <nav>
+      <a href="/instruction.html"><span>📋</span> Инструкция</a>
+      <a href="/programs.html"><span>⚡</span> Программы</a>
+      <a href="/ssd.html"><span>🖥️</span> SSD</a>
+      <a href="/monitor.html"><span>🖥️</span> Монитор</a>
+      <a href="/windows11.html"><span>🪟</span> Windows 11</a>
+      <a href="/virus.html"><span>🛡️</span> Вирусы</a>
+      <a href="/gaming.html"><span>🎮</span> Игры</a>
+      <a href="/build.html"><span>🔧</span> Сборка</a>
+      <a href="/guide.html"><span>📘</span> Платный гайд</a>
+    </nav>
+  </header>
+
+  <div class="landing">
+    <div class="content-box" style="display:block;">
+      <h2>🔏 Политика конфиденциальности</h2>
+      <p><strong>Дата обновления:</strong> 2025 г.</p>
+      <h3>1. Какие данные собираем</h3>
+      <p>Через форму обратной связи: имя, email или Telegram. Автоматически через Яндекс.Метрику: обезличенные данные посещений (IP, браузер, время на сайте). Локальное хранилище браузера хранит только ваши предпочтения (согласие с куки, тема).</p>
+      <h3>2. Как используем</h3>
+      <p>Исключительно для ответа на ваши заявки, анализа посещаемости и улучшения контента, обеспечения работы интерфейса.</p>
+      <h3>3. Передача третьим лицам</h3>
+      <p>Данные могут обрабатываться сервисами Formspree (форма связи) и Яндекс.Метрика (аналитика) в соответствии с их политиками. Мы не продаём и не раскрываем персональные данные.</p>
+      <h3>4. Ваши права</h3>
+      <p>Вы можете запросить удаление данных, написав через <a href="/">форму обратной связи</a>.</p>
+      <h3>5. Контакты</h3>
+      <p>Все вопросы направляйте через <a href="/">главную страницу</a>.</p>
+    </div>
+    <div class="site-footer">
+      © 2026 <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('readingProgress').style.width = (winScroll / height) * 100 + '%';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', winScroll > 500);
+    });
+    function acceptCookies() {
+      localStorage.setItem('cookie_accepted','true');
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+    if (localStorage.getItem('cookie_accepted') === 'true') {
+      document.getElementById('cookieConsent').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
