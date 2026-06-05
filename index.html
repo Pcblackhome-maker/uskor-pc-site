@@ -353,6 +353,68 @@
       count = count ? parseInt(count) + 1 : 1;
       localStorage.setItem('site_page_views', count);
     })();
+    const ADMIN_PIN = '1234'; // Поменяй на свой
+
+let adminClicks = 0, adminTimer;
+document.querySelector('.site-footer span')?.addEventListener('click', function() {
+  adminClicks++;
+  if (adminClicks === 1) adminTimer = setTimeout(() => adminClicks = 0, 800);
+  if (adminClicks === 3) {
+    clearTimeout(adminTimer);
+    adminClicks = 0;
+    document.getElementById('pinOverlay').classList.add('show');
+    document.getElementById('pinInput').focus();
+  }
+});
+
+function checkPin() {
+  const pin = document.getElementById('pinInput').value;
+  if (pin === ADMIN_PIN) {
+    document.getElementById('pinOverlay').classList.remove('show');
+    document.getElementById('adminPanel').classList.add('show');
+    document.getElementById('pinInput').value = '';
+    loadAdminStats();
+  } else {
+    alert('Неверный PIN');
+  }
+}
+
+function loadAdminStats() {
+  document.getElementById('adminPageCount').textContent = localStorage.getItem('site_page_views') || 0;
+}
+
+document.getElementById('articleSelect').addEventListener('change', function() {
+  const id = this.value;
+  if (!id) { document.getElementById('articleContent').value = ''; return; }
+  const saved = localStorage.getItem('edited_' + id);
+  if (saved) {
+    document.getElementById('articleContent').value = saved;
+  } else {
+    fetch(`/article/${id}.html`)
+      .then(res => res.text())
+      .then(html => { document.getElementById('articleContent').value = html; })
+      .catch(() => alert('Не удалось загрузить статью.'));
+  }
+});
+
+function saveArticle() {
+  const id = document.getElementById('articleSelect').value;
+  const content = document.getElementById('articleContent').value;
+  if (!id || !content) return alert('Выбери статью и введи текст');
+  localStorage.setItem('edited_' + id, content);
+  alert('Сохранено локально!');
+}
+
+function exportArticle() {
+  const content = document.getElementById('articleContent').value;
+  if (!content) return alert('Нечего экспортировать');
+  const blob = new Blob([content], {type: 'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = document.getElementById('articleSelect').value + '.html';
+  a.click();
+  alert('Файл скачан. Замените им файл в репозитории GitHub, чтобы опубликовать.');
+}
   </script>
 </body>
 </html>
