@@ -254,22 +254,61 @@ document.querySelectorAll('.bookmark-btn').forEach(btn => {
     btn.textContent = '🔖 В закладках';
   }
 });
-    const allTips = [
-  { title: "Как выбрать SSD", url: "/article/ssd.html", desc: "Типы памяти, объём, бренды." },
-  { title: "Ускорение для игр", url: "/article/gaming.html", desc: "Настройка видеокарты и драйверов." },
-  { title: "Чистка от вирусов", url: "/article/virus.html", desc: "Безопасный режим и сканеры." },
-  { title: "Секреты Windows 11", url: "/article/windows11.html", desc: "Отключение эффектов и оптимизация." }
-];
-// Фильтруем, чтобы не показывать ссылку на текущую статью
-const currentUrl = window.location.pathname;
-const filteredTips = allTips.filter(tip => !currentUrl.includes(tip.url.split('/').pop().replace('.html','')));
-if (filteredTips.length > 0) {
-  const shuffled = filteredTips.sort(() => 0.5 - Math.random()).slice(0, 2); // Показываем 2 случайных совета
-  document.getElementById('quickTipsList').innerHTML = shuffled.map(tip => 
-    `<li><a href="${tip.url}">${tip.title}</a> – ${tip.desc}</li>`
-  ).join('');
+    // === ПОХОЖИЕ СТАТЬИ ===
+const relatedArticles = {
+  instruction: ['programs', 'ssd', 'virus', 'gaming'],
+  programs: ['instruction', 'ssd', 'virus'],
+  ssd: ['instruction', 'programs', 'gaming'],
+  monitor: ['gaming', 'build', 'windows11'],
+  windows11: ['instruction', 'gaming', 'virus'],
+  virus: ['programs', 'instruction', 'windows11'],
+  gaming: ['monitor', 'ssd', 'windows11'],
+  build: ['programs', 'ssd', 'monitor']
+};
+
+const allArticleData = {
+  instruction: { title: "Пошаговая инструкция", desc: "5 шагов для ускорения ПК", url: "/article/instruction.html" },
+  programs: { title: "Программы и железо", desc: "Утилиты и аксессуары", url: "/article/programs.html" },
+  ssd: { title: "Как выбрать SSD", desc: "Советы по выбору диска", url: "/article/ssd.html" },
+  monitor: { title: "Как выбрать монитор", desc: "Герцы, матрицы, разрешение", url: "/article/monitor.html" },
+  windows11: { title: "Секреты Windows 11", desc: "Настройка системы", url: "/article/windows11.html" },
+  virus: { title: "Чистка от вирусов", desc: "Антивирусы и сканеры", url: "/article/virus.html" },
+  gaming: { title: "Максимальный FPS", desc: "Ускорение для игр", url: "/article/gaming.html" },
+  build: { title: "Сборка ПК", desc: "Пошаговая инструкция", url: "/article/build.html" }
+};
+
+function getCurrentArticleId() {
+  const path = window.location.pathname;
+  const match = path.match(/\/article\/(.+)\.html/);
+  return match ? match[1] : null;
+}
+
+function renderRelatedArticles() {
+  const currentId = getCurrentArticleId();
+  if (!currentId || !relatedArticles[currentId]) return;
+
+  const relatedIds = relatedArticles[currentId];
+  const selected = relatedIds.slice(0, 3);
+
+  const html = selected.map(id => {
+    const article = allArticleData[id];
+    if (!article) return '';
+    return `<li><a href="${article.url}">${article.title}</a> – ${article.desc}</li>`;
+  }).join('');
+
+  const list = document.getElementById('quickTipsList');
+  if (list && html) {
+    list.innerHTML = html;
+  } else if (list) {
+    list.innerHTML = '<li>Связанных статей пока нет</li>';
+  }
+}
+
+// Вызвать при загрузке (можно оставить вызов здесь, или если есть DOMContentLoaded, добавить туда)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderRelatedArticles);
 } else {
-  document.getElementById('quickTips').style.display = 'none';
+  renderRelatedArticles();
 }
     // Поиск
 fetch('/search.json')
