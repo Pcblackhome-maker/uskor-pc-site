@@ -209,6 +209,23 @@ document.querySelectorAll('.bookmark-btn').forEach(btn => {
     btn.textContent = '🔖 В закладках';
   }
 });
+    const allTips = [
+  { title: "Как выбрать SSD", url: "/article/ssd.html", desc: "Типы памяти, объём, бренды." },
+  { title: "Ускорение для игр", url: "/article/gaming.html", desc: "Настройка видеокарты и драйверов." },
+  { title: "Чистка от вирусов", url: "/article/virus.html", desc: "Безопасный режим и сканеры." },
+  { title: "Секреты Windows 11", url: "/article/windows11.html", desc: "Отключение эффектов и оптимизация." }
+];
+// Фильтруем, чтобы не показывать ссылку на текущую статью
+const currentUrl = window.location.pathname;
+const filteredTips = allTips.filter(tip => !currentUrl.includes(tip.url.split('/').pop().replace('.html','')));
+if (filteredTips.length > 0) {
+  const shuffled = filteredTips.sort(() => 0.5 - Math.random()).slice(0, 2); // Показываем 2 случайных совета
+  document.getElementById('quickTipsList').innerHTML = shuffled.map(tip => 
+    `<li><a href="${tip.url}">${tip.title}</a> – ${tip.desc}</li>`
+  ).join('');
+} else {
+  document.getElementById('quickTips').style.display = 'none';
+}
   </script>
 </body>
 </html>
