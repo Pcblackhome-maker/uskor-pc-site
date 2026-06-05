@@ -1402,3 +1402,28 @@ body.dark .admin-panel input, body.dark .admin-panel textarea {
   text-align: center;
 }
 .pin-box input { margin: 15px 0; padding: 10px; font-size: 18px; text-align: center; }
+.progress-bar {
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff6b35, #ff7e5f);
+  transition: width 0.4s ease;
+}
+.step p { margin-bottom: 10px; }
+.step button {
+  background: #ff6b35;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.step button:hover { background: #e55a2b; }
+.done-message h4 { color: #ff6b35; }
