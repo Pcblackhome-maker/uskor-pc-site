@@ -125,6 +125,21 @@
         <span class="read-link">Читать →</span>
       </a>
     `).join('');
+    // Чек-лист
+const checkboxes = document.querySelectorAll('#checklist input[type="checkbox"]');
+const progressSpan = document.getElementById('checklistProgress');
+function updateChecklist() {
+  const checked = document.querySelectorAll('#checklist input[type="checkbox"]:checked').length;
+  progressSpan.textContent = `Выполнено: ${checked} из 5`;
+  localStorage.setItem('checklistState', JSON.stringify(Array.from(checkboxes).map(cb => cb.checked)));
+}
+// Загрузка сохранённого состояния
+const savedState = JSON.parse(localStorage.getItem('checklistState'));
+if (savedState) {
+  checkboxes.forEach((cb, index) => { cb.checked = savedState[index] || false; });
+  updateChecklist();
+}
+checkboxes.forEach(cb => cb.addEventListener('change', updateChecklist));
   </script>
 </body>
 </html>
