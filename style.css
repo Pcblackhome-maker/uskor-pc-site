@@ -1,3 +1,7 @@
+/* =========================================
+   ОПТИМИЗИРОВАННЫЙ CSS ДЛЯ uskor-pc.ru
+   (убраны дубликаты, старые таблицы, сгруппированы media)
+   ========================================= */
 
 /* ---------- ГЛОБАЛЬНЫЕ СТИЛИ ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -111,57 +115,177 @@ body.dark .content-box:hover { box-shadow: 0 15px 35px rgba(255,159,110,0.15); }
 .content-box h2 { font-size: 28px; font-weight: 700; margin-bottom: 35px; color: #1a1a1a; }
 body.dark .content-box h2 { color: #f0f0f0; }
 
-/* ---------- АККОРДЕОНЫ И ТЕКСТ ---------- */
+/* ---------- АККОРДЕОНЫ (улучшенная анимация) ---------- */
 .accordion-item {
-  margin-bottom: 15px; border-left: 4px solid #ff6b35;
-  border-radius: 8px; overflow: hidden; background: white;
+  margin-bottom: 15px;
+  border-left: 4px solid #ff6b35;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
   transition: box-shadow 0.3s;
 }
-.accordion-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-body.dark .accordion-item { background: #232640; border-left-color: #ff9f6e; }
-body.dark .accordion-item:hover { box-shadow: 0 4px 12px rgba(255,159,110,0.15); }
+.accordion-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+body.dark .accordion-item {
+  background: #232640;
+  border-left-color: #ff9f6e;
+}
+body.dark .accordion-item:hover {
+  box-shadow: 0 4px 12px rgba(255,159,110,0.15);
+}
+
 .accordion-header {
-  padding: 15px 20px; background: #fafafa; cursor: pointer;
-  font-size: 18px; font-weight: 600; color: #1a1a1a;
-  display: flex; justify-content: space-between; align-items: center;
-  transition: all 0.25s ease; user-select: none;
+  padding: 15px 20px;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s, color 0.3s;
+  user-select: none;
+  position: relative;
 }
-.accordion-header:hover { background: #f0f0f0; }
-.accordion-header::after { content: '▾'; font-size: 20px; color: #ff6b35; transition: transform 0.2s, color 0.2s; }
-.accordion-header.active { background: #fff5f0; color: #e55a2b; }
-.accordion-header.active::after { transform: rotate(180deg); color: #e55a2b; }
-body.dark .accordion-header { background: #2a2a4a; color: #ddd; }
-body.dark .accordion-header:hover { background: #3a3a5a; }
-body.dark .accordion-header.active { background: #3d2a2a; color: #ff9f6e; }
-body.dark .accordion-header::after { color: #ff9f6e; }
+.accordion-header:hover {
+  background: #f0f0f0;
+}
+.accordion-header::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #ff6b35;
+  border-bottom: 2px solid #ff6b35;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.accordion-header.active {
+  background: #fff5f0;
+  color: #e55a2b;
+}
+.accordion-header.active::after {
+  transform: rotate(-135deg);
+}
+
+body.dark .accordion-header {
+  background: #2a2a4a;
+  color: #ddd;
+}
+body.dark .accordion-header:hover {
+  background: #3a3a5a;
+}
+body.dark .accordion-header.active {
+  background: #3d2a2a;
+  color: #ff9f6e;
+}
+body.dark .accordion-header::after {
+  border-color: #ff9f6e;
+}
+
 .accordion-body {
-  padding: 0 20px; max-height: 0; overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease, background 0.3s;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1), padding 0.4s ease;
   background: #fdfdfd;
+  padding: 0 20px;
 }
-.accordion-body.open { max-height: 2000px; padding: 20px; background: #fffaf7; }
-body.dark .accordion-body { background: #1a1d2e; }
-body.dark .accordion-body.open { background: #232640; }
-.accordion-body p { color: #333; line-height: 1.8; font-size: 16px; margin-bottom: 12px; }
-body.dark .accordion-body p { color: #d0d0d0; }
+.accordion-body.open {
+  max-height: 3000px;
+  padding: 20px;
+  background: #fffaf7;
+}
+body.dark .accordion-body {
+  background: #1a1d2e;
+}
+body.dark .accordion-body.open {
+  background: #232640;
+}
+
+.accordion-body p {
+  color: #333;
+  line-height: 1.8;
+  font-size: 16px;
+  margin-bottom: 12px;
+  position: relative;
+}
+body.dark .accordion-body p {
+  color: #d0d0d0;
+}
 .accordion-body p:first-of-type::first-letter {
-  font-size: 2.5em; font-weight: 700; color: #ff6b35;
-  float: left; margin: 0 8px 0 0; line-height: 0.8;
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #ff6b35;
+  float: left;
+  margin: 0 8px 0 0;
+  line-height: 0.8;
 }
-body.dark .accordion-body p:first-of-type::first-letter { color: #ff9f6e; }
-.accordion-body ul { list-style: none; padding-left: 5px; }
-.accordion-body ul li { padding-left: 28px; position: relative; margin-bottom: 8px; transition: transform 0.2s; }
-.accordion-body ul li::before { content: '✓'; position: absolute; left: 0; top: 0; color: #ff6b35; font-weight: bold; font-size: 18px; transition: transform 0.2s; }
-body.dark .accordion-body ul li::before { color: #ff9f6e; }
-.accordion-body ul li:hover { transform: translateX(5px); }
-.accordion-body ul li:hover::before { transform: scale(1.2); }
-.accordion-body ol { margin: 10px 0 10px 20px; color: #444; line-height: 1.6; }
-body.dark .accordion-body ol { color: #bbb; }
-.accordion-body code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 15px; color: #d04a02; transition: background 0.2s; }
-.accordion-body code:hover { background: #ffe0cc; }
-body.dark .accordion-body code { background: #2a2a4a; color: #ff9f6e; }
-.accordion-body strong { color: #1a1a1a; }
-body.dark .accordion-body strong { color: #fff; }
+body.dark .accordion-body p:first-of-type::first-letter {
+  color: #ff9f6e;
+}
+.accordion-body ul {
+  list-style: none;
+  padding-left: 5px;
+}
+.accordion-body ul li {
+  padding-left: 28px;
+  position: relative;
+  margin-bottom: 8px;
+  transition: transform 0.2s;
+}
+.accordion-body ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ff6b35;
+  font-weight: bold;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+body.dark .accordion-body ul li::before {
+  color: #ff9f6e;
+}
+.accordion-body ul li:hover {
+  transform: translateX(5px);
+}
+.accordion-body ul li:hover::before {
+  transform: scale(1.2);
+}
+.accordion-body ol {
+  margin: 10px 0 10px 20px;
+  color: #444;
+  line-height: 1.6;
+}
+body.dark .accordion-body ol {
+  color: #bbb;
+}
+.accordion-body code {
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 15px;
+  color: #d04a02;
+  transition: background 0.2s;
+}
+.accordion-body code:hover {
+  background: #ffe0cc;
+}
+body.dark .accordion-body code {
+  background: #2a2a4a;
+  color: #ff9f6e;
+}
+.accordion-body strong {
+  color: #1a1a1a;
+}
+body.dark .accordion-body strong {
+  color: #fff;
+}
 
 /* ---------- ТУЛТИПЫ ---------- */
 .tooltip-term { border-bottom: 1px dashed #ff6b35; cursor: help; position: relative; display: inline-block; }
