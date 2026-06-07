@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ускорь ПК без мастера — бесплатные инструкции и советы</title>
   <meta name="description" content="Проверенные способы ускорить ноутбук или компьютер: автозагрузка, чистка диска, выбор SSD, защита от вирусов. Бесплатные гайды и удалённая помощь.">
-  <!-- Подтверждение Яндекса -->
   <meta name="yandex-verification" content="328285d1e1fb648f" />
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/style.css">
@@ -23,7 +22,6 @@
 <body>
   <div class="reading-progress" id="readingProgress"></div>
 
-  <!-- Шапка с поиском и обновлённой навигацией -->
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
     <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
@@ -42,20 +40,17 @@
   </header>
 
   <div class="landing">
-    <!-- Hero -->
     <div class="hero">
       <h1>🚀 Ускорь свой ПК без мастера</h1>
       <p>Выбери, что нужно именно сейчас. Все инструкции проверены на сотнях компьютеров.</p>
       <a href="#articlesPreview" class="nav-btn" style="display:inline-flex; margin-top:15px;"><span>👇</span> Смотреть все инструкции</a>
     </div>
 
-    <!-- Виджет закладок -->
     <div class="bookmarks-widget" id="bookmarksWidget" style="display:none;">
       <h3>⭐ Мои закладки</h3>
       <ul id="bookmarksList"></ul>
     </div>
 
-    <!-- Степпер -->
     <div class="checklist-widget" id="checklistWidget">
       <h3>🚀 Ускорь ПК за 5 шагов</h3>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -85,36 +80,40 @@
       </div>
     </div>
 
-    <!-- Карточки статей (glass-эффект, добавлена новая статья) -->
+    <!-- Карточки статей (добавлена новая, иконка SSD заменена) -->
     <div class="articles-preview" id="articlesPreview"></div>
 
-    <!-- Баннер AliExpress (обновлённый) -->
     <div class="affiliate-banner">
       <a target="_blank" rel="nofollow" href="https://rzekl.com/g/wnclfjadg155e5527e7416525dc3e8/?i=4&subid=alik"><img width="728" height="90" border="0" src="https://ad.admitad.com/b/wnclfjadg155e5527e7416525dc3e8/" alt="AliExpress WW"/></a>
     </div>
 
-    <!-- Форма обратной связи -->
+    <!-- Форма обратной связи с исправленными label и autocomplete -->
     <div class="contact-form" id="contact-form">
       <h2>📩 Не нашли ответа?</h2>
       <p>Опишите проблему – я отвечу лично в течение дня.</p>
       <form action="https://formspree.io/f/xgoqbbvl" method="POST">
-        <div class="form-group"><label>Ваше имя</label><input type="text" name="name" placeholder="Иван" required></div>
-        <div class="form-group"><label>Email или Telegram</label><input type="text" name="contact" placeholder="куда ответить" required></div>
-        <div class="form-group"><label>Опишите проблему</label><textarea name="message" placeholder="Компьютер тормозит при запуске Photoshop..." required></textarea></div>
+        <div class="form-group">
+          <label for="contact-name">Ваше имя</label>
+          <input id="contact-name" type="text" name="name" placeholder="Иван" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email или Telegram</label>
+          <input id="contact-email" type="email" name="contact" placeholder="куда ответить" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-message">Опишите проблему</label>
+          <textarea id="contact-message" name="message" placeholder="Компьютер тормозит при запуске Photoshop..." autocomplete="off" required></textarea>
+        </div>
         <button type="submit" class="submit-btn">Отправить заявку</button>
       </form>
     </div>
 
-    <!-- Футер с триггером для админки -->
     <div class="site-footer">
       © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
     </div>
   </div>
 
-  <!-- Кнопка вверх -->
   <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
-
-  <!-- Куки-баннер -->
   <div class="cookie-consent" id="cookieConsent">
     <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
     <button onclick="acceptCookies()">Принимаю</button>
@@ -129,12 +128,11 @@
     </div>
   </div>
 
-  <!-- Подключение скриптов (админка самовнедряющаяся) -->
+  <!-- Подключение скриптов -->
   <script src="/js/common.js"></script>
   <script src="/js/search.js"></script>
-  <!-- <script src="/js/admin-panel.js"></script> -->
+  <script src="/js/admin-panel.js"></script>
 
-  <!-- Инициализация главной -->
   <script>
     // Плавный скролл к карточкам
     document.querySelector('a[href="#articlesPreview"]')?.addEventListener('click', function(e) {
@@ -142,7 +140,7 @@
       document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Карточки статей (добавлена новая)
+    // Карточки статей (обновлённый список)
     const articles = [
       { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
       { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
