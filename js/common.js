@@ -329,4 +329,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initStarRatings();          // ← звёздочки теперь работают
   incrementPageCounter();
   updateFooterYear();
+  // Автоматическая подсветка текущего пункта меню
+(function() {
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.site-header nav a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && currentPath.endsWith(href.replace(/^\//, ''))) {
+      link.classList.add('active');
+    }
+  });
+})();
 });
