@@ -626,3 +626,7 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   .bookmarks-widget { padding: 20px 15px; }
   .product-grid { grid-template-columns: 1fr; }
 }
+.product-card:hover .product-icon {
+  transform: scale(1.1) rotate(-3deg);
+  transition: transform 0.3s ease;
+}
