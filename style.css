@@ -1372,3 +1372,24 @@ body.dark .product-price {
     grid-template-columns: 1fr;
   }
 }
+/* Плавные переходы для всех интерактивных элементов */
+.helpful-btn,
+.bookmark-btn,
+.share-trigger,
+.step button,
+.accordion-header,
+.preview-card,
+.product-card,
+.nav-btn,
+.btn-tilda,
+.submit-btn {
+  transition: all 0.25s ease;
+}
+
+/* Плавное появление/исчезновение */
+.faq-answer,
+.accordion-body,
+.share-popup,
+.pin-overlay {
+  transition: opacity 0.3s ease, visibility 0.3s ease, max-height 0.4s ease;
+}
