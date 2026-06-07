@@ -46,7 +46,7 @@
       <a href="/article/virus.html"><span>🛡️</span> Вирусы</a>
       <a href="/article/gaming.html"><span>🎮</span> Игры</a>
       <a href="/article/build.html"><span>🔧</span> Сборка</a>
-      <a href="/article/slow-after-update.html" class="active"><span>🐌</span> После обновления</a>
+      <a href="/article/slow-after-update.html"><span>🐌</span> После обновления</a>
       <a href="/pages/guide.html"><span>📘</span> Платный гайд</a>
     </nav>
   </header>
@@ -134,17 +134,18 @@
         <div class="faq-item"><div class="faq-question">После обновления пропали файлы — как восстановить?</div><div class="faq-answer">Проверьте папку Windows.old на диске C. Там хранятся все ваши старые данные в течение 10 дней после обновления.</div></div>
       </div>
 
-      <div class="star-rating" data-article-id="instruction">
-  <span>Оцените статью:</span>
-  <div class="stars">
-    <span class="star" data-value="1">★</span>
-    <span class="star" data-value="2">★</span>
-    <span class="star" data-value="3">★</span>
-    <span class="star" data-value="4">★</span>
-    <span class="star" data-value="5">★</span>
-  </div>
-  <span class="rating-text" id="ratingText-instruction"></span>
-</div>
+      <!-- Звёздочный рейтинг (яркий, голосование один раз) -->
+      <div class="star-rating" data-article-id="slow-after-update">
+        <span>Оцените статью:</span>
+        <div class="stars">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+        <span class="rating-text" id="ratingText-slow-after-update"></span>
+      </div>
 
       <button class="share-trigger" onclick="document.getElementById('sharePopup').classList.add('open')">📤 Поделиться</button>
       <button class="bookmark-btn" data-article-id="slow-after-update" data-article-title="🐌 Тормозит после обновления" onclick="toggleBookmark(this)">🔖 В закладки</button>
@@ -179,46 +180,10 @@
     <button onclick="acceptCookies()">Принимаю</button>
   </div>
 
-  <!-- Админ-панель -->
-  <div class="pin-overlay" id="pinOverlay">
-    <div class="pin-box">
-      <h3>🔐 Введите PIN</h3>
-      <input type="password" id="pinInput" maxlength="4" placeholder="****">
-      <br>
-      <button onclick="checkPin()">Войти</button>
-    </div>
-  </div>
-
-  <div class="admin-panel" id="adminPanel">
-    <button class="close-btn" onclick="document.getElementById('adminPanel').classList.remove('show')">✕</button>
-    <h3>🔒 Админ-панель</h3>
-    <label>📊 Посещений (локально):</label>
-    <span id="adminPageCount">0</span>
-    <label>👥 Сейчас онлайн (вкладок):</label>
-    <span id="onlineCount">1</span>
-    <label>🖊️ Редактировать статью:</label>
-    <select id="articleSelect">
-      <option value="">-- Выбери --</option>
-      <option value="instruction">Пошаговая инструкция</option>
-      <option value="programs">Программы и железо</option>
-      <option value="ssd">Как выбрать SSD</option>
-      <option value="monitor">Как выбрать монитор</option>
-      <option value="windows11">Секреты Windows 11</option>
-      <option value="virus">Чистка от вирусов</option>
-      <option value="gaming">Ускорение для игр</option>
-      <option value="build">Сборка ПК</option>
-      <option value="slow-after-update">После обновления</option>
-    </select>
-    <label>Содержимое (HTML):</label>
-    <textarea id="articleContent" rows="10" placeholder="Выбери статью..."></textarea>
-    <button onclick="saveArticle()">💾 Сохранить локально</button>
-    <button onclick="exportArticle()">📋 Экспортировать HTML</button>
-    <button class="reset-btn" onclick="if(confirm('Сбросить все локальные данные?')){localStorage.clear();location.reload();}">🗑 Сбросить всё</button>
-  </div>
-
   <script src="/js/common.js"></script>
   <script src="/js/search.js"></script>
-  <script src="/js/admin.js"></script>
+  <script src="/js/admin-panel.js"></script>
+
   <script>
     // Похожие статьи
     const relatedArticles = {
@@ -270,11 +235,21 @@
       });
     });
 
-    // FAQ
-    document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', function() {
-      this.parentElement.classList.toggle('open');
-    }));
+    // FAQ и звёздочки гарантированно запускаем
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initFAQ === 'function') {
+        initFAQ();
+      } else {
+        document.querySelectorAll('.faq-question').forEach(q => {
+          q.addEventListener('click', function() {
+            this.parentElement.classList.toggle('open');
+          });
+        });
+      }
+      if (typeof initStarRatings === 'function') {
+        initStarRatings();
+      }
+    });
   </script>
-  <script src="/js/admin-panel.js"></script>
 </body>
 </html>
