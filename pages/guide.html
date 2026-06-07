@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Платные гайды — Ускорь ПК</title>
   <meta name="description" content="Эксклюзивные гайды: скрытые настройки Windows, сборка ПК без ошибок. PDF-инструкции.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
   <link rel="stylesheet" href="/style.css">
   <!-- Яндекс.Метрика -->
   <script type="text/javascript">
@@ -18,36 +19,41 @@
   <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
-  <div class="decor-spot spot-1"></div>
-  <div class="decor-spot spot-2"></div>
-  <div class="decor-spot spot-3"></div>
   <div class="reading-progress" id="readingProgress"></div>
 
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
     <nav>
-  <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
-  <a href="/article/programs.html"><span>⚡</span> Программы</a>
-  <a href="/article/ssd.html"><span>🖥️</span> SSD</a>
-  <a href="/article/monitor.html"><span>🖥️</span> Монитор</a>
-  <a href="/article/windows11.html" class="active"><span>🪟</span> Windows 11</a>
-  <a href="/article/virus.html"><span>🛡️</span> Вирусы</a>
-  <a href="/article/gaming.html"><span>🎮</span> Игры</a>
-  <a href="/article/build.html"><span>🔧</span> Сборка</a>
-  <a href="/pages/guide.html"><span>📘</span> Платный гайд</a>
-  <a href="/article/slow-after-update.html"><span>🐌</span> После обновления</a>
-</nav>
+      <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
+      <a href="/article/programs.html"><span>⚡</span> Программы</a>
+      <a href="/article/ssd.html"><span>🖥️</span> SSD</a>
+      <a href="/article/monitor.html"><span>🖥️</span> Монитор</a>
+      <a href="/article/windows11.html"><span>🪟</span> Windows 11</a>
+      <a href="/article/virus.html"><span>🛡️</span> Вирусы</a>
+      <a href="/article/gaming.html"><span>🎮</span> Игры</a>
+      <a href="/article/build.html"><span>🔧</span> Сборка</a>
+      <a href="/article/slow-after-update.html"><span>🐌</span> После обновления</a>
+      <a href="/pages/guide.html"><span>📘</span> Платный гайд</a>
+    </nav>
   </header>
 
-  <div class="landing">
-    <div class="hero">
-      <h1>📘 Платные гайды</h1>
-      <p>Углублённые материалы, которые помогут настроить и собрать ПК как профессионал. После оплаты пришлю PDF на вашу почту.</p>
-    </div>
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">📘 Платные гайды</span>
+      <meta itemprop="position" content="2">
+    </span>
+  </div>
 
-    <!-- Гайд 1 -->
+  <div class="landing">
     <div class="content-box" style="display:block; margin-bottom:25px;">
       <h2>🚀 5 скрытых настроек Windows для ускорения</h2>
+      <p>Ты уже знаешь базовые шаги: автозагрузка, чистка диска, дефрагментация. Но есть настройки, спрятанные глубоко в системе — они дают ещё +10-15% к скорости.</p>
       <ul style="list-style-type:'✅ '; padding-left:20px; font-size:16px; line-height:1.8;">
         <li>Отключение ненужных служб (SysMain, телеметрия)</li>
         <li>Тонкая настройка визуальных эффектов</li>
@@ -62,9 +68,9 @@
       </div>
     </div>
 
-    <!-- Гайд 2 -->
     <div class="content-box" style="display:block; margin-bottom:25px;">
       <h2>🔧 Сборка ПК без ошибок</h2>
+      <p>Если собираешь ПК сам, одна ошибка может стоить дорого. Этот гайд проведёт тебя через все этапы — от выбора железа до первого запуска.</p>
       <ul style="list-style-type:'✅ '; padding-left:20px; font-size:16px; line-height:1.8;">
         <li>Подбор совместимых комплектующих</li>
         <li>Пошаговая сборка с фотографиями</li>
@@ -80,30 +86,33 @@
     </div>
 
     <div class="site-footer">
-      © 2026 <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
     </div>
   </div>
 
-  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
   <div class="cookie-consent" id="cookieConsent">
     <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
     <button onclick="acceptCookies()">Принимаю</button>
   </div>
 
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
   <script>
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('readingProgress').style.width = (winScroll / height) * 100 + '%';
-      document.getElementById('scrollTopBtn').classList.toggle('visible', winScroll > 500);
+    document.querySelectorAll('.affiliate-link').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
+      });
     });
-    function acceptCookies() {
-      localStorage.setItem('cookie_accepted','true');
-      document.getElementById('cookieConsent').classList.add('hidden');
-    }
-    if (localStorage.getItem('cookie_accepted') === 'true') {
-      document.getElementById('cookieConsent').classList.add('hidden');
-    }
   </script>
 </body>
 </html>
