@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздный рейтинг)
 // =========================================
 
 // --- ЗАКЛАДКИ ---
@@ -195,13 +195,119 @@ function initAccordions() {
   });
 }
 
-// --- FAQ (отдельный обработчик, не ломает аккордеоны) ---
+// --- FAQ (отдельный обработчик) ---
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', function() {
       this.parentElement.classList.toggle('open');
     });
   });
+}
+
+// --- ЗВЁЗДОЧНЫЙ РЕЙТИНГ ---
+function initStarRatings() {
+  document.querySelectorAll('.star-rating').forEach(widget => {
+    const articleId = widget.dataset.articleId;
+    if (!articleId) return;
+
+    const stars = widget.querySelectorAll('.star');
+    const textEl = document.getElementById('ratingText-' + articleId) || widget.querySelector('.rating-text');
+
+    // Загружаем сохранённый рейтинг
+    let saved = JSON.parse(localStorage.getItem('rating_' + articleId) || '{"value":0,"count":0}');
+    
+    function highlight(value) {
+      stars.forEach(s => {
+        const v = parseInt(s.dataset.value);
+        s.classList.toggle('active', v <= value);
+      });
+    }
+
+    function updateText() {
+      if (textEl) {
+        textEl.textContent = saved.count > 0 
+          ? `★ ${saved.value} (${saved.count} оценок)`
+          : '(ещё нет оценок)';
+      }
+    }
+
+    // Подсвечиваем при наведении
+    stars.forEach(s => {
+      s.addEventListener('mouseenter', () => highlight(parseInt(s.dataset.value)));
+      s.addEventListener('mouseleave', () => highlight(saved.value));
+
+      s.addEventListener('click', () => {
+        const newRating = parseInt(s.dataset.value);
+        if (newRating === saved.value) return; // не даём переголосовать
+
+        // Обновляем среднюю оценку
+        const total = saved.value * saved.count + newRating;
+        saved.count += 1;
+        saved.value = Math.round(total / saved.count);
+        saved.voted = true;
+
+        localStorage.setItem('rating_' + articleId, JSON.stringify(saved));
+        highlight(saved.value);
+        updateText();
+
+        // Обновляем микроразметку
+        updateRatingSchema(articleId, saved.value, saved.count);
+      });
+    });
+
+    // Инициализация
+    highlight(saved.value);
+    updateText();
+    // Установка начальной микроразметки при загрузке
+    updateRatingSchema(articleId, saved.value, saved.count);
+  });
+}
+
+// Функция для динамической вставки/обновления AggregateRating в JSON-LD
+function updateRatingSchema(articleId, ratingValue, reviewCount) {
+  // Ищем существующий скрипт с микроразметкой или создаём новый
+  let script = document.querySelector('script[type="application/ld+json"][data-rating-id="' + articleId + '"]');
+  if (!script) {
+    script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-rating-id', articleId);
+    document.head.appendChild(script);
+  }
+
+  const pageUrl = window.location.href;
+  const articleTitle = document.title.replace(' | Ускорь ПК', '');
+  const articleDesc = document.querySelector('meta[name="description"]')?.content || '';
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleTitle,
+    "description": articleDesc,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": ratingValue,
+      "bestRating": "5",
+      "reviewCount": reviewCount
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": pageUrl
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Игорь"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Ускорь ПК",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://uskor-pc.ru/favicon.ico"
+      }
+    }
+  };
+
+  script.textContent = JSON.stringify(schema);
 }
 
 // --- АВТОМАТИЧЕСКИЙ ГОД В ФУТЕРЕ ---
@@ -219,7 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initReadingProgress();
   initScrollTopButton();
   initAccordions();
-  initFAQ();                // ← теперь FAQ работает
+  initFAQ();
+  initStarRatings();          // ← звёздочки теперь работают
   incrementPageCounter();
   updateFooterYear();
 });
