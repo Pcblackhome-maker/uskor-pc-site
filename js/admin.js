@@ -1,10 +1,10 @@
 // =========================================
-// АДМИН-ПАНЕЛЬ С ХЭШИРОВАННЫМ PIN
+// АДМИН-ПАНЕЛЬ (самовнедряющаяся версия)
 // =========================================
 (function() {
-  const PIN_HASH = 'hash_1234_salt_uskor'; // ← замени на свой (используй sha256 из предыдущего ответа)
+  // Простейший хэш (замени на crypto.subtle, если нужно)
+  const PIN_HASH = 'hash_1234_salt_uskor'; // ← поменяй на хэш своего пина
 
-  // Простейший хэш для демонстрации (лучше заменить на crypto.subtle)
   function simpleHash(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -15,21 +15,54 @@
     return 'hash_' + Math.abs(hash).toString(16) + '_salt_uskor';
   }
 
-  // Тройной клик по фразе в футере
-  const footerSpan = document.querySelector('.site-footer span');
-  if (footerSpan) {
+  // Создаём элементы админки, если их нет на странице
+  function ensureAdminElements() {
+    if (!document.getElementById('pinOverlay')) {
+      const overlay = document.createElement('div');
+      overlay.id = 'pinOverlay';
+      overlay.className = 'pin-overlay';
+      overlay.innerHTML = `
+        <div class="pin-box">
+          <h3>🔐 Введите PIN</h3>
+          <input type="password" id="pinInput" maxlength="4" placeholder="****">
+          <br>
+          <button onclick="checkPin()">Войти</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    if (!document.getElementById('adminPanel')) {
+      const panel = document.createElement('div');
+      panel.id = 'adminPanel';
+      panel.className = 'admin-panel';
+      panel.innerHTML = `
+        <button class="close-btn" onclick="document.getElementById('adminPanel').classList.remove('show')">✕</button>
+        <h3>🔒 Админ-панель</h3>
+        <label>📊 Посещений (локально):</label>
+        <span id="adminPageCount">0</span>
+        <label>👥 Сейчас онлайн (вкладок):</label>
+        <span id="onlineCount">1</span>
+      `;
+      document.body.appendChild(panel);
+    }
+  }
+
+  // Вешаем тройной клик на первый подходящий span в футере
+  function bindFooterTrigger() {
+    const footerSpan = document.querySelector('.site-footer span');
+    if (!footerSpan) return;
     footerSpan.style.cursor = 'pointer';
-    let clickCount = 0;
-    let clickTimer;
+    let clicks = 0, timer;
 
     footerSpan.addEventListener('click', () => {
-      clickCount++;
-      if (clickCount === 1) {
-        clickTimer = setTimeout(() => { clickCount = 0; }, 800);
+      clicks++;
+      if (clicks === 1) {
+        timer = setTimeout(() => { clicks = 0; }, 800);
       }
-      if (clickCount === 3) {
-        clearTimeout(clickTimer);
-        clickCount = 0;
+      if (clicks === 3) {
+        clearTimeout(timer);
+        clicks = 0;
         showPinOverlay();
       }
     });
@@ -49,81 +82,25 @@
     const input = document.getElementById('pinInput');
     if (!input) return;
     
-    const enteredHash = simpleHash(input.value);
-    if (enteredHash === PIN_HASH) {
+    if (simpleHash(input.value) === PIN_HASH) {
       document.getElementById('pinOverlay').classList.remove('show');
       document.getElementById('adminPanel').classList.add('show');
       input.value = '';
       loadAdminStats();
-      showToast('✅ Доступ разрешён', 'success');
+      showToast && showToast('✅ Доступ разрешён', 'success');
     } else {
-      showToast('❌ Неверный PIN', 'error');
+      showToast && showToast('❌ Неверный PIN', 'error');
       input.value = '';
       input.focus();
     }
   };
 
   function loadAdminStats() {
-    const pageCountEl = document.getElementById('adminPageCount');
-    if (pageCountEl) {
-      pageCountEl.textContent = localStorage.getItem('site_page_views') || '0';
-    }
+    const el = document.getElementById('adminPageCount');
+    if (el) el.textContent = localStorage.getItem('site_page_views') || '0';
   }
 
-  // Редактор статей (если есть select)
-  const articleSelect = document.getElementById('articleSelect');
-  const articleContent = document.getElementById('articleContent');
-  if (articleSelect && articleContent) {
-    articleSelect.addEventListener('change', function() {
-      const id = this.value;
-      if (!id) {
-        articleContent.value = '';
-        return;
-      }
-      articleContent.value = 'Загрузка...';
-      const saved = localStorage.getItem('edited_' + id);
-      if (saved) {
-        articleContent.value = saved;
-        return;
-      }
-      fetch(`/article/${id}.html`)
-        .then(res => res.text())
-        .then(html => { articleContent.value = html; })
-        .catch(() => { articleContent.value = 'Ошибка загрузки статьи.'; });
-    });
-  }
-
-  window.saveArticle = function() {
-    const select = document.getElementById('articleSelect');
-    const content = document.getElementById('articleContent');
-    if (!select || !content) return;
-    const id = select.value;
-    if (!id || !content.value) {
-      showToast('Выберите статью и введите текст', 'error');
-      return;
-    }
-    localStorage.setItem('edited_' + id, content.value);
-    showToast('💾 Сохранено локально!', 'save');
-  };
-
-  window.exportArticle = function() {
-    const select = document.getElementById('articleSelect');
-    const content = document.getElementById('articleContent');
-    if (!select || !content) return;
-    if (!content.value) {
-      showToast('Нет данных для экспорта', 'error');
-      return;
-    }
-    const id = select.value || 'article';
-    const blob = new Blob([content.value], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = id + '.html';
-    a.click();
-    showToast('📋 Файл скачан. Замените им файл в репозитории GitHub.', 'success');
-  };
-
-  // Глобальный онлайн (BroadcastChannel)
+  // Глобальный онлайн
   (function() {
     const CHANNEL = 'uskor-pc-global';
     const bc = new BroadcastChannel(CHANNEL);
@@ -132,9 +109,7 @@
     const sessions = new Set();
     sessions.add(sessionId);
 
-    function announce() {
-      bc.postMessage({ type: 'ping', id: sessionId });
-    }
+    function announce() { bc.postMessage({ type: 'ping', id: sessionId }); }
 
     bc.onmessage = (e) => {
       if (e.data.type === 'ping' && e.data.id !== sessionId) {
@@ -162,4 +137,15 @@
     announce();
     if (onlineEl) onlineEl.textContent = sessions.size;
   })();
+
+  // Запускаем после готовности DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      ensureAdminElements();
+      bindFooterTrigger();
+    });
+  } else {
+    ensureAdminElements();
+    bindFooterTrigger();
+  }
 })();
