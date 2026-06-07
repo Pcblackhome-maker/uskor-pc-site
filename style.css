@@ -717,6 +717,58 @@ body.dark #batchFind, body.dark #batchReplace { background: #2a2a4a; border-colo
 .pin-box { background: white; border-radius: 16px; padding: 30px; text-align: center; }
 .pin-box input { margin: 15px 0; padding: 10px; font-size: 18px; text-align: center; border: 2px solid #ddd; border-radius: 8px; }
 
+/* ---------- ЗВЁЗДОЧНЫЙ РЕЙТИНГ (ЯРКИЙ) ---------- */
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+  user-select: none;
+  background: #fff5f0;
+  border-radius: 12px;
+  padding: 10px 18px;
+  border: 1px solid #ff6b35;
+}
+body.dark .star-rating {
+  background: #3d2a2a;
+  border-color: #ff9f6e;
+}
+.star-rating .stars {
+  display: flex;
+  gap: 3px;
+  direction: ltr;
+}
+.star {
+  font-size: 32px;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s, transform 0.2s;
+  line-height: 1;
+}
+.star:hover,
+.star.active {
+  color: #ffb347;
+  transform: scale(1.2);
+  text-shadow: 0 0 8px rgba(255,179,71,0.5);
+}
+body.dark .star {
+  color: #555;
+}
+body.dark .star:hover,
+body.dark .star.active {
+  color: #ff9f6e;
+  text-shadow: 0 0 8px rgba(255,159,110,0.5);
+}
+.rating-text {
+  font-size: 14px;
+  color: #ff6b35;
+  font-weight: 600;
+}
+body.dark .rating-text {
+  color: #ff9f6e;
+}
+
 /* =========================================
    МОБИЛЬНАЯ АДАПТАЦИЯ
    ========================================= */
