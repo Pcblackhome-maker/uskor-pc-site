@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Политика конфиденциальности — Ускорь ПК</title>
   <meta name="description" content="Как мы собираем и используем ваши данные. Простая и понятная политика.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="decor-spot spot-1"></div>
-  <div class="decor-spot spot-2"></div>
-  <div class="decor-spot spot-3"></div>
+  <div class="reading-progress" id="readingProgress"></div>
 
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
     <nav>
       <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
       <a href="/article/programs.html"><span>⚡</span> Программы</a>
@@ -23,25 +23,33 @@
       <a href="/article/virus.html"><span>🛡️</span> Вирусы</a>
       <a href="/article/gaming.html"><span>🎮</span> Игры</a>
       <a href="/article/build.html"><span>🔧</span> Сборка</a>
+      <a href="/article/slow-after-update.html"><span>🐌</span> После обновления</a>
       <a href="/pages/guide.html"><span>📘</span> Платный гайд</a>
     </nav>
   </header>
 
-  <div class="breadcrumbs">
-    <a href="/">Главная</a> → <span>Политика конфиденциальности</span>
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">Политика конфиденциальности</span>
+      <meta itemprop="position" content="2">
+    </span>
   </div>
 
   <div class="landing">
     <div class="content-box" style="display:block;">
       <h2>🔏 Политика конфиденциальности</h2>
-      <p><strong>Обновлено:</strong> 2026 год</p>
-
+      <p><strong>Дата обновления:</strong> 2025 год</p>
       <p>Мы уважаем ваши данные и стараемся объяснить всё максимально просто. На этой странице — что именно мы собираем, зачем, и как вы можете управлять своей информацией.</p>
 
       <h3>1. Какие данные мы собираем</h3>
       <p>Мы стараемся собирать минимум информации, необходимой для работы сайта и связи с вами:</p>
       <ul>
-        <li><strong>Форма обратной связи.</strong> Когда вы оставляете заявку, вы указываете имя и email / Telegram. Это нужно только для того, чтобы мы могли вам ответить.</li>
+        <li><strong>Форма обратной связи.</strong> Когда вы оставляете заявку, вы указываете имя и email или Telegram. Это нужно исключительно для ответа на ваше сообщение.</li>
         <li><strong>Яндекс.Метрика.</strong> Мы используем сервис аналитики, который автоматически собирает обезличенные данные: IP-адрес, тип браузера, продолжительность визита, действия на сайте. Ваш IP-адрес при этом анонимизируется.</li>
         <li><strong>Локальное хранилище браузера.</strong> Чтобы запоминать ваши предпочтения (например, тёмную тему или согласие с куки), мы используем localStorage. Эти данные не передаются на сервер и остаются только в вашем браузере.</li>
       </ul>
@@ -49,9 +57,9 @@
       <h3>2. Как мы используем данные</h3>
       <p>Исключительно для того, чтобы сайт работал корректно и мы могли вам помочь:</p>
       <ul>
-        <li>Отвечаем на ваши заявки, которые вы оставляете через форму.</li>
-        <li>Анализируем посещаемость через Яндекс.Метрику, чтобы понимать, какие статьи полезны, а какие стоит улучшить.</li>
-        <li>Сохраняем ваши локальные настройки (тему, прогресс чек-листа), чтобы вам было удобно пользоваться сайтом.</li>
+        <li>Отвечаем на ваши заявки через форму обратной связи.</li>
+        <li>Анализируем посещаемость через Яндекс.Метрику, чтобы улучшать контент.</li>
+        <li>Сохраняем ваши локальные настройки (тему, прогресс чек-листа) для удобства.</li>
       </ul>
 
       <h3>3. Передаём ли мы данные третьим лицам?</h3>
@@ -71,31 +79,28 @@
       <h3>6. Контакты</h3>
       <p>Если у вас есть вопросы по поводу этой политики, свяжитесь с нами через <a href="/#contact-form">форму обратной связи</a>. Мы отвечаем в течение одного рабочего дня.</p>
     </div>
+
     <div class="site-footer">
-      © 2026 <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
     </div>
   </div>
 
-  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
   <div class="cookie-consent" id="cookieConsent">
     <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
     <button onclick="acceptCookies()">Принимаю</button>
   </div>
 
-  <script>
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('readingProgress')?.style?.setProperty('width', (winScroll / height) * 100 + '%');
-      document.getElementById('scrollTopBtn')?.classList?.toggle('visible', winScroll > 500);
-    });
-    function acceptCookies() {
-      localStorage.setItem('cookie_accepted','true');
-      document.getElementById('cookieConsent')?.classList?.add('hidden');
-    }
-    if (localStorage.getItem('cookie_accepted') === 'true') {
-      document.getElementById('cookieConsent')?.classList?.add('hidden');
-    }
-  </script>
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
 </body>
 </html>
