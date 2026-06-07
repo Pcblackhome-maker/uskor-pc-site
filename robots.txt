@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /js/
+Disallow: /css/
+Host: https://uskor-pc.ru
+Sitemap: https://uskor-pc.ru/sitemap.xml
