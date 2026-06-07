@@ -777,6 +777,47 @@ body.dark .admin-link-card:hover { background: #3d2a2a; }
   border: 2px solid #ddd;
   border-radius: 8px;
 }
+/* ---------- ЗВЁЗДОЧНЫЙ РЕЙТИНГ ---------- */
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+  user-select: none;
+}
+.star-rating .stars {
+  display: flex;
+  gap: 3px;
+  direction: ltr;
+}
+.star {
+  font-size: 28px;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s, transform 0.2s;
+  line-height: 1;
+}
+.star:hover,
+.star.active {
+  color: #ffb347;
+  transform: scale(1.15);
+}
+.star.active ~ .star {
+  color: #ddd;  /* сбрасываем правые звёзды при клике */
+}
+body.dark .star {
+  color: #555;
+}
+body.dark .star:hover,
+body.dark .star.active {
+  color: #ff9f6e;
+}
+.rating-text {
+  font-size: 14px;
+  color: #888;
+  margin-left: 8px;
+}
 
 /* =========================================
    МОБИЛЬНАЯ АДАПТАЦИЯ
