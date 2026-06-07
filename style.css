@@ -630,3 +630,40 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   transform: scale(1.1) rotate(-3deg);
   transition: transform 0.3s ease;
 }
+/* Поиск – более стильное модальное окно */
+.search-modal {
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+}
+.search-box {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  width: 90%;
+  max-width: 520px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+body.dark .search-box { background: #232640; }
+.search-box input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s;
+}
+body.dark .search-box input {
+  background: #1a1d2e;
+  border-color: #555;
+  color: #eee;
+}
+.search-box input:focus { border-color: #ff6b35; }
+body.dark .search-box input:focus { border-color: #ff9f6e; }
+#searchResults { margin-top: 15px; max-height: 300px; overflow-y: auto; }
+#searchResults li { padding: 10px 0; border-bottom: 1px solid #eee; }
+#searchResults a { color: #333; font-weight: 500; transition: color 0.2s; }
+#searchResults a:hover { color: #ff6b35; }
+body.dark #searchResults a { color: #ddd; }
+body.dark #searchResults a:hover { color: #ff9f6e; }
+body.dark #searchResults li { border-bottom-color: #444; }
