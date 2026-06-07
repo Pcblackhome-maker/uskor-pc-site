@@ -177,11 +177,22 @@ function initScrollTopButton() {
   });
 }
 
-// --- FAQ (аккордеон) ---
-function initFAQ() {
-  document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', function() {
-      this.parentElement.classList.toggle('open');
+// --- АККОРДЕОНЫ (плавное открытие) ---
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const body = this.nextElementSibling;
+      if (!body || !body.classList.contains('accordion-body')) return;
+
+      const isOpen = body.classList.contains('open');
+      
+      if (isOpen) {
+        body.classList.remove('open');
+        this.classList.remove('active');
+      } else {
+        body.classList.add('open');
+        this.classList.add('active');
+      }
     });
   });
 }
@@ -200,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCookieBanner();
   initReadingProgress();
   initScrollTopButton();
-  initFAQ();
+  initAccordions();
   incrementPageCounter();
   updateFooterYear();
 });
