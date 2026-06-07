@@ -27,12 +27,12 @@ function toggleBookmark(btn) {
     bookmarks = bookmarks.filter(b => b.id !== id);
     btn.classList.remove('saved');
     btn.textContent = '🔖 В закладки';
-    showToast('Удалено из закладок');
+    showToast('Удалено из закладок', 'info');
   } else {
     bookmarks.push({ id, title });
     btn.classList.add('saved');
     btn.textContent = '🔖 В закладках';
-    showToast('Добавлено в закладки');
+    showToast('Добавлено в закладки', 'bookmark');
   }
   
   saveBookmarks(bookmarks);
@@ -56,8 +56,7 @@ function initBookmarkButtons() {
 }
 
 // --- ТОСТЫ (всплывающие уведомления) ---
-function showToast(message, duration = 2500) {
-  // Ищем или создаём контейнер для тостов
+function showToast(message, type = 'info', duration = 2500) {
   let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
@@ -65,21 +64,44 @@ function showToast(message, duration = 2500) {
     container.style.cssText = 'position:fixed; bottom:30px; left:50%; transform:translateX(-50%); z-index:10003; display:flex; flex-direction:column; gap:8px; pointer-events:none;';
     document.body.appendChild(container);
   }
-  
+
+  const icons = {
+    success: '✅',
+    error: '❌',
+    info: '💬',
+    save: '💾',
+    bookmark: '⭐'
+  };
+  const icon = icons[type] || icons.info;
+
   const toast = document.createElement('div');
-  toast.className = 'copy-toast';
-  toast.textContent = message;
-  toast.style.cssText = 'background:#333; color:white; padding:10px 20px; border-radius:20px; font-size:14px; opacity:0; transition:opacity 0.3s; white-space:nowrap;';
+  toast.style.cssText = `
+    background: ${type === 'error' ? '#e74c3c' : '#2c3e50'};
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  `;
+  toast.textContent = `${icon} ${message}`;
   container.appendChild(toast);
-  
-  // Показываем
+
   requestAnimationFrame(() => {
     toast.style.opacity = '1';
+    toast.style.transform = 'translateY(0)';
   });
-  
-  // Убираем через duration
+
   setTimeout(() => {
     toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
     setTimeout(() => toast.remove(), 300);
   }, duration);
 }
@@ -164,6 +186,14 @@ function initFAQ() {
   });
 }
 
+// --- АВТОМАТИЧЕСКИЙ ГОД В ФУТЕРЕ ---
+function updateFooterYear() {
+  const yearEl = document.getElementById('currentYear');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+}
+
 // --- ИНИЦИАЛИЗАЦИЯ ВСЕГО ПРИ ЗАГРУЗКЕ ---
 document.addEventListener('DOMContentLoaded', () => {
   initBookmarkButtons();
@@ -172,4 +202,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollTopButton();
   initFAQ();
   incrementPageCounter();
+  updateFooterYear();
 });
