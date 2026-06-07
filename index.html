@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ускорь ПК без мастера — бесплатные инструкции и советы</title>
   <meta name="description" content="Проверенные способы ускорить ноутбук или компьютер: автозагрузка, чистка диска, выбор SSD, защита от вирусов. Бесплатные гайды и удалённая помощь.">
+  
+  <!-- Фавикон (эмодзи 🚀) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  
   <link rel="stylesheet" href="/style.css">
+  
   <!-- Яндекс.Метрика -->
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -26,7 +31,7 @@
   <!-- Шапка с поиском -->
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
-    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')" style="cursor:pointer; margin-left:auto; font-size:20px;">🔍</span>
+    <span class="search-icon">🔍</span>
     <nav>
       <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
       <a href="/article/programs.html"><span>⚡</span> Программы</a>
@@ -54,7 +59,7 @@
       <ul id="bookmarksList"></ul>
     </div>
 
-    <!-- Степпер (бывший чек-лист) -->
+    <!-- Степпер -->
     <div class="checklist-widget" id="checklistWidget">
       <h3>🚀 Ускорь ПК за 5 шагов</h3>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -109,7 +114,7 @@
   </div>
 
   <!-- Кнопка вверх -->
-  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>↑</span></button>
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
 
   <!-- Куки-баннер -->
   <div class="cookie-consent" id="cookieConsent">
@@ -121,7 +126,7 @@
   <div class="search-modal" id="searchModal">
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
-      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <button>✕</button>
       <ul id="searchResults"></ul>
     </div>
   </div>
@@ -162,23 +167,13 @@
     <button class="reset-btn" onclick="if(confirm('Сбросить все локальные данные?')){localStorage.clear();location.reload();}">🗑 Сбросить всё</button>
   </div>
 
+  <!-- Подключение общих скриптов -->
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin.js"></script>
+
+  <!-- Специфичный код главной страницы (степпер, карточки, закладки) -->
   <script>
-    // === ОБЩИЕ ФУНКЦИИ ===
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('readingProgress').style.width = (winScroll / height) * 100 + '%';
-      document.getElementById('scrollTopBtn').classList.toggle('visible', winScroll > 500);
-    });
-
-    function acceptCookies() {
-      localStorage.setItem('cookie_accepted','true');
-      document.getElementById('cookieConsent').classList.add('hidden');
-    }
-    if (localStorage.getItem('cookie_accepted') === 'true') {
-      document.getElementById('cookieConsent').classList.add('hidden');
-    }
-
     // Плавный скролл к карточкам
     document.querySelector('a[href="#articlesPreview"]')?.addEventListener('click', function(e) {
       e.preventDefault();
@@ -205,7 +200,7 @@
       </a>
     `).join('');
 
-    // === СТЕППЕР ===
+    // Степпер
     function completeStep(stepNum) {
       let progress = parseInt(localStorage.getItem('checklistProgress') || '0');
       if (stepNum > progress) {
@@ -233,26 +228,7 @@
       updateStepper(savedProgress);
     }
 
-    // === ЗАКЛАДКИ ===
-    function getBookmarks() { return JSON.parse(localStorage.getItem('bookmarks') || '[]'); }
-    function saveBookmarks(bookmarks) { localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); }
-    function toggleBookmark(btn) {
-      const id = btn.dataset.articleId;
-      const title = btn.dataset.articleTitle;
-      let bookmarks = getBookmarks();
-      const exists = bookmarks.find(b => b.id === id);
-      if (exists) {
-        bookmarks = bookmarks.filter(b => b.id !== id);
-        btn.classList.remove('saved');
-        btn.textContent = '🔖 В закладки';
-      } else {
-        bookmarks.push({ id, title });
-        btn.classList.add('saved');
-        btn.textContent = '🔖 В закладках';
-      }
-      saveBookmarks(bookmarks);
-      renderBookmarks();
-    }
+    // Отображение закладок на главной
     function renderBookmarks() {
       const bookmarks = getBookmarks();
       const widget = document.getElementById('bookmarksWidget');
@@ -266,129 +242,12 @@
     }
     renderBookmarks();
 
-    // === ПОИСК ===
-    fetch('/search.json')
-      .then(res => res.json())
-      .then(data => { window.searchData = data; });
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-      const query = e.target.value.toLowerCase();
-      const results = document.getElementById('searchResults');
-      if (!window.searchData || query.length < 2) { results.innerHTML = ''; return; }
-      const filtered = window.searchData.filter(item => 
-        item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
-      );
-      results.innerHTML = filtered.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join('');
-    });
-
-    // === АДМИН-ПАНЕЛЬ ===
-    const ADMIN_PIN = '2309';
-    let adminClicks = 0, adminTimer;
-    document.querySelector('.site-footer span')?.addEventListener('click', function() {
-      adminClicks++;
-      if (adminClicks === 1) adminTimer = setTimeout(() => adminClicks = 0, 800);
-      if (adminClicks === 3) {
-        clearTimeout(adminTimer);
-        adminClicks = 0;
-        document.getElementById('pinOverlay').classList.add('show');
-        document.getElementById('pinInput').focus();
-      }
-    });
-
-    function checkPin() {
-      if (document.getElementById('pinInput').value === ADMIN_PIN) {
-        document.getElementById('pinOverlay').classList.remove('show');
-        document.getElementById('adminPanel').classList.add('show');
-        document.getElementById('pinInput').value = '';
-        loadAdminStats();
-      } else {
-        alert('Неверный PIN');
-      }
-    }
-
-    function loadAdminStats() {
-      document.getElementById('adminPageCount').textContent = localStorage.getItem('site_page_views') || 0;
-    }
-
-    document.getElementById('articleSelect').addEventListener('change', function() {
-      const id = this.value;
-      if (!id) { document.getElementById('articleContent').value = ''; return; }
-      const saved = localStorage.getItem('edited_' + id);
-      if (saved) {
-        document.getElementById('articleContent').value = saved;
-      } else {
-        fetch(`/article/${id}.html`)
-          .then(res => res.text())
-          .then(html => { document.getElementById('articleContent').value = html; })
-          .catch(() => alert('Не удалось загрузить статью.'));
-      }
-    });
-
-    function saveArticle() {
-      const id = document.getElementById('articleSelect').value;
-      const content = document.getElementById('articleContent').value;
-      if (!id || !content) return alert('Выбери статью и введи текст');
-      localStorage.setItem('edited_' + id, content);
-      alert('Сохранено локально!');
-    }
-
-    function exportArticle() {
-      const content = document.getElementById('articleContent').value;
-      if (!content) return alert('Нечего экспортировать');
-      const blob = new Blob([content], {type: 'text/html'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = document.getElementById('articleSelect').value + '.html';
-      a.click();
-      alert('Файл скачан. Замените им файл в репозитории GitHub, чтобы опубликовать.');
-    }
-
-    // === СЧЁТЧИК ОНЛАЙН ===
-    const CHANNEL_NAME = 'uskor-pc-online';
-    const onlineChannel = new BroadcastChannel(CHANNEL_NAME);
-    let sessionId = Date.now() + Math.random();
-    const activeSessions = new Set();
-    activeSessions.add(sessionId);
-
-    function updateOnlineDisplay() {
-      onlineChannel.postMessage({type: 'ping', id: sessionId});
-      setTimeout(() => {
-        const el = document.getElementById('onlineCount');
-        if (el) el.textContent = activeSessions.size;
-      }, 300);
-    }
-
-    onlineChannel.onmessage = (e) => {
-      if (e.data.type === 'pong') {
-        activeSessions.add(e.data.id);
-      } else if (e.data.type === 'bye') {
-        activeSessions.delete(e.data.id);
-      }
-    };
-
-    setInterval(() => {
-      activeSessions.clear();
-      activeSessions.add(sessionId);
-      updateOnlineDisplay();
-    }, 5000);
-
-    window.addEventListener('beforeunload', () => {
-      onlineChannel.postMessage({type: 'bye', id: sessionId});
-    });
-    updateOnlineDisplay();
-
-    // === ОТСЛЕЖИВАНИЕ ПАРТНЁРСКИХ КЛИКОВ ===
+    // Отслеживание партнёрских кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
       link.addEventListener('click', function() {
         if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
       });
     });
-
-    // === СЧЁТЧИК ОТКРЫТИЙ СТРАНИЦЫ (для админки) ===
-    (function() {
-      let count = localStorage.getItem('site_page_views');
-      count = count ? parseInt(count) + 1 : 1;
-      localStorage.setItem('site_page_views', count);
-    })();
   </script>
 </body>
 </html>
