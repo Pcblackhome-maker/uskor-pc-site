@@ -1,5 +1,6 @@
 // =========================================
-// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v2.0
+// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v3.0
+// (дашборд, редактор, пакетная замена, ссылки)
 // =========================================
 (function() {
   const CORRECT_PIN = '1234';
@@ -16,27 +17,34 @@
           <button onclick="closeAdmin()" class="admin-close">✕</button>
         </div>
         <div class="admin-tabs">
-          <button class="admin-tab active" data-tab="stats">📊 Статистика</button>
+          <button class="admin-tab active" data-tab="dashboard">📊 Дашборд</button>
           <button class="admin-tab" data-tab="editor">📝 Редактор</button>
+          <button class="admin-tab" data-tab="batch">🔄 Пакетная замена</button>
           <button class="admin-tab" data-tab="links">🔗 Ссылки</button>
         </div>
-        <div class="admin-tab-content active" id="tab-stats">
-          <div class="admin-stat-card">
-            <span>👀 Посещений всего</span>
-            <strong id="adminTotalViews">0</strong>
+        <div class="admin-tab-content active" id="tab-dashboard">
+          <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+              <span>👀 Посещений всего</span>
+              <strong id="adminTotalViews">0</strong>
+            </div>
+            <div class="admin-stat-card">
+              <span>👥 Онлайн (вкладок)</span>
+              <strong id="adminOnline">1</strong>
+            </div>
+            <div class="admin-stat-card">
+              <span>⭐ Средний рейтинг</span>
+              <strong id="adminAvgRating">0</strong>
+            </div>
+            <div class="admin-stat-card">
+              <span>📦 Закладок</span>
+              <strong id="adminBookmarks">0</strong>
+            </div>
           </div>
-          <div class="admin-stat-card">
-            <span>👥 Онлайн (вкладок)</span>
-            <strong id="adminOnline">1</strong>
-          </div>
-          <div class="admin-stat-card">
-            <span>⭐ Закладок</span>
-            <strong id="adminBookmarks">0</strong>
-          </div>
-          <div class="admin-stat-card">
-            <span>👍 Лайков (локально)</span>
-            <strong id="adminLikes">0</strong>
-          </div>
+          <h4 style="margin-top:20px;">📈 Популярность статей (рейтинг)</h4>
+          <div id="adminRatingBars" style="display:flex; flex-direction:column; gap:8px; margin-top:10px;"></div>
+          <h4 style="margin-top:20px;">📋 Последние действия</h4>
+          <div id="adminActivityLog" style="font-size:13px; color:#888; margin-top:8px;">Нет действий</div>
         </div>
         <div class="admin-tab-content" id="tab-editor">
           <label>Выберите статью</label>
@@ -56,7 +64,17 @@
           <div class="admin-editor-buttons">
             <button onclick="adminSave()" class="admin-btn primary">💾 Сохранить локально</button>
             <button onclick="adminExport()" class="admin-btn">📋 Экспортировать</button>
+            <button onclick="adminPreview()" class="admin-btn">👁 Предпросмотр</button>
           </div>
+          <div id="adminPreviewArea" style="margin-top:15px; border:1px solid #ddd; border-radius:10px; padding:15px; background:#fff; display:none;"></div>
+        </div>
+        <div class="admin-tab-content" id="tab-batch">
+          <label>Найти текст (во всех сохранённых статьях)</label>
+          <input type="text" id="batchFind" placeholder="https://old-link.com">
+          <label>Заменить на</label>
+          <input type="text" id="batchReplace" placeholder="https://new-link.com">
+          <button onclick="batchReplace()" class="admin-btn primary" style="margin-top:10px;">🔄 Заменить во всех статьях</button>
+          <div id="batchResult" style="margin-top:15px; font-size:13px;"></div>
         </div>
         <div class="admin-tab-content" id="tab-links">
           <a href="https://metrika.yandex.ru/dashboard?group=day&period=week&id=109547393" target="_blank" class="admin-link-card">📈 Яндекс.Метрика</a>
@@ -86,26 +104,18 @@
 
   // ---------- ЛОГИКА ----------
   function showPin() {
-    const el = document.getElementById('pinOverlay');
-    if (el) el.classList.add('show');
-    setTimeout(() => {
-      const inp = document.getElementById('pinInput');
-      if (inp) inp.focus();
-    }, 100);
+    document.getElementById('pinOverlay').classList.add('show');
+    setTimeout(() => document.getElementById('pinInput')?.focus(), 100);
   }
 
   window.checkPin = function() {
-    const inp = document.getElementById('pinInput');
-    if (!inp) return;
-    if (inp.value === CORRECT_PIN) {
+    if (document.getElementById('pinInput').value === CORRECT_PIN) {
       document.getElementById('pinOverlay').classList.remove('show');
       document.getElementById('adminOverlay').classList.add('show');
-      inp.value = '';
-      refreshStats();
+      refreshDashboard();
     } else {
       alert('Неверный PIN');
-      inp.value = '';
-      inp.focus();
+      document.getElementById('pinInput').value = '';
     }
   };
 
@@ -113,30 +123,62 @@
     document.getElementById('adminOverlay').classList.remove('show');
   };
 
-  function refreshStats() {
+  // ---------- ДАШБОРД ----------
+  function refreshDashboard() {
+    // Счётчики
     document.getElementById('adminTotalViews').textContent = localStorage.getItem('site_page_views') || '0';
     document.getElementById('adminBookmarks').textContent = JSON.parse(localStorage.getItem('bookmarks') || '[]').length;
     
-    // Сумма лайков по всем статьям (если хранятся)
-    let totalLikes = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith('helpful_')) {
-        try {
-          const data = JSON.parse(localStorage.getItem(key));
-          totalLikes += (data.yes || 0);
-        } catch(e) {}
+    // Рейтинг
+    let totalRating = 0, ratedArticles = 0;
+    const articleIds = ['instruction','programs','ssd','monitor','windows11','virus','gaming','build','slow-after-update'];
+    const barsContainer = document.getElementById('adminRatingBars');
+    let barsHtml = '';
+    articleIds.forEach(id => {
+      const data = JSON.parse(localStorage.getItem('rating_' + id) || '{"value":0,"count":0}');
+      if (data.count > 0) {
+        totalRating += data.value;
+        ratedArticles++;
       }
-    }
-    document.getElementById('adminLikes').textContent = totalLikes;
+      const percent = data.value * 20; // 5 звёзд = 100%
+      const titles = {
+        instruction:'Пошаговая инструкция', programs:'Программы и железо', ssd:'Как выбрать SSD',
+        monitor:'Как выбрать монитор', windows11:'Секреты Windows 11', virus:'Чистка от вирусов',
+        gaming:'Ускорение для игр', build:'Сборка ПК', 'slow-after-update':'После обновления'
+      };
+      barsHtml += `
+        <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
+          <span style="width:120px;">${titles[id] || id}</span>
+          <div style="flex:1; background:#eee; height:8px; border-radius:4px; overflow:hidden;">
+            <div style="width:${percent}%; height:100%; background:#ff6b35; border-radius:4px;"></div>
+          </div>
+          <span>${data.value}/5 (${data.count})</span>
+        </div>`;
+    });
+    barsContainer.innerHTML = barsHtml || '<div>Нет оценок</div>';
+    document.getElementById('adminAvgRating').textContent = ratedArticles ? (totalRating / ratedArticles).toFixed(1) : '0';
+
+    // Лог действий
+    const log = JSON.parse(localStorage.getItem('admin_activity') || '[]');
+    const logEl = document.getElementById('adminActivityLog');
+    logEl.innerHTML = log.length ? log.slice(-5).reverse().map(entry => 
+      `<div style="margin-bottom:5px;">${entry.time} — ${entry.action}</div>`
+    ).join('') : 'Нет действий';
   }
 
-  // ---------- РЕДАКТОР СТАТЕЙ ----------
-  const select = document.getElementById('adminArticleSelect');
-  const editor = document.getElementById('adminEditor');
-  if (select && editor) {
-    select.addEventListener('change', function() {
-      const id = this.value;
+  function logActivity(action) {
+    const log = JSON.parse(localStorage.getItem('admin_activity') || '[]');
+    log.push({ time: new Date().toLocaleTimeString('ru-RU'), action });
+    if (log.length > 50) log.shift();
+    localStorage.setItem('admin_activity', JSON.stringify(log));
+    refreshDashboard();
+  }
+
+  // ---------- РЕДАКТОР ----------
+  document.addEventListener('change', function(e) {
+    if (e.target.id === 'adminArticleSelect') {
+      const id = e.target.value;
+      const editor = document.getElementById('adminEditor');
       if (!id) { editor.value = ''; return; }
       const saved = localStorage.getItem('edited_' + id);
       if (saved) { editor.value = saved; return; }
@@ -145,31 +187,57 @@
         .then(r => r.text())
         .then(html => { editor.value = html; })
         .catch(() => { editor.value = 'Ошибка загрузки'; });
-    });
-  }
+    }
+  });
 
   window.adminSave = function() {
-    const id = select?.value;
-    if (!id || !editor?.value) return alert('Выберите статью и введите текст');
-    localStorage.setItem('edited_' + id, editor.value);
+    const id = document.getElementById('adminArticleSelect').value;
+    const content = document.getElementById('adminEditor').value;
+    if (!id || !content) return alert('Выберите статью и введите текст');
+    localStorage.setItem('edited_' + id, content);
+    logActivity(`Сохранена статья: ${id}`);
     alert('Сохранено локально!');
   };
 
   window.adminExport = function() {
-    const id = select?.value || 'article';
-    if (!editor?.value) return alert('Нет данных');
-    const blob = new Blob([editor.value], { type: 'text/html' });
+    const id = document.getElementById('adminArticleSelect').value || 'article';
+    const content = document.getElementById('adminEditor').value;
+    if (!content) return alert('Нет данных');
+    const blob = new Blob([content], { type: 'text/html' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = id + '.html';
     a.click();
   };
 
-  window.adminClearData = function() {
-    if (confirm('Удалить ВСЕ локальные данные (счётчики, закладки, правки)?')) {
-      localStorage.clear();
-      location.reload();
-    }
+  window.adminPreview = function() {
+    const content = document.getElementById('adminEditor').value;
+    const area = document.getElementById('adminPreviewArea');
+    area.style.display = 'block';
+    area.innerHTML = content || '<em>Пусто</em>';
+  };
+
+  // ---------- ПАКЕТНАЯ ЗАМЕНА ----------
+  window.batchReplace = function() {
+    const find = document.getElementById('batchFind').value;
+    const replace = document.getElementById('batchReplace').value;
+    const resultEl = document.getElementById('batchResult');
+    if (!find || !replace) { resultEl.textContent = 'Заполните оба поля'; return; }
+    
+    const articleIds = ['instruction','programs','ssd','monitor','windows11','virus','gaming','build','slow-after-update'];
+    let count = 0;
+    articleIds.forEach(id => {
+      const key = 'edited_' + id;
+      let content = localStorage.getItem(key);
+      if (!content) return;
+      if (content.includes(find)) {
+        content = content.split(find).join(replace);
+        localStorage.setItem(key, content);
+        count++;
+      }
+    });
+    resultEl.textContent = `Заменено в ${count} статьях.`;
+    logActivity(`Пакетная замена: "${find}" → "${replace}" в ${count} статьях`);
   };
 
   // ---------- ВКЛАДКИ ----------
@@ -181,8 +249,14 @@
       e.target.classList.add('active');
       const content = document.getElementById('tab-' + tab);
       if (content) content.classList.add('active');
+      if (tab === 'dashboard') refreshDashboard();
     }
   });
+
+  // ---------- СБРОС ----------
+  window.adminClearData = function() {
+    if (confirm('Удалить ВСЕ локальные данные?')) { localStorage.clear(); location.reload(); }
+  };
 
   // ---------- ТРОЙНОЙ КЛИК ----------
   function bindFooter() {
@@ -193,11 +267,7 @@
     span.addEventListener('click', () => {
       clicks++;
       if (clicks === 1) timer = setTimeout(() => clicks = 0, 800);
-      if (clicks === 3) {
-        clearTimeout(timer);
-        clicks = 0;
-        showPin();
-      }
+      if (clicks === 3) { clearTimeout(timer); clicks = 0; showPin(); }
     });
   }
 
@@ -208,12 +278,10 @@
     const sessionId = Date.now() + Math.random();
     const sessions = new Set([sessionId]);
     const el = document.getElementById('adminOnline');
-
     function announce() { bc.postMessage({ type: 'ping', id: sessionId }); }
     bc.onmessage = (e) => {
       if (e.data.type === 'ping' && e.data.id !== sessionId) {
-        sessions.add(e.data.id);
-        bc.postMessage({ type: 'pong', id: sessionId });
+        sessions.add(e.data.id); bc.postMessage({ type: 'pong', id: sessionId });
       } else if (e.data.type === 'pong' && e.data.id !== sessionId) {
         sessions.add(e.data.id);
       } else if (e.data.type === 'bye') {
@@ -221,10 +289,7 @@
       }
       if (el) el.textContent = sessions.size;
     };
-    window.addEventListener('beforeunload', () => {
-      bc.postMessage({ type: 'bye', id: sessionId });
-      bc.close();
-    });
+    window.addEventListener('beforeunload', () => { bc.postMessage({ type: 'bye', id: sessionId }); bc.close(); });
     setInterval(() => { sessions.clear(); sessions.add(sessionId); announce(); }, 8000);
     announce();
     if (el) el.textContent = sessions.size;
@@ -232,14 +297,8 @@
 
   // ---------- ИНИЦИАЛИЗАЦИЯ ----------
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      createPanel();
-      createPinOverlay();
-      bindFooter();
-    });
+    document.addEventListener('DOMContentLoaded', () => { createPanel(); createPinOverlay(); bindFooter(); });
   } else {
-    createPanel();
-    createPinOverlay();
-    bindFooter();
+    createPanel(); createPinOverlay(); bindFooter();
   }
 })();
