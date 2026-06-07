@@ -618,6 +618,165 @@ body.dark .product-price { color: #ff9f6e; background: #3d2a2a; }
 }
 .back-btn:hover { background: #fff5f0; transform: translateX(-3px); }
 body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
+/* ---------- ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v2.0 ---------- */
+.admin-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 10001;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.admin-overlay.show { display: flex; }
+
+.admin-dialog {
+  background: white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+body.dark .admin-dialog { background: #232640; color: #ddd; }
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+}
+body.dark .admin-header { border-bottom-color: #444; }
+.admin-header h2 { margin: 0; font-size: 20px; }
+.admin-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 20px;
+  background: #f9fafc;
+  border-bottom: 1px solid #eee;
+}
+body.dark .admin-tabs { background: #1a1d2e; border-bottom-color: #444; }
+.admin-tab {
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s;
+}
+.admin-tab.active { background: #ff6b35; color: white; }
+body.dark .admin-tab { color: #aaa; }
+body.dark .admin-tab.active { background: #ff9f6e; color: #1a1d2e; }
+
+.admin-tab-content { display: none; padding: 20px 24px; }
+.admin-tab-content.active { display: block; }
+
+.admin-stat-card {
+  background: #f5f7fa;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body.dark .admin-stat-card { background: #2a2a4a; }
+.admin-stat-card strong { font-size: 24px; color: #ff6b35; }
+body.dark .admin-stat-card strong { color: #ff9f6e; }
+
+.admin-select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: white;
+}
+body.dark .admin-select { background: #2a2a4a; border-color: #555; color: #eee; }
+
+#adminEditor {
+  width: 100%;
+  height: 250px;
+  font-family: monospace;
+  font-size: 13px;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  resize: vertical;
+  background: #fafafa;
+}
+body.dark #adminEditor { background: #1a1d2e; border-color: #555; color: #eee; }
+
+.admin-editor-buttons { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.admin-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #f0f0f0;
+  color: #333;
+  transition: all 0.2s;
+}
+.admin-btn.primary { background: #ff6b35; color: white; }
+.admin-btn.primary:hover { background: #e55a2b; }
+.admin-btn.danger { background: #e74c3c; color: white; }
+.admin-btn:hover { opacity: 0.9; }
+
+.admin-link-card {
+  display: block;
+  background: #f5f7fa;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.admin-link-card:hover { background: #fff5f0; }
+body.dark .admin-link-card { background: #2a2a4a; color: #ddd; }
+body.dark .admin-link-card:hover { background: #3d2a2a; }
+
+/* Оверлей PIN */
+.pin-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 10002;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.pin-overlay.show { display: flex; }
+.pin-box {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+}
+.pin-box input {
+  margin: 15px 0;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
 
 /* =========================================
    МОБИЛЬНАЯ АДАПТАЦИЯ
