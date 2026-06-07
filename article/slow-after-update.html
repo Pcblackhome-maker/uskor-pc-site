@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Компьютер тормозит после обновления Windows: как исправить | Ускорь ПК</title>
+  <meta name="description" content="После обновления Windows 10 или 11 компьютер стал медленно работать? Пошаговая инструкция: откат обновления, очистка кэша, драйверы.">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Компьютер тормозит после обновления Windows: как исправить",
+    "description": "После обновления Windows 10 или 11 компьютер стал медленно работать? Пошаговая инструкция.",
+    "author": { "@type": "Person", "name": "Игорь" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://uskor-pc.ru/article/slow-after-update.html" },
+    "publisher": { "@type": "Organization", "name": "Ускорь ПК", "logo": { "@type": "ImageObject", "url": "https://uskor-pc.ru/favicon.ico" } }
+  }
+  </script>
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="decor-spot spot-1"></div>
+  <div class="decor-spot spot-2"></div>
+  <div class="decor-spot spot-3"></div>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
+    <nav>
+      <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
+      <a href="/article/programs.html"><span>⚡</span> Программы</a>
+      <a href="/article/ssd.html"><span>🖥️</span> SSD</a>
+      <a href="/article/monitor.html"><span>🖥️</span> Монитор</a>
+      <a href="/article/windows11.html"><span>🪟</span> Windows 11</a>
+      <a href="/article/virus.html"><span>🛡️</span> Вирусы</a>
+      <a href="/article/gaming.html"><span>🎮</span> Игры</a>
+      <a href="/article/build.html"><span>🔧</span> Сборка</a>
+      <a href="/article/slow-after-update.html" class="active"><span>🐌</span> После обновления</a>
+      <a href="/pages/guide.html"><span>📘</span> Платный гайд</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">🐌 Тормозит после обновления Windows</span>
+      <meta itemprop="position" content="2">
+    </span>
+  </div>
+
+  <div class="landing">
+    <div class="content-box" style="display:block;">
+      <h2>🐌 Компьютер тормозит после обновления Windows</h2>
+      <p style="margin-bottom:25px; color:#555;">Установили свежее обновление Windows 10 или 11, и компьютер начал жутко тормозить? Это случается даже на мощных машинах. Не паникуйте — сейчас всё исправим за 4 простых шага.</p>
+
+      <div class="accordion-item">
+        <div class="accordion-header active" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">1. Удалите проблемное обновление</div>
+        <div class="accordion-body open">
+          <p>Если тормоза появились сразу после установки конкретного апдейта, лучше всего его откатить.</p>
+          <ul>
+            <li>Откройте «Параметры» → «Центр обновления Windows» → «Журнал обновлений».</li>
+            <li>Нажмите «Удалить обновления».</li>
+            <li>Найдите самое свежее (по дате) и удалите его.</li>
+            <li>Перезагрузите компьютер и проверьте, исчезли ли лаги.</li>
+          </ul>
+          <p>Если это помогло, временно отключите автоматическое обновление, пока Microsoft не исправит баг.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">2. Очистите кэш обновлений Windows</div>
+        <div class="accordion-body">
+          <p>После установки крупных пакетов система хранит десятки гигабайт временных файлов.</p>
+          <ul>
+            <li>Откройте «Этот компьютер», кликните правой кнопкой по диску C: и выберите «Свойства».</li>
+            <li>Нажмите «Очистка диска», затем «Очистить системные файлы».</li>
+            <li>Отметьте галочками «Очистка обновлений Windows» и «Временные файлы установки».</li>
+            <li>Нажмите OK и дождитесь завершения.</li>
+          </ul>
+          <p>Это освободит до 20 ГБ места и снизит нагрузку на диск.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">3. Переустановите драйверы видеокарты</div>
+        <div class="accordion-body">
+          <p>Обновления Windows часто сбрасывают или заменяют ваши драйверы на универсальные, что убивает FPS в играх.</p>
+          <ul>
+            <li>Скачайте свежие драйверы с официальных сайтов: <a href="https://www.nvidia.com/ru-ru/drivers/" target="_blank">NVIDIA</a>, <a href="https://www.amd.com/ru/support" target="_blank">AMD</a>, <a href="https://www.intel.com/content/www/ru/ru/download-center/home.html" target="_blank">Intel</a>.</li>
+            <li>Установите их в режиме «Чистая установка» (если есть такая опция).</li>
+            <li>Перезагрузите ПК.</li>
+          </ul>
+          <p>Правильные драйверы возвращают плавность в игры и убирают артефакты.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">4. Проверьте автозагрузку и вирусы</div>
+        <div class="accordion-body">
+          <p>Обновление могло вернуть старые программы в автозагрузку или ослабить защиту.</p>
+          <ul>
+            <li>Нажмите <code>Ctrl + Shift + Esc</code> → вкладка «Автозагрузка» и отключите все лишние программы.</li>
+            <li>Запустите полное сканирование в «Безопасность Windows».</li>
+            <li>При необходимости воспользуйтесь бесплатным сканером <a href="https://www.kaspersky.ru/downloads" target="_blank">Kaspersky</a>.</li>
+          </ul>
+          <p>Чистая автозагрузка и отсутствие вирусов — залог быстрой работы.</p>
+        </div>
+      </div>
+
+      <div class="advice-block"><strong>💡 Совет:</strong> Если после всех шагов компьютер всё равно медленный, возможно, обновление стало «последней каплей» для старого HDD. Переход на SSD решит проблему раз и навсегда — <a href="/article/ssd.html">смотрите гайд по выбору SSD</a>.</div>
+      <a href="https://boosty.to/igrip/donate" class="donate-link affiliate-link" target="_blank">☕ Помогло? Угости автора кофе</a>
+      <div style="margin-top:25px; background:#f0f8ff; padding:20px; border-radius:12px; text-align:center;">
+        <strong>🤔 Остались вопросы?</strong><br>Я отвечаю лично в течение дня. <a href="/#contact-form">Напишите мне через форму на главной</a>.
+      </div>
+      <div class="faq-section">
+        <h3>❓ Часто задаваемые вопросы</h3>
+        <div class="faq-item"><div class="faq-question">Можно ли вообще отключить обновления Windows?</div><div class="faq-answer">Да, через «Службы» (services.msc) можно остановить службу Windows Update, но лучше просто отложить их на пару недель в настройках.</div></div>
+        <div class="faq-item"><div class="faq-question">Что делать, если удаление обновления не помогает?</div><div class="faq-answer">Попробуйте восстановление системы до точки, созданной перед обновлением. Если и это не помогло — сбросьте Windows до исходного состояния с сохранением файлов.</div></div>
+        <div class="faq-item"><div class="faq-question">После обновления пропали файлы — как восстановить?</div><div class="faq-answer">Проверьте папку Windows.old на диске C. Там хранятся все ваши старые данные в течение 10 дней после обновления.</div></div>
+      </div>
+
+      <div class="helpful-buttons" data-article-id="slow-after-update">
+        <span>Помогла статья?</span>
+        <button class="helpful-btn" data-vote="yes">👍 <span class="helpful-count">0</span></button>
+        <button class="helpful-btn" data-vote="no">👎 <span class="helpful-count">0</span></button>
+      </div>
+
+      <button class="share-trigger" onclick="document.getElementById('sharePopup').classList.add('open')">📤 Поделиться</button>
+      <button class="bookmark-btn" data-article-id="slow-after-update" data-article-title="🐌 Тормозит после обновления" onclick="toggleBookmark(this)">🔖 В закладки</button>
+      <div class="share-popup" id="sharePopup">
+        <a href="" target="_blank" class="share-link" data-type="telegram">📨 Telegram</a>
+        <a href="" target="_blank" class="share-link" data-type="vk">📘 VK</a>
+        <button onclick="navigator.clipboard.writeText(window.location.href)">📋 Копировать ссылку</button>
+        <button class="close-share" onclick="document.getElementById('sharePopup').classList.remove('open')">✕</button>
+      </div>
+    </div>
+
+    <div class="affiliate-banner">
+      <a target="_blank" rel="nofollow" href="https://rzekl.com/g/wnclfjadg155e5527e7416525dc3e8/?i=4&subid=alik"><img width="728" height="90" border="0" src="https://ad.admitad.com/b/wnclfjadg155e5527e7416525dc3e8/" alt="AliExpress WW"/></a>
+    </div>
+
+    <div class="site-footer">
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <!-- Админ-панель -->
+  <div class="pin-overlay" id="pinOverlay">
+    <div class="pin-box">
+      <h3>🔐 Введите PIN</h3>
+      <input type="password" id="pinInput" maxlength="4" placeholder="****">
+      <br>
+      <button onclick="checkPin()">Войти</button>
+    </div>
+  </div>
+
+  <div class="admin-panel" id="adminPanel">
+    <button class="close-btn" onclick="document.getElementById('adminPanel').classList.remove('show')">✕</button>
+    <h3>🔒 Админ-панель</h3>
+    <label>📊 Посещений (локально):</label>
+    <span id="adminPageCount">0</span>
+    <label>👥 Сейчас онлайн (вкладок):</label>
+    <span id="onlineCount">1</span>
+    <label>🖊️ Редактировать статью:</label>
+    <select id="articleSelect">
+      <option value="">-- Выбери --</option>
+      <option value="instruction">Пошаговая инструкция</option>
+      <option value="programs">Программы и железо</option>
+      <option value="ssd">Как выбрать SSD</option>
+      <option value="monitor">Как выбрать монитор</option>
+      <option value="windows11">Секреты Windows 11</option>
+      <option value="virus">Чистка от вирусов</option>
+      <option value="gaming">Ускорение для игр</option>
+      <option value="build">Сборка ПК</option>
+      <option value="slow-after-update">После обновления</option>
+    </select>
+    <label>Содержимое (HTML):</label>
+    <textarea id="articleContent" rows="10" placeholder="Выбери статью..."></textarea>
+    <button onclick="saveArticle()">💾 Сохранить локально</button>
+    <button onclick="exportArticle()">📋 Экспортировать HTML</button>
+    <button class="reset-btn" onclick="if(confirm('Сбросить все локальные данные?')){localStorage.clear();location.reload();}">🗑 Сбросить всё</button>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin.js"></script>
+  <script>
+    // Похожие статьи
+    const relatedArticles = {
+      'slow-after-update': ['instruction', 'ssd', 'virus']
+    };
+    const allArticleData = {
+      instruction: { title: "Пошаговая инструкция", desc: "5 шагов для ускорения ПК", url: "/article/instruction.html" },
+      programs: { title: "Программы и железо", desc: "Утилиты и аксессуары", url: "/article/programs.html" },
+      ssd: { title: "Как выбрать SSD", desc: "Советы по выбору диска", url: "/article/ssd.html" },
+      monitor: { title: "Как выбрать монитор", desc: "Герцы, матрицы, разрешение", url: "/article/monitor.html" },
+      windows11: { title: "Секреты Windows 11", desc: "Настройка системы", url: "/article/windows11.html" },
+      virus: { title: "Чистка от вирусов", desc: "Антивирусы и сканеры", url: "/article/virus.html" },
+      gaming: { title: "Максимальный FPS", desc: "Ускорение для игр", url: "/article/gaming.html" },
+      build: { title: "Сборка ПК", desc: "Пошаговая инструкция", url: "/article/build.html" },
+      'slow-after-update': { title: "После обновления", desc: "Как исправить тормоза", url: "/article/slow-after-update.html" }
+    };
+    function getCurrentArticleId() {
+      const path = window.location.pathname;
+      const match = path.match(/\/article\/(.+)\.html/);
+      return match ? match[1] : null;
+    }
+    function renderRelatedArticles() {
+      const currentId = getCurrentArticleId();
+      if (!currentId || !relatedArticles[currentId]) return;
+      const relatedIds = relatedArticles[currentId];
+      const selected = relatedIds.slice(0, 3);
+      const html = selected.map(id => {
+        const article = allArticleData[id];
+        if (!article) return '';
+        return `<li><a href="${article.url}">${article.title}</a> – ${article.desc}</li>`;
+      }).join('');
+      const list = document.getElementById('quickTipsList');
+      if (list && html) {
+        list.innerHTML = html;
+      } else if (list) {
+        list.innerHTML = '<li>Связанных статей пока нет</li>';
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderRelatedArticles);
+    } else {
+      renderRelatedArticles();
+    }
+
+    // Отслеживание кликов
+    document.querySelectorAll('.affiliate-link').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
+      });
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', function() {
+      this.parentElement.classList.toggle('open');
+    }));
+  </script>
+</body>
+</html>
