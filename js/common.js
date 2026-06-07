@@ -37,7 +37,6 @@ function toggleBookmark(btn) {
   
   saveBookmarks(bookmarks);
   
-  // Обновляем виджет закладок на главной, если он есть
   if (typeof renderBookmarks === 'function') {
     renderBookmarks();
   }
@@ -123,7 +122,6 @@ function toggleTheme() {
   return isDark;
 }
 
-// Применяем тему сразу (до загрузки контента)
 applyTheme();
 
 // --- КУКИ-БАННЕР ---
@@ -197,6 +195,15 @@ function initAccordions() {
   });
 }
 
+// --- FAQ (отдельный обработчик, не ломает аккордеоны) ---
+function initFAQ() {
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', function() {
+      this.parentElement.classList.toggle('open');
+    });
+  });
+}
+
 // --- АВТОМАТИЧЕСКИЙ ГОД В ФУТЕРЕ ---
 function updateFooterYear() {
   const yearEl = document.getElementById('currentYear');
@@ -212,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReadingProgress();
   initScrollTopButton();
   initAccordions();
+  initFAQ();                // ← теперь FAQ работает
   incrementPageCounter();
   updateFooterYear();
 });
