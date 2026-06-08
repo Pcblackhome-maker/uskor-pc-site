@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мало места на диске C: куда пропадают гигабайты и как очистить | Ускорь ПК</title>
+  <meta name="description" content="На диске C заканчивается место? Пошаговая инструкция: очистка временных файлов, кэша обновлений, спящего режима и перенос данных.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Мало места на диске C: куда пропадают гигабайты и как очистить",
+    "description": "Пошаговая инструкция по очистке диска C от мусора без удаления важных файлов. Простые способы освободить место.",
+    "author": { "@type": "Person", "name": "Игорь" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://uskor-pc.ru/article/disk-cleanup.html" },
+    "publisher": { "@type": "Organization", "name": "Ускорь ПК", "logo": { "@type": "ImageObject", "url": "https://uskor-pc.ru/favicon.ico" } }
+  }
+  </script>
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
+    <nav>
+      <a href="/article/instruction.html"><span>📋</span> Инструкция</a>
+      <a href="/article/programs.html"><span>⚡</span> Программы</a>
+      <a href="/article/ssd.html"><span>💾</span> SSD</a>
+      <a href="/article/monitor.html"><span>🖥️</span> Монитор</a>
+      <a href="/article/windows11.html"><span>🪟</span> Windows 11</a>
+      <a href="/article/virus.html"><span>🛡️</span> Вирусы</a>
+      <a href="/article/gaming.html"><span>🎮</span> Игры</a>
+      <a href="/article/build.html"><span>🔧</span> Сборка</a>
+      <a href="/article/slow-after-update.html"><span>🐌</span> После обновления</a>
+      <a href="/article/disk-cleanup.html"><span>🧹</span> Очистка C</a>
+      <a href="/pages/guide.html"><span>📘</span> Платный гайд</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">🧹 Мало места на диске C: как очистить</span>
+      <meta itemprop="position" content="2">
+    </span>
+  </div>
+
+  <div class="landing">
+    <div class="content-box" style="display:block;">
+      <h2>🧹 Мало места на диске C: куда пропадают гигабайты и как очистить</h2>
+      <p style="margin-bottom:25px; color:#555;">Системный диск переполнен? Не торопитесь удалять важные программы. Скорее всего, место занимают временные файлы, кэш обновлений и другие цифровые отходы. Пошаговая инструкция по очистке без риска.</p>
+
+      <div class="accordion-item">
+        <div class="accordion-header active" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">1. Встроенная очистка диска Windows</div>
+        <div class="accordion-body open">
+          <p>Самый безопасный способ — использовать встроенную утилиту «Очистка диска». Она удаляет только то, что можно.</p>
+          <ul>
+            <li>Откройте «Этот компьютер», кликните правой кнопкой по диску C: → «Свойства».</li>
+            <li>Нажмите «Очистка диска», затем «Очистить системные файлы».</li>
+            <li>Отметьте все пункты, особенно «Очистка обновлений Windows» и «Временные файлы». Нажмите OK.</li>
+          </ul>
+          <p>Часто это освобождает от 5 до 30 ГБ места.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">2. Отключение или уменьшение файла подкачки</div>
+        <div class="accordion-body">
+          <p>Файл подкачки (pagefile.sys) может занимать десятки гигабайт. Если у вас 8 ГБ ОЗУ и больше, его можно уменьшить.</p>
+          <ul>
+            <li>Откройте «Параметры» → «Система» → «О системе» → «Дополнительные параметры системы».</li>
+            <li>На вкладке «Дополнительно» в разделе «Быстродействие» нажмите «Параметры».</li>
+            <li>Перейдите на вкладку «Дополнительно» и в разделе «Виртуальная память» нажмите «Изменить».</li>
+            <li>Снимите галочку «Автоматически выбирать объём», выберите размер 2-4 ГБ и нажмите «Задать».</li>
+          </ul>
+          <p>Это освободит столько места, сколько занимал файл подкачки минус новый размер.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">3. Очистка временных файлов браузеров</div>
+        <div class="accordion-body">
+          <p>Chrome, Firefox и другие браузеры кэшируют данные, которые могут занимать несколько гигабайт.</p>
+          <ul>
+            <li><strong>Google Chrome:</strong> Настройки → Конфиденциальность и безопасность → Очистить историю → выберите «Кэшированные изображения и файлы».</li>
+            <li><strong>Яндекс.Браузер:</strong> Настройки → Системные → Очистить данные браузера.</li>
+          </ul>
+          <p>Рекомендуется делать это раз в месяц.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">4. Перенос папок пользователя на другой диск</div>
+        <div class="accordion-body">
+          <p>Папки «Загрузки», «Документы», «Музыка» можно безболезненно перенести на диск D: или внешний накопитель.</p>
+          <ul>
+            <li>Кликните правой кнопкой по папке (например, «Загрузки») → «Свойства» → «Расположение».</li>
+            <li>Нажмите «Переместить», выберите папку на другом диске и подтвердите.</li>
+          </ul>
+          <p>Windows автоматически перенесёт все файлы, и новые загрузки будут сохраняться уже туда.</p>
+        </div>
+      </div>
+
+      <div class="advice-block"><strong>💡 Совет:</strong> Если после всех чисток место продолжает таять, возможно, у вас активна функция резервного копирования или точки восстановления системы. Проверьте их настройки и ограничьте объём.</div>
+      <a href="https://boosty.to/igrip/donate" class="donate-link affiliate-link" target="_blank">☕ Помогло? Угости автора кофе</a>
+      <div style="margin-top:25px; background:#f0f8ff; padding:20px; border-radius:12px; text-align:center;">
+        <strong>🤔 Остались вопросы?</strong><br>Я отвечаю лично в течение дня. <a href="/#contact-form">Напишите мне через форму на главной</a>.
+      </div>
+      <div class="faq-section">
+        <h3>❓ Часто задаваемые вопросы</h3>
+        <div class="faq-item"><div class="faq-question">Безопасно ли удалять все временные файлы?</div><div class="faq-answer">Да, через встроенную утилиту Windows вы удаляете только те файлы, которые больше не нужны системе или программам.</div></div>
+        <div class="faq-item"><div class="faq-question">Можно ли полностью отключить файл подкачки?</div><div class="faq-answer">Не рекомендуется, если у вас меньше 16 ГБ ОЗУ. Лучше просто уменьшить его до 2-4 ГБ.</div></div>
+        <div class="faq-item"><div class="faq-question">Почему после очистки место снова быстро заканчивается?</div><div class="faq-answer">Возможно, у вас активна синхронизация облачных сервисов или вирусы создают файлы. Проверьте автозагрузку и запустите антивирус.</div></div>
+      </div>
+
+      <div class="star-rating" data-article-id="disk-cleanup">
+        <span>Оцените статью:</span>
+        <div class="stars">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+        <span class="rating-text" id="ratingText-disk-cleanup"></span>
+      </div>
+
+      <button class="share-trigger" onclick="document.getElementById('sharePopup').classList.add('open')">📤 Поделиться</button>
+      <button class="bookmark-btn" data-article-id="disk-cleanup" data-article-title="🧹 Мало места на диске C" onclick="toggleBookmark(this)">🔖 В закладки</button>
+      <div class="share-popup" id="sharePopup">
+        <a href="" target="_blank" class="share-link" data-type="telegram">📨 Telegram</a>
+        <a href="" target="_blank" class="share-link" data-type="vk">📘 VK</a>
+        <button onclick="navigator.clipboard.writeText(window.location.href)">📋 Копировать ссылку</button>
+        <button class="close-share" onclick="document.getElementById('sharePopup').classList.remove('open')">✕</button>
+      </div>
+    </div>
+
+    <div class="affiliate-banner">
+      <a target="_blank" rel="nofollow" href="https://rzekl.com/g/wnclfjadg155e5527e7416525dc3e8/?i=4&subid=alik"><img width="728" height="90" border="0" src="https://ad.admitad.com/b/wnclfjadg155e5527e7416525dc3e8/" alt="AliExpress WW"/></a>
+    </div>
+
+    <div class="site-footer">
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
+  <script src="/js/articles-data.js"></script>
+  <script>
+    document.querySelectorAll('.affiliate-link').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
+      });
+    });
+  </script>
+</body>
+</html>
