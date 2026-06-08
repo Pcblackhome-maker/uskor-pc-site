@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки)
 // =========================================
 
 function getBookmarks() {
@@ -101,27 +101,7 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ (простая и надёжная инициализация) ---
-function initAccordions() {
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    // убираем возможные старые обработчики, чтобы не дублировались
-    header.removeEventListener('click', accordionClickHandler);
-    header.addEventListener('click', accordionClickHandler);
-  });
-}
-
-function accordionClickHandler() {
-  const body = this.nextElementSibling;
-  if (!body || !body.classList.contains('accordion-body')) return;
-  const isOpen = body.classList.contains('open');
-  if (isOpen) {
-    body.classList.remove('open');
-    this.classList.remove('active');
-  } else {
-    body.classList.add('open');
-    this.classList.add('active');
-  }
-}
+// Аккордеоны работают через встроенные onclick в HTML – здесь не трогаем
 
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
@@ -170,7 +150,6 @@ function updateFooterYear() {
 
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
-  initAccordions();
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
