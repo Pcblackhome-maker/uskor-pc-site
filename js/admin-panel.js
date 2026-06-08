@@ -1,5 +1,5 @@
 // =========================================
-// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.2 (игнор админа, техперерыв)
+// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.3 (вход при техперерыве через ?admin=1)
 // =========================================
 (function() {
   const CORRECT_PIN = '2309';
@@ -119,6 +119,13 @@
       adminOverlay.classList.add('show');
       inp.value = '';
       refreshDashboard();
+
+      // Если мы вошли через ?admin=1, сохраняем этот параметр в URL, чтобы после перезагрузки он не потерялся
+      if (window.location.search.includes('admin=1')) {
+        const url = new URL(window.location);
+        url.searchParams.set('admin', '1');
+        window.history.replaceState({}, '', url);
+      }
     } else {
       alert('Неверный PIN');
       inp.value = '';
