@@ -53,6 +53,7 @@
             <option value="gaming">Ускорение для игр</option>
             <option value="build">Сборка ПК</option>
             <option value="slow-after-update">После обновления</option>
+            <option value="disk-cleanup">Очистка диска C</option>
           </select>
           <textarea id="adminEditor" placeholder="HTML-код статьи появится здесь..."></textarea>
           <div class="admin-editor-buttons">
