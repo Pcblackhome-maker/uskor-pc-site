@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, игнор админа)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны – РАБОЧАЯ ВЕРСИЯ)
 // =========================================
 
 function getBookmarks() {
@@ -101,24 +101,27 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ (делегированная версия, работает на мобильных) ---
-document.addEventListener('click', function(e) {
-  const header = e.target.closest('.accordion-header');
-  if (!header) return;
-  
-  const body = header.nextElementSibling;
-  if (!body || !body.classList.contains('accordion-body')) return;
+// --- АККОРДЕОНЫ (прямая инициализация – работает везде) ---
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    // Удаляем старый обработчик, чтобы не дублировался при повторной инициализации
+    header.removeEventListener('click', accordionClickHandler);
+    header.addEventListener('click', accordionClickHandler);
+  });
+}
 
+function accordionClickHandler() {
+  const body = this.nextElementSibling;
+  if (!body || !body.classList.contains('accordion-body')) return;
   const isOpen = body.classList.contains('open');
-  
   if (isOpen) {
     body.classList.remove('open');
-    header.classList.remove('active');
+    this.classList.remove('active');
   } else {
     body.classList.add('open');
-    header.classList.add('active');
+    this.classList.add('active');
   }
-});
+}
 
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
@@ -167,6 +170,7 @@ function updateFooterYear() {
 
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
+  initAccordions();       // ← главное исправление
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
