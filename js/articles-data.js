@@ -1,14 +1,14 @@
 // Централизованные данные для блока "Похожие статьи"
 const relatedArticles = {
-  instruction: ['programs', 'ssd', 'virus', 'gaming'],
+  instruction: ['programs', 'ssd', 'virus', 'gaming', 'disk-cleanup'],
   programs: ['instruction', 'ssd', 'virus'],
-  ssd: ['instruction', 'programs', 'gaming'],
+  ssd: ['instruction', 'programs', 'gaming', 'disk-cleanup'],
   monitor: ['gaming', 'build', 'windows11'],
-  windows11: ['instruction', 'gaming', 'virus'],
+  windows11: ['instruction', 'gaming', 'virus', 'disk-cleanup'],
   virus: ['programs', 'instruction', 'windows11'],
   gaming: ['monitor', 'ssd', 'windows11'],
   build: ['programs', 'ssd', 'monitor'],
-  'slow-after-update': ['instruction', 'ssd', 'virus']
+  'slow-after-update': ['instruction', 'ssd', 'virus'],
   'disk-cleanup': ['instruction', 'ssd', 'windows11']
 };
 
@@ -21,18 +21,16 @@ const allArticleData = {
   virus: { title: "Чистка от вирусов", desc: "Как удалить вредоносное ПО и вернуть производительность", url: "/article/virus.html" },
   gaming: { title: "Максимальный FPS", desc: "Настройки видеокарты, драйверов и охлаждения для плавной игры", url: "/article/gaming.html" },
   build: { title: "Сборка ПК", desc: "Пошаговое руководство для новичков: от выбора деталей до первого запуска", url: "/article/build.html" },
-  'slow-after-update': { title: "После обновления", desc: "Что делать, если Windows начала тормозить после установки апдейта", url: "/article/slow-after-update.html" }
+  'slow-after-update': { title: "После обновления", desc: "Что делать, если Windows начала тормозить после установки апдейта", url: "/article/slow-after-update.html" },
   'disk-cleanup': { title: "Очистка диска C", desc: "Как освободить гигабайты места на системном диске", url: "/article/disk-cleanup.html" }
 };
 
-// Функция отрисовки блока "Похожие статьи"
 function renderRelatedArticles() {
   const currentId = getCurrentArticleId();
   if (!currentId || !relatedArticles[currentId]) return;
 
   const relatedIds = relatedArticles[currentId];
   const selected = relatedIds.slice(0, 3);
-
   const html = selected.map(id => {
     const article = allArticleData[id];
     if (!article) return '';
@@ -55,14 +53,12 @@ function renderRelatedArticles() {
   }
 }
 
-// Вспомогательная функция для определения текущей статьи
 function getCurrentArticleId() {
   const path = window.location.pathname;
   const match = path.match(/\/article\/(.+)\.html/);
   return match ? match[1] : null;
 }
 
-// Автоматический запуск после загрузки DOM
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', renderRelatedArticles);
 } else {
