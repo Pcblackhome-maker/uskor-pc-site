@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, бургер-меню)
 // =========================================
 
 function getBookmarks() {
@@ -99,24 +99,23 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ (делегированная версия, работает на мобильных) ---
-document.addEventListener('click', function(e) {
-  const header = e.target.closest('.accordion-header');
-  if (!header) return;
-  
-  const body = header.nextElementSibling;
-  if (!body || !body.classList.contains('accordion-body')) return;
-
-  const isOpen = body.classList.contains('open');
-  
-  if (isOpen) {
-    body.classList.remove('open');
-    header.classList.remove('active');
-  } else {
-    body.classList.add('open');
-    header.classList.add('active');
-  }
-});
+// --- АККОРДЕОНЫ (явный обработчик для мобильных) ---
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const body = this.nextElementSibling;
+      if (!body || !body.classList.contains('accordion-body')) return;
+      const isOpen = body.classList.contains('open');
+      if (isOpen) {
+        body.classList.remove('open');
+        this.classList.remove('active');
+      } else {
+        body.classList.add('open');
+        this.classList.add('active');
+      }
+    });
+  });
+}
 
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
@@ -162,12 +161,34 @@ function updateFooterYear() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
+// --- БУРГЕР-МЕНЮ ---
+function initBurgerMenu() {
+  // создаём кнопку, если её ещё нет
+  if (!document.querySelector('.burger-btn')) {
+    const btn = document.createElement('button');
+    btn.className = 'burger-btn';
+    btn.setAttribute('aria-label', 'Меню');
+    btn.innerHTML = '☰';
+    const header = document.querySelector('.site-header');
+    if (header) {
+      // вставляем перед nav
+      const nav = header.querySelector('nav');
+      header.insertBefore(btn, nav);
+      btn.addEventListener('click', () => {
+        nav.classList.toggle('show');
+      });
+    }
+  }
+}
+
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
+  initBurgerMenu();       // бургер должен создаться до других манипуляций
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
   initScrollTopButton();
+  initAccordions();       // восстанавливаем явную инициализацию
   initFAQ();
   initStarRatings();
   incrementPageCounter();
