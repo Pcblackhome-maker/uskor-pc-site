@@ -124,11 +124,11 @@
   </div>
 
   <!-- Подключение скриптов -->
-  <script src="/js/common.js"></script>
-  <script src="/js/search.js"></script>
-  <script src="/js/admin-panel.js"></script>
-  <script src="/js/navigation.js"></script>
   <script src="/js/articles-data.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/admin-panel.js"></script>
+<script src="/js/navigation.js"></script>
 
   <script>
     // Плавный скролл к карточкам
@@ -186,19 +186,31 @@
       updateStepper(savedProgress);
     }
 
-    // Виджет закладок
-    function renderBookmarks() {
-      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-      const widget = document.getElementById('bookmarksWidget');
-      const list = document.getElementById('bookmarksList');
-      if (bookmarks.length === 0) {
-        widget.style.display = 'none';
-      } else {
-        widget.style.display = 'block';
-        list.innerHTML = bookmarks.map(b => `<li><a href="/article/${b.id}.html">${b.title}</a></li>`).join('');
-      }
-    }
-    renderBookmarks();
+    // Виджет закладок (использует данные из articles-data.js)
+function renderBookmarks() {
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+  const widget = document.getElementById('bookmarksWidget');
+  const list = document.getElementById('bookmarksList');
+  if (!widget || !list) return;
+
+  if (bookmarks.length === 0) {
+    widget.style.display = 'none';
+    return;
+  }
+  widget.style.display = 'block';
+  list.innerHTML = bookmarks.map(b => {
+    const data = (typeof allArticleData !== 'undefined' && allArticleData[b.id]) 
+      ? allArticleData[b.id] 
+      : { title: b.title || b.id, icon: '📄' };
+    return `<li class="bookmark-item">
+      <a href="/article/${b.id}.html">
+        <span class="bm-icon">${data.icon || '📄'}</span>
+        <span>${data.title}</span>
+      </a>
+    </li>`;
+  }).join('');
+}
+renderBookmarks();
 
     // Отслеживание партнёрских кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
