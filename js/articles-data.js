@@ -9,6 +9,7 @@ const relatedArticles = {
   gaming: ['monitor', 'ssd', 'windows11'],
   build: ['programs', 'ssd', 'monitor'],
   'slow-after-update': ['instruction', 'ssd', 'virus']
+  'disk-cleanup': ['instruction', 'ssd', 'windows11']
 };
 
 const allArticleData = {
