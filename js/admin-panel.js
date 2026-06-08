@@ -1,8 +1,8 @@
 // =========================================
-// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.1 (игнор админа, ссылки)
+// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.2 (игнор админа, техперерыв)
 // =========================================
 (function() {
-  const CORRECT_PIN = '2309';
+  const CORRECT_PIN = '1234';
 
   // ---------- ИНТЕРФЕЙС ----------
   function createPanel() {
@@ -74,6 +74,7 @@
           <a href="https://github.com/Pcblackhome-maker/uskor-pc-data" target="_blank" class="admin-link-card">📂 Репозиторий GitHub</a>
           <a href="https://www.admitad.com/ru/webmaster/" target="_blank" class="admin-link-card">💼 Admitad</a>
           <button onclick="toggleAdminIgnore()" class="admin-btn" style="margin-top:15px;">👤 Не учитывать меня</button>
+          <button onclick="toggleMaintenance()" class="admin-btn" style="margin-top:15px;">🔧 Включить техперерыв</button>
           <button onclick="adminClearData()" class="admin-btn danger" style="margin-top:15px;">🗑 Сбросить все данные</button>
         </div>
       </div>
@@ -129,6 +130,13 @@
     const adminOverlay = document.getElementById('adminOverlay');
     adminOverlay.style.display = 'none';
     adminOverlay.classList.remove('show');
+  };
+
+  // ---------- ТЕХПЕРЕРЫВ ----------
+  window.toggleMaintenance = function() {
+    const isActive = localStorage.getItem('maintenance_mode') === 'true';
+    localStorage.setItem('maintenance_mode', !isActive);
+    location.reload();
   };
 
   // ---------- ИГНОР АДМИНА ----------
