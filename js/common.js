@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, игнор админа)
 // =========================================
 
 function getBookmarks() {
@@ -8,6 +8,7 @@ function getBookmarks() {
 function saveBookmarks(bookmarks) { localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); }
 
 function toggleBookmark(btn) {
+  if (sessionStorage.getItem('admin_ignore') === 'true') return;
   const id = btn.dataset.articleId;
   const title = btn.dataset.articleTitle;
   if (!id || !title) return;
@@ -77,6 +78,7 @@ function initCookieBanner() {
 }
 
 function incrementPageCounter() {
+  if (sessionStorage.getItem('admin_ignore') === 'true') return;
   let count = localStorage.getItem('site_page_views');
   count = count ? parseInt(count)+1 : 1;
   localStorage.setItem('site_page_views', count);
@@ -142,6 +144,7 @@ function initStarRatings() {
       s.addEventListener('mouseleave', () => highlight(saved.value));
       s.addEventListener('click', () => {
         if (saved.voted) return;
+        if (sessionStorage.getItem('admin_ignore') === 'true') return;
         const newRating = parseInt(s.dataset.value);
         const total = saved.value * saved.count + newRating;
         saved.count += 1;
