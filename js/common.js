@@ -99,17 +99,24 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-function initAccordions() {
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', function() {
-      const body = this.nextElementSibling;
-      if (!body || !body.classList.contains('accordion-body')) return;
-      const isOpen = body.classList.contains('open');
-      if (isOpen) { body.classList.remove('open'); this.classList.remove('active'); }
-      else { body.classList.add('open'); this.classList.add('active'); }
-    });
-  });
-}
+// --- АККОРДЕОНЫ (делегированная версия, работает на мобильных) ---
+document.addEventListener('click', function(e) {
+  const header = e.target.closest('.accordion-header');
+  if (!header) return;
+  
+  const body = header.nextElementSibling;
+  if (!body || !body.classList.contains('accordion-body')) return;
+
+  const isOpen = body.classList.contains('open');
+  
+  if (isOpen) {
+    body.classList.remove('open');
+    header.classList.remove('active');
+  } else {
+    body.classList.add('open');
+    header.classList.add('active');
+  }
+});
 
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
@@ -169,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCookieBanner();
   initReadingProgress();
   initScrollTopButton();
-  initAccordions();
   initFAQ();
   initStarRatings();
   incrementPageCounter();
