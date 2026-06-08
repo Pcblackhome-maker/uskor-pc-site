@@ -1,9 +1,8 @@
 // =========================================
-// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.0
-// (дашборд, редактор, пакетная замена, ссылки, логи)
+// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.1 (игнор админа, ссылки)
 // =========================================
 (function() {
-  const CORRECT_PIN = '2309';
+  const CORRECT_PIN = '1234';
 
   // ---------- ИНТЕРФЕЙС ----------
   function createPanel() {
@@ -53,7 +52,6 @@
             <option value="gaming">Ускорение для игр</option>
             <option value="build">Сборка ПК</option>
             <option value="slow-after-update">После обновления</option>
-            <option value="disk-cleanup">Очистка диска C</option>
           </select>
           <textarea id="adminEditor" placeholder="HTML-код статьи появится здесь..."></textarea>
           <div class="admin-editor-buttons">
@@ -75,6 +73,7 @@
           <a href="https://metrika.yandex.ru/dashboard?group=day&period=week&id=109547393" target="_blank" class="admin-link-card">📈 Яндекс.Метрика</a>
           <a href="https://github.com/Pcblackhome-maker/uskor-pc-data" target="_blank" class="admin-link-card">📂 Репозиторий GitHub</a>
           <a href="https://www.admitad.com/ru/webmaster/" target="_blank" class="admin-link-card">💼 Admitad</a>
+          <button onclick="toggleAdminIgnore()" class="admin-btn" style="margin-top:15px;">👤 Не учитывать меня</button>
           <button onclick="adminClearData()" class="admin-btn danger" style="margin-top:15px;">🗑 Сбросить все данные</button>
         </div>
       </div>
@@ -130,6 +129,13 @@
     const adminOverlay = document.getElementById('adminOverlay');
     adminOverlay.style.display = 'none';
     adminOverlay.classList.remove('show');
+  };
+
+  // ---------- ИГНОР АДМИНА ----------
+  window.toggleAdminIgnore = function() {
+    const current = sessionStorage.getItem('admin_ignore') === 'true';
+    sessionStorage.setItem('admin_ignore', !current);
+    alert(!current ? 'Ваши действия больше не учитываются в статистике' : 'Статистика снова учитывает вас');
   };
 
   // ---------- ДАШБОРД ----------
