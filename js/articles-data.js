@@ -21,6 +21,7 @@ const allArticleData = {
   gaming: { title: "Максимальный FPS", desc: "Настройки видеокарты, драйверов и охлаждения для плавной игры", url: "/article/gaming.html" },
   build: { title: "Сборка ПК", desc: "Пошаговое руководство для новичков: от выбора деталей до первого запуска", url: "/article/build.html" },
   'slow-after-update': { title: "После обновления", desc: "Что делать, если Windows начала тормозить после установки апдейта", url: "/article/slow-after-update.html" }
+  'disk-cleanup': { title: "Очистка диска C", desc: "Как освободить гигабайты места на системном диске", url: "/article/disk-cleanup.html" }
 };
 
 // Функция отрисовки блока "Похожие статьи"
