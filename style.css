@@ -636,3 +636,30 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   .scroll-top-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 20px; }
   .product-grid { grid-template-columns: 1fr; }
 }
+/* Улучшенный виджет закладок */
+.bookmarks-widget ul {
+  list-style: none;
+  padding: 0;
+}
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+.bookmark-item:last-child { border-bottom: none; }
+.bookmark-item a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.bookmark-item a:hover { color: #ff6b35; }
+.bookmark-item .bm-icon { font-size: 20px; width: 24px; text-align: center; }
+body.dark .bookmark-item { border-bottom-color: #444; }
+body.dark .bookmark-item a { color: #ddd; }
+body.dark .bookmark-item a:hover { color: #ff9f6e; }
