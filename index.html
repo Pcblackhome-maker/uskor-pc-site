@@ -25,6 +25,7 @@
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
     <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
+    <!-- Централизованная навигация -->
     <nav id="site-nav"></nav>
   </header>
 
@@ -69,7 +70,7 @@
       </div>
     </div>
 
-    <!-- Карточки статей (добавлена новая, иконка SSD заменена) -->
+    <!-- Карточки статей (добавлена disk-cleanup, без ошибок) -->
     <div class="articles-preview" id="articlesPreview"></div>
 
     <div class="affiliate-banner">
@@ -120,8 +121,9 @@
   <!-- Подключение скриптов -->
   <script src="/js/common.js"></script>
   <script src="/js/search.js"></script>
-  <script src="/js/navigation.js"></script>
   <script src="/js/admin-panel.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/articles-data.js"></script>
 
   <script>
     // Плавный скролл к карточкам
@@ -130,7 +132,7 @@
       document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Карточки статей (обновлённый список)
+    // Карточки статей (исправленный массив)
     const articles = [
       { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
       { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
@@ -140,7 +142,7 @@
       { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
       { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
       { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." },
-      { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." }
+      { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." },
       { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." }
     ];
     document.getElementById('articlesPreview').innerHTML = articles.map(a => `
