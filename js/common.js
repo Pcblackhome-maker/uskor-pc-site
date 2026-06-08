@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, техперерыв с ?admin=1)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны с отладкой)
 // =========================================
 
 function getBookmarks() {
@@ -101,26 +101,49 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ (делегированная версия) ---
+// --- АККОРДЕОНЫ (прямая инициализация с отладкой) ---
 function initAccordions() {
-  document.addEventListener('click', function(e) {
-    const header = e.target.closest('.accordion-header');
-    if (!header) return;
+  const headers = document.querySelectorAll('.accordion-header');
+  console.log('Найдено элементов .accordion-header:', headers.length);
+  if (headers.length === 0) {
+    console.warn('Не найдено ни одного .accordion-header. Проверьте HTML-разметку.');
+    return;
+  }
 
+  headers.forEach((header, index) => {
     const body = header.nextElementSibling;
-    if (!body || !body.classList.contains('accordion-body')) return;
-
-    e.stopPropagation();
-
-    const isOpen = body.classList.contains('open');
-    if (isOpen) {
-      body.classList.remove('open');
-      header.classList.remove('active');
-    } else {
-      body.classList.add('open');
-      header.classList.add('active');
+    if (!body || !body.classList.contains('accordion-body')) {
+      console.warn(`Элемент #${index} не имеет следующего .accordion-body`, header);
+      return;
     }
+
+    // Удаляем старый обработчик, чтобы не дублировался
+    header.removeEventListener('click', accordionClickHandler);
+    header.addEventListener('click', accordionClickHandler);
+    console.log(`Обработчик добавлен к элементу #${index}`, header.textContent.trim());
   });
+}
+
+function accordionClickHandler() {
+  console.log('Клик по заголовку:', this.textContent.trim());
+  const body = this.nextElementSibling;
+  if (!body || !body.classList.contains('accordion-body')) {
+    console.warn('Не найден .accordion-body для:', this);
+    return;
+  }
+
+  const isOpen = body.classList.contains('open');
+  console.log('Состояние до клика:', isOpen ? 'открыто' : 'закрыто');
+
+  if (isOpen) {
+    body.classList.remove('open');
+    this.classList.remove('active');
+    console.log('Закрыто');
+  } else {
+    body.classList.add('open');
+    this.classList.add('active');
+    console.log('Открыто');
+  }
 }
 
 function initFAQ() {
@@ -172,18 +195,15 @@ function updateFooterYear() {
 function checkMaintenance() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('admin') === '1') {
-    // Сохраняем флаг в sessionStorage, чтобы админка знала, что мы в режиме админа
     sessionStorage.setItem('admin_bypass', 'true');
-    return; // не показываем заглушку
+    return;
   }
 
   if (localStorage.getItem('maintenance_mode') !== 'true') return;
 
-  // Скрываем основной контент
   const mainContent = document.querySelector('.landing');
   if (mainContent) mainContent.style.display = 'none';
 
-  // Создаём красивое сообщение
   const msg = document.createElement('div');
   msg.id = 'maintenance-message';
   msg.style.cssText = `
@@ -205,7 +225,7 @@ function checkMaintenance() {
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   checkMaintenance();
-  // initAccordions больше не нужен – делегирование работает глобально
+  initAccordions();        // ← теперь с консоль-логом
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
