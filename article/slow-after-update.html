@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Компьютер тормозит после обновления Windows: как исправить | Ускорь ПК</title>
-  <link rel="icon" href="/favicon.ico">
   <meta name="description" content="После обновления Windows 10 или 11 компьютер стал медленно работать? Пошаговая инструкция: откат обновления, очистка кэша, драйверы.">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/style.css">
   <script type="application/ld+json">
   {
@@ -18,7 +18,6 @@
     "publisher": { "@type": "Organization", "name": "Ускорь ПК", "logo": { "@type": "ImageObject", "url": "https://uskor-pc.ru/favicon.ico" } }
   }
   </script>
-  <!-- Яндекс.Метрика -->
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
     m[i].l=1*new Date();
@@ -30,9 +29,6 @@
   <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
-  <div class="decor-spot spot-1"></div>
-  <div class="decor-spot spot-2"></div>
-  <div class="decor-spot spot-3"></div>
   <div class="reading-progress" id="readingProgress"></div>
 
   <header class="site-header">
@@ -79,10 +75,8 @@
             <li>Найдите самое свежее (по дате) и удалите его.</li>
             <li>Перезагрузите компьютер и проверьте, исчезли ли лаги.</li>
           </ul>
-          <p>Если это помогло, временно отключите автоматическое обновление, пока Microsoft не исправит баг.</p>
         </div>
       </div>
-
       <div class="accordion-item">
         <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">2. Очистите кэш обновлений Windows</div>
         <div class="accordion-body">
@@ -90,13 +84,10 @@
           <ul>
             <li>Откройте «Этот компьютер», кликните правой кнопкой по диску C: и выберите «Свойства».</li>
             <li>Нажмите «Очистка диска», затем «Очистить системные файлы».</li>
-            <li>Отметьте галочками «Очистка обновлений Windows» и «Временные файлы установки».</li>
-            <li>Нажмите OK и дождитесь завершения.</li>
+            <li>Отметьте галочками «Очистка обновлений Windows» и «Временные файлы установки». Нажмите OK.</li>
           </ul>
-          <p>Это освободит до 20 ГБ места и снизит нагрузку на диск.</p>
         </div>
       </div>
-
       <div class="accordion-item">
         <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">3. Переустановите драйверы видеокарты</div>
         <div class="accordion-body">
@@ -106,10 +97,8 @@
             <li>Установите их в режиме «Чистая установка» (если есть такая опция).</li>
             <li>Перезагрузите ПК.</li>
           </ul>
-          <p>Правильные драйверы возвращают плавность в игры и убирают артефакты.</p>
         </div>
       </div>
-
       <div class="accordion-item">
         <div class="accordion-header" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('open')">4. Проверьте автозагрузку и вирусы</div>
         <div class="accordion-body">
@@ -119,7 +108,6 @@
             <li>Запустите полное сканирование в «Безопасность Windows».</li>
             <li>При необходимости воспользуйтесь бесплатным сканером <a href="https://www.kaspersky.ru/downloads" target="_blank">Kaspersky</a>.</li>
           </ul>
-          <p>Чистая автозагрузка и отсутствие вирусов — залог быстрой работы.</p>
         </div>
       </div>
 
@@ -135,7 +123,6 @@
         <div class="faq-item"><div class="faq-question">После обновления пропали файлы — как восстановить?</div><div class="faq-answer">Проверьте папку Windows.old на диске C. Там хранятся все ваши старые данные в течение 10 дней после обновления.</div></div>
       </div>
 
-      <!-- Звёздочный рейтинг (яркий, голосование один раз) -->
       <div class="star-rating" data-article-id="slow-after-update">
         <span>Оцените статью:</span>
         <div class="stars">
@@ -184,74 +171,13 @@
   <script src="/js/common.js"></script>
   <script src="/js/search.js"></script>
   <script src="/js/admin-panel.js"></script>
-
+  <script src="/js/articles-data.js"></script>
   <script>
-    // Похожие статьи
-    const relatedArticles = {
-      'slow-after-update': ['instruction', 'ssd', 'virus']
-    };
-    const allArticleData = {
-      instruction: { title: "Пошаговая инструкция", desc: "5 шагов для ускорения ПК", url: "/article/instruction.html" },
-      programs: { title: "Программы и железо", desc: "Утилиты и аксессуары", url: "/article/programs.html" },
-      ssd: { title: "Как выбрать SSD", desc: "Советы по выбору диска", url: "/article/ssd.html" },
-      monitor: { title: "Как выбрать монитор", desc: "Герцы, матрицы, разрешение", url: "/article/monitor.html" },
-      windows11: { title: "Секреты Windows 11", desc: "Настройка системы", url: "/article/windows11.html" },
-      virus: { title: "Чистка от вирусов", desc: "Антивирусы и сканеры", url: "/article/virus.html" },
-      gaming: { title: "Максимальный FPS", desc: "Ускорение для игр", url: "/article/gaming.html" },
-      build: { title: "Сборка ПК", desc: "Пошаговая инструкция", url: "/article/build.html" },
-      'slow-after-update': { title: "После обновления", desc: "Как исправить тормоза", url: "/article/slow-after-update.html" }
-    };
-    function getCurrentArticleId() {
-      const path = window.location.pathname;
-      const match = path.match(/\/article\/(.+)\.html/);
-      return match ? match[1] : null;
-    }
-    function renderRelatedArticles() {
-      const currentId = getCurrentArticleId();
-      if (!currentId || !relatedArticles[currentId]) return;
-      const relatedIds = relatedArticles[currentId];
-      const selected = relatedIds.slice(0, 3);
-      const html = selected.map(id => {
-        const article = allArticleData[id];
-        if (!article) return '';
-        return `<li><a href="${article.url}">${article.title}</a> – ${article.desc}</li>`;
-      }).join('');
-      const list = document.getElementById('quickTipsList');
-      if (list && html) {
-        list.innerHTML = html;
-      } else if (list) {
-        list.innerHTML = '<li>Связанных статей пока нет</li>';
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderRelatedArticles);
-    } else {
-      renderRelatedArticles();
-    }
-
-    // Отслеживание кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
       link.addEventListener('click', function() {
         if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
       });
     });
-
-    // FAQ и звёздочки гарантированно запускаем
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initFAQ === 'function') {
-        initFAQ();
-      } else {
-        document.querySelectorAll('.faq-question').forEach(q => {
-          q.addEventListener('click', function() {
-            this.parentElement.classList.toggle('open');
-          });
-        });
-      }
-      if (typeof initStarRatings === 'function') {
-        initStarRatings();
-      }
-    });
   </script>
-  <script src="/js/articles-data.js"></script>
 </body>
 </html>
