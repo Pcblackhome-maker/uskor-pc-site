@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, техперерыв)
 // =========================================
 
 function getBookmarks() {
@@ -110,7 +110,6 @@ function initAccordions() {
     const body = header.nextElementSibling;
     if (!body || !body.classList.contains('accordion-body')) return;
 
-    // предотвращаем срабатывание встроенных onclick, если они остались
     e.stopPropagation();
 
     const isOpen = body.classList.contains('open');
@@ -169,9 +168,37 @@ function updateFooterYear() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
+// --- ТЕХНИЧЕСКИЙ ПЕРЕРЫВ ---
+function checkMaintenance() {
+  if (localStorage.getItem('maintenance_mode') !== 'true') return;
+
+  // Скрываем весь основной контент
+  const mainContent = document.querySelector('.landing');
+  if (mainContent) mainContent.style.display = 'none';
+
+  // Создаём красивое сообщение
+  const msg = document.createElement('div');
+  msg.id = 'maintenance-message';
+  msg.style.cssText = `
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); color: white;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 99999; font-family: 'Roboto', sans-serif;
+    text-align: center; padding: 20px;
+  `;
+  msg.innerHTML = `
+    <h1 style="font-size: 3rem; margin-bottom: 1rem;">🔧</h1>
+    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Технический перерыв</h2>
+    <p style="font-size: 1.2rem; opacity: 0.8;">Мы проводим технические работы.<br>Сайт будет доступен в ближайшее время.</p>
+  `;
+  document.body.appendChild(msg);
+}
+
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
-  initAccordions();        // ← обязательно
+  checkMaintenance();        // проверяем до всего
+  initAccordions();
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
