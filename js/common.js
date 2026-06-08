@@ -2,21 +2,17 @@
 // ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны)
 // =========================================
 
-// --- ЗАКЛАДКИ ---
 function getBookmarks() {
   try { return JSON.parse(localStorage.getItem('bookmarks') || '[]'); } catch (e) { return []; }
 }
-function saveBookmarks(bookmarks) {
-  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-}
+function saveBookmarks(bookmarks) { localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); }
+
 function toggleBookmark(btn) {
   const id = btn.dataset.articleId;
   const title = btn.dataset.articleTitle;
   if (!id || !title) return;
-
   let bookmarks = getBookmarks();
   const exists = bookmarks.find(b => b.id === id);
-
   if (exists) {
     bookmarks = bookmarks.filter(b => b.id !== id);
     btn.classList.remove('saved');
@@ -44,7 +40,6 @@ function initBookmarkButtons() {
   });
 }
 
-// --- ТОСТЫ ---
 function showToast(message, type = 'info', duration = 2500) {
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -63,20 +58,12 @@ function showToast(message, type = 'info', duration = 2500) {
   setTimeout(() => { toast.style.opacity='0'; toast.style.transform='translateY(10px)'; setTimeout(() => toast.remove(),300); }, duration);
 }
 
-// --- ТЁМНАЯ ТЕМА ---
 function applyTheme() {
   const isDark = localStorage.getItem('dark_theme') === 'true';
   document.documentElement.classList.toggle('dark', isDark);
 }
 applyTheme();
-function toggleTheme() {
-  const isDark = !document.documentElement.classList.contains('dark');
-  document.documentElement.classList.toggle('dark', isDark);
-  localStorage.setItem('dark_theme', isDark);
-  return isDark;
-}
 
-// --- КУКИ ---
 function acceptCookies() {
   localStorage.setItem('cookie_accepted', 'true');
   const banner = document.getElementById('cookieConsent');
@@ -89,15 +76,12 @@ function initCookieBanner() {
   }
 }
 
-// --- СЧЁТЧИК ПОСЕЩЕНИЙ ---
 function incrementPageCounter() {
   let count = localStorage.getItem('site_page_views');
   count = count ? parseInt(count)+1 : 1;
   localStorage.setItem('site_page_views', count);
-  return count;
 }
 
-// --- ПРОГРЕСС ЧТЕНИЯ ---
 function initReadingProgress() {
   const bar = document.getElementById('readingProgress');
   if (!bar) return;
@@ -108,46 +92,31 @@ function initReadingProgress() {
   });
 }
 
-// --- КНОПКА НАВЕРХ ---
 function initScrollTopButton() {
   const btn = document.getElementById('scrollTopBtn');
   if (!btn) return;
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 500);
-  });
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top:0, behavior:'smooth' });
-  });
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 500); });
+  btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ ---
 function initAccordions() {
   document.querySelectorAll('.accordion-header').forEach(header => {
     header.addEventListener('click', function() {
       const body = this.nextElementSibling;
       if (!body || !body.classList.contains('accordion-body')) return;
       const isOpen = body.classList.contains('open');
-      if (isOpen) {
-        body.classList.remove('open');
-        this.classList.remove('active');
-      } else {
-        body.classList.add('open');
-        this.classList.add('active');
-      }
+      if (isOpen) { body.classList.remove('open'); this.classList.remove('active'); }
+      else { body.classList.add('open'); this.classList.add('active'); }
     });
   });
 }
 
-// --- FAQ ---
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', function() {
-      this.parentElement.classList.toggle('open');
-    });
+    q.addEventListener('click', function() { this.parentElement.classList.toggle('open'); });
   });
 }
 
-// --- ЗВЁЗДОЧНЫЙ РЕЙТИНГ ---
 function initStarRatings() {
   document.querySelectorAll('.star-rating').forEach(widget => {
     const articleId = widget.dataset.articleId;
@@ -155,24 +124,17 @@ function initStarRatings() {
     const stars = widget.querySelectorAll('.star');
     const textEl = widget.querySelector('.rating-text') || document.getElementById('ratingText-'+articleId);
     let saved = JSON.parse(localStorage.getItem('rating_'+articleId) || '{"value":0,"count":0,"voted":false}');
-
     function highlight(value) {
-      stars.forEach(s => {
-        const v = parseInt(s.dataset.value);
-        s.classList.toggle('active', v <= value);
-      });
+      stars.forEach(s => { s.classList.toggle('active', parseInt(s.dataset.value) <= value); });
     }
     function updateText() {
-      if (textEl) {
-        textEl.textContent = saved.count > 0 ? `★ ${saved.value} (${saved.count} оценок)` : '(ещё нет оценок)';
-      }
+      if (textEl) textEl.textContent = saved.count > 0 ? `★ ${saved.value} (${saved.count} оценок)` : '(ещё нет оценок)';
     }
-
     stars.forEach(s => {
       s.addEventListener('mouseenter', () => highlight(parseInt(s.dataset.value)));
       s.addEventListener('mouseleave', () => highlight(saved.value));
       s.addEventListener('click', () => {
-        if (saved.voted) return;  // запрет повторного голоса
+        if (saved.voted) return;
         const newRating = parseInt(s.dataset.value);
         const total = saved.value * saved.count + newRating;
         saved.count += 1;
@@ -181,62 +143,27 @@ function initStarRatings() {
         localStorage.setItem('rating_'+articleId, JSON.stringify(saved));
         highlight(saved.value);
         updateText();
-        updateRatingSchema(articleId, saved.value, saved.count);
       });
     });
-
     highlight(saved.value);
     updateText();
-    updateRatingSchema(articleId, saved.value, saved.count);
   });
 }
 
-function updateRatingSchema(articleId, ratingValue, reviewCount) {
-  let script = document.querySelector(`script[data-rating-id="${articleId}"]`);
-  if (!script) {
-    script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.setAttribute('data-rating-id', articleId);
-    document.head.appendChild(script);
-  }
-  const title = document.title.replace(' | Ускорь ПК', '');
-  const desc = document.querySelector('meta[name="description"]')?.content || '';
-  const schema = {
-    "@context":"https://schema.org",
-    "@type":"Article",
-    "headline": title,
-    "description": desc,
-    "aggregateRating": {
-      "@type":"AggregateRating",
-      "ratingValue": ratingValue,
-      "bestRating":"5",
-      "reviewCount": reviewCount
-    },
-    "mainEntityOfPage":{"@type":"WebPage","@id":window.location.href},
-    "author":{"@type":"Person","name":"Игорь"},
-    "publisher":{"@type":"Organization","name":"Ускорь ПК","logo":{"@type":"ImageObject","url":"https://uskor-pc.ru/favicon.ico"}}
-  };
-  script.textContent = JSON.stringify(schema);
-}
-
-// --- АВТОГОД В ФУТЕРЕ ---
 function updateFooterYear() {
   const yearEl = document.getElementById('currentYear');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
-// --- АВТОМАТИЧЕСКАЯ ПОДСВЕТКА МЕНЮ ---
 function highlightCurrentMenuItem() {
   const currentPath = window.location.pathname;
   document.querySelectorAll('.site-header nav a').forEach(link => {
     const href = link.getAttribute('href');
-    if (href && currentPath.endsWith(href.replace(/^\//, ''))) {
-      link.classList.add('active');
-    }
+    if (href && currentPath.endsWith(href.replace(/^\//, ''))) link.classList.add('active');
   });
 }
 
-// --- ИНИЦИАЛИЗАЦИЯ ---
+// === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   initBookmarkButtons();
   initCookieBanner();
