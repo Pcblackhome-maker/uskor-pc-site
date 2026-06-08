@@ -1,6 +1,6 @@
 /* =========================================
    ПОЛНЫЙ CSS ДЛЯ uskor-pc.ru
-   (анимированный фон, стеклянные карточки, меню со скроллом, аккордеоны, исправленный баннер)
+   (анимированный фон, стеклянные карточки, меню со скроллом, аккордеоны, баннеры)
    ========================================= */
 
 /* ---------- ГЛОБАЛЬНЫЕ СТИЛИ ---------- */
@@ -424,28 +424,27 @@ body.dark #searchResults a:hover { color: #ff9f6e; }
 body.dark #searchResults li { border-bottom-color: #444; }
 
 /* ---------- БАННЕРЫ, КУКИ, ЗАКЛАДКИ, ЗВЁЗДЫ ---------- */
-.affiliate-banner { 
-  text-align: center; 
-  margin: 30px 0; 
-  background: white; 
-  border-radius: 16px; 
-  padding: 15px; 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
-  max-width: 100%; 
-  overflow: hidden; 
-  display: block; /* Явно указываем, чтобы баннер отображался */
+.affiliate-banner {
+  text-align: center;
+  margin: 30px 0;
+  background: white;
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  max-width: 100%;
+  overflow: hidden;
+  display: block;
 }
-.affiliate-banner img { 
-  width: 100%; 
-  height: auto; 
-  border-radius: 12px; 
-  display: block; 
-  margin: 0 auto; 
+.affiliate-banner img {
+  width: 100%;
+  height: auto;
+  max-width: 728px;
+  aspect-ratio: 728 / 90;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
 }
-body.dark .affiliate-banner {
-  background: #232640;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
+body.dark .affiliate-banner { background: #232640; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
 
 .cookie-consent {
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
