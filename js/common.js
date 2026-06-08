@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, техперерыв)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, техперерыв с ?admin=1)
 // =========================================
 
 function getBookmarks() {
@@ -101,27 +101,27 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ (делегированная версия, работает даже с onclick) ---
-document.addEventListener('click', function(e) {
-  const header = e.target.closest('.accordion-header');
-  if (!header) return;
+// --- АККОРДЕОНЫ (делегированная версия) ---
+function initAccordions() {
+  document.addEventListener('click', function(e) {
+    const header = e.target.closest('.accordion-header');
+    if (!header) return;
 
-  const body = header.nextElementSibling;
-  if (!body || !body.classList.contains('accordion-body')) return;
+    const body = header.nextElementSibling;
+    if (!body || !body.classList.contains('accordion-body')) return;
 
-  // предотвращаем всплытие, чтобы встроенные onclick не мешали
-  e.stopPropagation();
-  e.preventDefault();
+    e.stopPropagation();
 
-  const isOpen = body.classList.contains('open');
-  if (isOpen) {
-    body.classList.remove('open');
-    header.classList.remove('active');
-  } else {
-    body.classList.add('open');
-    header.classList.add('active');
-  }
-});
+    const isOpen = body.classList.contains('open');
+    if (isOpen) {
+      body.classList.remove('open');
+      header.classList.remove('active');
+    } else {
+      body.classList.add('open');
+      header.classList.add('active');
+    }
+  });
+}
 
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
@@ -168,13 +168,22 @@ function updateFooterYear() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
-// --- ТЕХНИЧЕСКИЙ ПЕРЕРЫВ ---
+// --- ТЕХНИЧЕСКИЙ ПЕРЕРЫВ (пропускаем, если есть ?admin=1) ---
 function checkMaintenance() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('admin') === '1') {
+    // Сохраняем флаг в sessionStorage, чтобы админка знала, что мы в режиме админа
+    sessionStorage.setItem('admin_bypass', 'true');
+    return; // не показываем заглушку
+  }
+
   if (localStorage.getItem('maintenance_mode') !== 'true') return;
 
+  // Скрываем основной контент
   const mainContent = document.querySelector('.landing');
   if (mainContent) mainContent.style.display = 'none';
 
+  // Создаём красивое сообщение
   const msg = document.createElement('div');
   msg.id = 'maintenance-message';
   msg.style.cssText = `
