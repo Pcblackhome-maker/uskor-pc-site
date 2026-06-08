@@ -162,14 +162,6 @@ function updateFooterYear() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
-function highlightCurrentMenuItem() {
-  const currentPath = window.location.pathname;
-  document.querySelectorAll('.site-header nav a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && currentPath.endsWith(href.replace(/^\//, ''))) link.classList.add('active');
-  });
-}
-
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   initBookmarkButtons();
@@ -180,5 +172,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initStarRatings();
   incrementPageCounter();
   updateFooterYear();
-  highlightCurrentMenuItem();
 });
