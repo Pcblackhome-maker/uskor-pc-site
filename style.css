@@ -663,3 +663,35 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
 body.dark .bookmark-item { border-bottom-color: #444; }
 body.dark .bookmark-item a { color: #ddd; }
 body.dark .bookmark-item a:hover { color: #ff9f6e; }
+/* Стилизованный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f7fa;
+}
+body.dark ::-webkit-scrollbar-track {
+  background: #1a1d2e;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff6b35;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e55a2b;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: #ff9f6e;
+}
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: #ffb08c;
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff6b35 #f5f7fa;
+}
+body.dark * {
+  scrollbar-color: #ff9f6e #1a1d2e;
+}
