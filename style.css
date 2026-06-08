@@ -1,6 +1,6 @@
 /* =========================================
    ПОЛНЫЙ CSS ДЛЯ uskor-pc.ru
-   (анимированный фон, стеклянные карточки, бургер-меню)
+   (анимированный фон, стеклянные карточки, меню со скроллом, аккордеоны)
    ========================================= */
 
 /* ---------- ГЛОБАЛЬНЫЕ СТИЛИ ---------- */
@@ -72,20 +72,6 @@ body.dark .site-header .logo { color: #ff9f6e; }
 body.dark .site-header nav a { background: #2a2a4a; color: #d0d0d0; }
 body.dark .site-header nav a:hover { background: #ff9f6e; color: #1a1d2e; }
 body.dark .site-header nav a.active { background: #ff9f6e; color: #1a1d2e; }
-
-/* ---------- БУРГЕР-КНОПКА (скрыта на десктопе) ---------- */
-.burger-btn {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: #ff6b35;
-  padding: 5px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-body.dark .burger-btn { color: #ff9f6e; }
 
 /* ---------- ГЛАВНАЯ И ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
 .landing { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
@@ -603,36 +589,42 @@ body.dark .quick-tips { background: #2a2a4a; }
 body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
 
 /* =========================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ (с бургер-меню)
+   МОБИЛЬНАЯ АДАПТАЦИЯ (горизонтальный скролл меню)
    ========================================= */
 @media (max-width: 768px) {
-  .burger-btn {
-    display: block; /* показываем бургер */
-    order: 2;
+  .site-header {
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    gap: 5px;
   }
+  .site-header .logo { font-size: 20px; }
+  .search-icon { order: 1; margin-left: auto; font-size: 22px; }
   .site-header nav {
-    display: none; /* скрываем меню по умолчанию */
-    flex-direction: column;
-    width: 100%;
-    background: white;
-    border-radius: 16px;
-    padding: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    margin-top: 10px;
     order: 3;
-  }
-  body.dark .site-header nav {
-    background: #232640;
-  }
-  .site-header nav.show {
-    display: flex; /* показываем меню при активации */
-  }
-  .site-header nav a {
     width: 100%;
-    justify-content: center;
-    padding: 12px;
-    font-size: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding-bottom: 5px;
+    margin-top: 8px;
   }
+  .site-header nav::-webkit-scrollbar { display: none; }
+  .site-header nav a {
+    font-size: 13px;
+    padding: 7px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: #f0f0f0;
+    color: #333;
+  }
+  body.dark .site-header nav a { background: #2a2a4a; color: #ddd; }
+  .site-header nav a:hover, .site-header nav a.active { background: #ff6b35; color: white; }
+  body.dark .site-header nav a:hover, body.dark .site-header nav a.active { background: #ff9f6e; color: #1a1d2e; }
 
   .landing { padding: 20px 12px 40px; }
   .hero { padding: 30px 15px 25px; }
