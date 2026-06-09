@@ -14,6 +14,7 @@
     { href: "/article/slow-after-update.html", icon: "🐌", label: "После обновления" },
     { href: "/article/disk-cleanup.html", icon: "🧹", label: "Очистка C" },
     { href: "/article/win10-slow.html", icon: "🐢", label: "Тормозит ноутбук" },
+    { href: "/catalog.html", icon: "🛒", label: "Каталог" },
     { href: "/pages/guide.html", icon: "📘", label: "Платный гайд" }
   ];
 
