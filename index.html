@@ -145,69 +145,72 @@
       document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Карточки статей (все 12 статей, запятые расставлены верно)
-    const articles = [
-      { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
-      { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
-      { id: "ssd", icon: "💾", title: "Как выбрать SSD", desc: "Какой диск купить, чтобы ноутбук летал: типы, объёмы, бренды." },
-      { id: "monitor", icon: "🖥️", title: "Как выбрать монитор", desc: "Герцы, разрешение, матрицы – выбор для игр и работы." },
-      { id: "windows11", icon: "🪟", title: "Секреты Windows 11", desc: "Визуальные эффекты, автозагрузка, схема питания." },
-      { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
-      { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
-      { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." },
-      { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." },
-      { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." },
-      { id: "win10-slow", icon: "🐢", title: "Тормозит ноутбук", desc: "7 причин медленной работы и пошаговые решения." }
-    ];
-    document.getElementById('articlesPreview').innerHTML = articles.map(a => `
-      <a href="/article/${a.id}.html" class="preview-card">
-        <span class="icon">${a.icon}</span>
-        <h3>${a.title}</h3>
-        <p>${a.desc}</p>
-        <span class="read-link">Читать →</span>
-      </a>
-    `).join('');
+ // Карточки статей (полный список)
+const allArticles = [
+  { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
+  { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
+  { id: "ssd", icon: "💾", title: "Как выбрать SSD", desc: "Какой диск купить, чтобы ноутбук летал: типы, объёмы, бренды." },
+  { id: "monitor", icon: "🖥️", title: "Как выбрать монитор", desc: "Герцы, разрешение, матрицы – выбор для игр и работы." },
+  { id: "windows11", icon: "🪟", title: "Секреты Windows 11", desc: "Визуальные эффекты, автозагрузка, схема питания." },
+  { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
+  { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
+  { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." },
+  { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." },
+  { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." },
+  { id: "win10-slow", icon: "🐢", title: "Тормозит ноутбук", desc: "7 причин медленной работы и пошаговые решения." }
+];
 
-    // Степпер
-    function completeStep(stepNum) {
-      let progress = parseInt(localStorage.getItem('checklistProgress') || '0');
-      if (stepNum > progress) {
-        progress = stepNum;
-        localStorage.setItem('checklistProgress', progress);
-      }
-      updateStepper(progress);
-    }
-    function updateStepper(progress) {
-      for (let i = 1; i <= 5; i++) {
-        document.getElementById('step' + i).style.display = (i === progress + 1 && progress < 5) ? 'block' : 'none';
-      }
-      document.getElementById('progressFill').style.width = (progress / 5) * 100 + '%';
-      if (progress >= 5) {
-        document.getElementById('doneMessage').style.display = 'block';
-        for (let i = 1; i <= 5; i++) document.getElementById('step' + i).style.display = 'none';
-      }
-    }
-    const savedProgress = parseInt(localStorage.getItem('checklistProgress') || '0');
-    if (savedProgress >= 5) {
-      document.getElementById('doneMessage').style.display = 'block';
-      document.getElementById('progressFill').style.width = '100%';
-    } else {
-      updateStepper(savedProgress);
-    }
+// Рендер карточек статей
+function renderArticles(articleIds = null) {
+  const articles = articleIds
+    ? allArticles.filter(a => articleIds.includes(a.id))
+    : allArticles;
+  document.getElementById('articlesPreview').innerHTML = articles.map(a => `
+    <a href="/article/${a.id}.html" class="preview-card">
+      <span class="icon">${a.icon}</span>
+      <h3>${a.title}</h3>
+      <p>${a.desc}</p>
+      <span class="read-link">Читать →</span>
+    </a>
+  `).join('');
 
-    // Виджет закладок
-    function renderBookmarks() {
-      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-      const widget = document.getElementById('bookmarksWidget');
-      const list = document.getElementById('bookmarksList');
-      if (bookmarks.length === 0) {
-        widget.style.display = 'none';
-      } else {
-        widget.style.display = 'block';
-        list.innerHTML = bookmarks.map(b => `<li><a href="/article/${b.id}.html">${b.title}</a></li>`).join('');
-      }
-    }
-    renderBookmarks();
+  // Показываем/скрываем кнопку "Все статьи"
+  document.getElementById('showAllArticles').style.display = articleIds ? 'block' : 'none';
+}
+
+// Рендер категорий
+function renderCategories() {
+  const grid = document.getElementById('categoriesGrid');
+  grid.innerHTML = Object.entries(articleCategories).map(([key, cat]) => `
+    <div class="category-card" data-category="${key}">
+      <div class="cat-icon">${cat.title.split(' ')[0]}</div>
+      <h4>${cat.title}</h4>
+      <p>${cat.desc} (${cat.articles.length})</p>
+    </div>
+  `).join('');
+
+  // Обработчики кликов
+  document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const category = this.dataset.category;
+      // Подсвечиваем активную
+      document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      // Фильтруем статьи
+      renderArticles(articleCategories[category].articles);
+    });
+  });
+}
+
+// Кнопка "Показать все"
+document.getElementById('showAllArticles').addEventListener('click', function() {
+  document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+  renderArticles();
+});
+
+// Первичная отрисовка
+renderArticles();
+renderCategories();
 
     // Отслеживание партнёрских кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
