@@ -15,6 +15,7 @@
     { href: "/article/disk-cleanup.html", icon: "🧹", label: "Очистка C" },
     { href: "/article/win10-slow.html", icon: "🐢", label: "Тормозит ноутбук" },
     { href: "/catalog.html", icon: "🛒", label: "Каталог" },
+    { href: "/diagnostic.html", icon: "🔍", label: "Диагностика" }
     { href: "/pages/guide.html", icon: "📘", label: "Платный гайд" }
   ];
 
