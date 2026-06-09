@@ -1,8 +1,8 @@
 // =========================================
-// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.3 (вход при техперерыве через ?admin=1)
+// ПРОФЕССИОНАЛЬНАЯ АДМИН-ПАНЕЛЬ v4.4 (с визуальным редактором и загрузкой изображений)
 // =========================================
 (function() {
-  const CORRECT_PIN = '2309';
+  const CORRECT_PIN = '1234';
 
   // ---------- ИНТЕРФЕЙС ----------
   function createPanel() {
@@ -52,8 +52,16 @@
             <option value="gaming">Ускорение для игр</option>
             <option value="build">Сборка ПК</option>
             <option value="slow-after-update">После обновления</option>
+            <option value="disk-cleanup">Очистка диска C</option>
+            <option value="win10-slow">Тормозит ноутбук</option>
           </select>
-          <textarea id="adminEditor" placeholder="HTML-код статьи появится здесь..."></textarea>
+          <div style="display:flex; gap:8px; margin-bottom:12px;">
+            <button onclick="enableVisualEditor()" class="admin-btn" id="btnVisual">🖌 Визуальный редактор</button>
+            <button onclick="disableVisualEditor()" class="admin-btn" id="btnHTML">📝 HTML-код</button>
+            <button onclick="insertImage()" class="admin-btn">🖼 Вставить картинку</button>
+          </div>
+          <textarea id="adminEditor" placeholder="HTML-код статьи появится здесь..." style="display:block;"></textarea>
+          <div id="adminVisualEditor" contenteditable="true" style="display:none; width:100%; min-height:250px; padding:12px; border:2px solid #e0e0e0; border-radius:10px; background:#fafafa; font-family:inherit; font-size:14px; line-height:1.6; overflow-y:auto;"></div>
           <div class="admin-editor-buttons">
             <button onclick="adminSave()" class="admin-btn primary">💾 Сохранить локально</button>
             <button onclick="adminExport()" class="admin-btn">📋 Экспортировать</button>
@@ -119,13 +127,6 @@
       adminOverlay.classList.add('show');
       inp.value = '';
       refreshDashboard();
-
-      // Если мы вошли через ?admin=1, сохраняем этот параметр в URL, чтобы после перезагрузки он не потерялся
-      if (window.location.search.includes('admin=1')) {
-        const url = new URL(window.location);
-        url.searchParams.set('admin', '1');
-        window.history.replaceState({}, '', url);
-      }
     } else {
       alert('Неверный PIN');
       inp.value = '';
@@ -153,73 +154,80 @@
     alert(!current ? 'Ваши действия больше не учитываются в статистике' : 'Статистика снова учитывает вас');
   };
 
-  // ---------- ДАШБОРД ----------
-  function refreshDashboard() {
-    document.getElementById('adminTotalViews').textContent = localStorage.getItem('site_page_views') || '0';
-    document.getElementById('adminBookmarks').textContent = JSON.parse(localStorage.getItem('bookmarks') || '[]').length;
+  // ---------- ВИЗУАЛЬНЫЙ РЕДАКТОР ----------
+  window.enableVisualEditor = function() {
+    const editor = document.getElementById('adminEditor');
+    const visual = document.getElementById('adminVisualEditor');
+    visual.innerHTML = editor.value || '';
+    editor.style.display = 'none';
+    visual.style.display = 'block';
+    document.getElementById('btnVisual').classList.add('primary');
+    document.getElementById('btnHTML').classList.remove('primary');
+  };
 
-    let totalRating = 0, ratedArticles = 0;
-    const articleIds = ['instruction','programs','ssd','monitor','windows11','virus','gaming','build','slow-after-update'];
-    const barsContainer = document.getElementById('adminRatingBars');
-    let barsHtml = '';
-    const titles = {
-      instruction:'Пошаговая инструкция', programs:'Программы и железо', ssd:'Как выбрать SSD',
-      monitor:'Как выбрать монитор', windows11:'Секреты Windows 11', virus:'Чистка от вирусов',
-      gaming:'Ускорение для игр', build:'Сборка ПК', 'slow-after-update':'После обновления'
-    };
-    articleIds.forEach(id => {
-      const data = JSON.parse(localStorage.getItem('rating_' + id) || '{"value":0,"count":0}');
-      if (data.count > 0) {
-        totalRating += data.value;
-        ratedArticles++;
-      }
-      const percent = data.value * 20;
-      barsHtml += `
-        <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
-          <span style="width:120px;">${titles[id] || id}</span>
-          <div style="flex:1; background:#eee; height:8px; border-radius:4px; overflow:hidden;">
-            <div style="width:${percent}%; height:100%; background:#ff6b35; border-radius:4px;"></div>
-          </div>
-          <span>${data.value}/5 (${data.count})</span>
-        </div>`;
-    });
-    barsContainer.innerHTML = barsHtml || '<div>Нет оценок</div>';
-    document.getElementById('adminAvgRating').textContent = ratedArticles ? (totalRating / ratedArticles).toFixed(1) : '0';
+  window.disableVisualEditor = function() {
+    const editor = document.getElementById('adminEditor');
+    const visual = document.getElementById('adminVisualEditor');
+    editor.value = visual.innerHTML;
+    visual.style.display = 'none';
+    editor.style.display = 'block';
+    document.getElementById('btnHTML').classList.add('primary');
+    document.getElementById('btnVisual').classList.remove('primary');
+  };
 
-    const log = JSON.parse(localStorage.getItem('admin_activity') || '[]');
-    const logEl = document.getElementById('adminActivityLog');
-    logEl.innerHTML = log.length ? log.slice(-5).reverse().map(entry =>
-      `<div style="margin-bottom:5px;">${entry.time} — ${entry.action}</div>`
-    ).join('') : 'Нет действий';
-  }
+  window.insertImage = function() {
+    const url = prompt('Введите URL картинки или вставьте base64:');
+    if (!url) return;
+    const visual = document.getElementById('adminVisualEditor');
+    if (visual.style.display === 'block') {
+      visual.focus();
+      document.execCommand('insertHTML', false, `<img src="${url}" style="max-width:100%; border-radius:8px;">`);
+    } else {
+      const editor = document.getElementById('adminEditor');
+      const cursorPos = editor.selectionStart;
+      const textBefore = editor.value.substring(0, cursorPos);
+      const textAfter = editor.value.substring(cursorPos);
+      editor.value = textBefore + `<img src="${url}" style="max-width:100%; border-radius:8px;">` + textAfter;
+    }
+  };
 
-  function logActivity(action) {
-    const log = JSON.parse(localStorage.getItem('admin_activity') || '[]');
-    log.push({ time: new Date().toLocaleTimeString('ru-RU'), action });
-    if (log.length > 50) log.shift();
-    localStorage.setItem('admin_activity', JSON.stringify(log));
-    refreshDashboard();
-  }
-
-  // ---------- РЕДАКТОР ----------
+  // ---------- РЕДАКТОР (сохранение с учётом визуального редактора) ----------
   document.addEventListener('change', function(e) {
     if (e.target.id === 'adminArticleSelect') {
       const id = e.target.value;
       const editor = document.getElementById('adminEditor');
-      if (!id) { editor.value = ''; return; }
+      const visual = document.getElementById('adminVisualEditor');
+      if (!id) {
+        editor.value = '';
+        visual.innerHTML = '';
+        return;
+      }
       const saved = localStorage.getItem('edited_' + id);
-      if (saved) { editor.value = saved; return; }
+      if (saved) {
+        editor.value = saved;
+        visual.innerHTML = saved;
+        return;
+      }
       editor.value = 'Загрузка...';
       fetch(`/article/${id}.html`)
         .then(r => r.text())
-        .then(html => { editor.value = html; })
-        .catch(() => { editor.value = 'Ошибка загрузки'; });
+        .then(html => {
+          editor.value = html;
+          visual.innerHTML = html;
+        })
+        .catch(() => {
+          editor.value = 'Ошибка загрузки';
+          visual.innerHTML = 'Ошибка загрузки';
+        });
     }
   });
 
   window.adminSave = function() {
     const id = document.getElementById('adminArticleSelect').value;
-    const content = document.getElementById('adminEditor').value;
+    const visual = document.getElementById('adminVisualEditor');
+    const editor = document.getElementById('adminEditor');
+    // Если визуальный редактор активен, берём HTML из него
+    const content = (visual.style.display === 'block') ? visual.innerHTML : editor.value;
     if (!id || !content) return alert('Выберите статью и введите текст');
     localStorage.setItem('edited_' + id, content);
     logActivity(`Сохранена статья: ${id}`);
@@ -228,7 +236,9 @@
 
   window.adminExport = function() {
     const id = document.getElementById('adminArticleSelect').value || 'article';
-    const content = document.getElementById('adminEditor').value;
+    const visual = document.getElementById('adminVisualEditor');
+    const editor = document.getElementById('adminEditor');
+    const content = (visual.style.display === 'block') ? visual.innerHTML : editor.value;
     if (!content) return alert('Нет данных');
     const blob = new Blob([content], { type: 'text/html' });
     const a = document.createElement('a');
@@ -238,7 +248,9 @@
   };
 
   window.adminPreview = function() {
-    const content = document.getElementById('adminEditor').value;
+    const visual = document.getElementById('adminVisualEditor');
+    const editor = document.getElementById('adminEditor');
+    const content = (visual.style.display === 'block') ? visual.innerHTML : editor.value;
     const area = document.getElementById('adminPreviewArea');
     area.style.display = 'block';
     area.innerHTML = content || '<em>Пусто</em>';
@@ -251,7 +263,7 @@
     const resultEl = document.getElementById('batchResult');
     if (!find || !replace) { resultEl.textContent = 'Заполните оба поля'; return; }
 
-    const articleIds = ['instruction','programs','ssd','monitor','windows11','virus','gaming','build','slow-after-update'];
+    const articleIds = ['instruction','programs','ssd','monitor','windows11','virus','gaming','build','slow-after-update','disk-cleanup','win10-slow'];
     let count = 0;
     articleIds.forEach(id => {
       const key = 'edited_' + id;
