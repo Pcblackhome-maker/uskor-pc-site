@@ -8,6 +8,7 @@
     { href: "/article/programs.html", icon: "⚡", label: "Программы" },
     { href: "/article/ssd.html", icon: "💾", label: "SSD" },
     { href: "/article/monitor.html", icon: "🖥️", label: "Монитор" },
+    { href: "/article/win10-slow.html", icon: "🐢", label: "Тормозит ноутбук" }
     { href: "/article/windows11.html", icon: "🪟", label: "Windows 11" },
     { href: "/article/virus.html", icon: "🛡️", label: "Вирусы" },
     { href: "/article/gaming.html", icon: "🎮", label: "Игры" },
