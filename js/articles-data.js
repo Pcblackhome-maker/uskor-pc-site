@@ -1,11 +1,12 @@
 // Централизованные данные для блока "Похожие статьи"
 const relatedArticles = {
-  instruction: ['programs', 'ssd', 'virus', 'gaming', 'disk-cleanup'],
+  instruction: ['programs', 'ssd', 'virus', 'gaming', 'disk-cleanup', 'win10-slow'],
   programs: ['instruction', 'ssd', 'virus'],
-  ssd: ['instruction', 'programs', 'gaming', 'disk-cleanup'],
+  ssd: ['instruction', 'programs', 'gaming', 'disk-cleanup', 'win10-slow'],
   monitor: ['gaming', 'build', 'windows11'],
+  'win10-slow': ['instruction', 'ssd', 'virus'],
   windows11: ['instruction', 'gaming', 'virus', 'disk-cleanup'],
-  virus: ['programs', 'instruction', 'windows11'],
+  virus: ['programs', 'instruction', 'windows11', 'win10-slow'],
   gaming: ['monitor', 'ssd', 'windows11'],
   build: ['programs', 'ssd', 'monitor'],
   'slow-after-update': ['instruction', 'ssd', 'virus'],
@@ -17,6 +18,7 @@ const allArticleData = {
   programs: { title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для апгрейда", url: "/article/programs.html" },
   ssd: { title: "Как выбрать SSD", desc: "Простой гайд по выбору диска, чтобы ноутбук заработал быстрее", url: "/article/ssd.html" },
   monitor: { title: "Как выбрать монитор", desc: "На что обратить внимание при покупке экрана для игр и работы", url: "/article/monitor.html" },
+  'win10-slow': { title: "Почему тормозит ноутбук", desc: "7 главных причин и решений для Windows 10", url: "/article/win10-slow.html" }
   windows11: { title: "Секреты Windows 11", desc: "Скрытые настройки, которые сделают систему быстрее и удобнее", url: "/article/windows11.html" },
   virus: { title: "Чистка от вирусов", desc: "Как удалить вредоносное ПО и вернуть производительность", url: "/article/virus.html" },
   gaming: { title: "Максимальный FPS", desc: "Настройки видеокарты, драйверов и охлаждения для плавной игры", url: "/article/gaming.html" },
