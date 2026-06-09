@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Диагностика ПК — узнай, что тормозит твой компьютер | Ускорь ПК</title>
+  <meta name="description" content="Пройди быстрый тест и получи персональную подборку статей и товаров для ускорения твоего компьютера.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
+    <nav id="site-nav"></nav>
+  </header>
+
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">🔍 Диагностика ПК</span>
+      <meta itemprop="position" content="2">
+    </span>
+  </div>
+
+  <div class="landing">
+    <div class="content-box" style="display:block;">
+      <h2>🔍 Диагностика ПК</h2>
+      <p style="margin-bottom:25px; color:#555;">Ответьте на несколько вопросов, и мы подберём персональные рекомендации по ускорению вашего компьютера.</p>
+
+      <!-- Сам тест -->
+      <div class="diagnostic-widget" id="diagnosticWidget">
+        <div class="progress-bar">
+          <div class="progress-fill" id="diagProgress"></div>
+        </div>
+        <div id="diagQuestion"></div>
+        <div id="diagAnswers" class="diag-answers"></div>
+        <div class="diag-controls">
+          <button id="diagPrev" class="stepper-btn" disabled>← Назад</button>
+          <button id="diagNext" class="stepper-btn primary">Далее →</button>
+        </div>
+      </div>
+
+      <!-- Результаты (скрыты изначально) -->
+      <div id="diagResults" style="display:none;">
+        <h3>🔧 Ваши рекомендации</h3>
+        <div id="diagArticles" class="product-grid"></div>
+        <h3 style="margin-top:30px;">🛒 Рекомендованные товары</h3>
+        <div id="diagProducts" class="product-grid"></div>
+        <button onclick="location.reload()" class="btn-tilda" style="margin-top:20px;">🔄 Пройти тест заново</button>
+      </div>
+    </div>
+
+    <div class="site-footer">
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/articles-data.js"></script>
+  <script>
+    // Вопросы теста
+    const questions = [
+      {
+        question: "Что больше всего беспокоит?",
+        answers: [
+          { text: "Компьютер медленно загружается", symptom: "slow_boot" },
+          { text: "Тормозит в играх", symptom: "gaming_lag" },
+          { text: "Сильно греется и шумит", symptom: "overheat" },
+          { text: "Всплывает реклама или странные окна", symptom: "virus" }
+        ]
+      },
+      {
+        question: "Как давно вы чистили систему от мусора?",
+        answers: [
+          { text: "Никогда или очень давно", symptom: "dirty" },
+          { text: "Недавно, но это не помогло", symptom: "other" }
+        ]
+      },
+      {
+        question: "У вас установлен SSD или обычный жёсткий диск (HDD)?",
+        answers: [
+          { text: "SSD", symptom: "has_ssd" },
+          { text: "HDD", symptom: "no_ssd" }
+        ]
+      }
+    ];
+
+    let currentDiagStep = 0;
+    const symptoms = [];
+    const diagQuestion = document.getElementById('diagQuestion');
+    const diagAnswers = document.getElementById('diagAnswers');
+    const diagProgress = document.getElementById('diagProgress');
+    const diagPrev = document.getElementById('diagPrev');
+    const diagNext = document.getElementById('diagNext');
+    const diagnosticWidget = document.getElementById('diagnosticWidget');
+    const diagResults = document.getElementById('diagResults');
+
+    function renderQuestion() {
+      const q = questions[currentDiagStep];
+      diagQuestion.innerHTML = `<h4>${q.question}</h4>`;
+      diagAnswers.innerHTML = q.answers.map((a, i) => `
+        <button class="diag-answer-btn" data-index="${i}">${a.text}</button>
+      `).join('');
+
+      // Обработчики ответов
+      document.querySelectorAll('.diag-answer-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.diag-answer-btn').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+          diagNext.disabled = false;
+        });
+      });
+
+      // Прогресс
+      diagProgress.style.width = ((currentDiagStep) / questions.length) * 100 + '%';
+      diagPrev.disabled = currentDiagStep === 0;
+    }
+
+    // Логика подбора рекомендаций
+    function generateResults() {
+      // Упрощённая логика: собираем уникальные симптомы
+      const uniqueSymptoms = [...new Set(symptoms)];
+
+      // Подбор статей
+      const articleMap = {
+        'slow_boot': ['instruction', 'disk-cleanup', 'win10-slow'],
+        'gaming_lag': ['gaming'],
+        'overheat': ['gaming'],
+        'virus': ['virus'],
+        'dirty': ['disk-cleanup', 'instruction'],
+        'no_ssd': ['ssd']
+      };
+
+      let recommendedArticles = [];
+      uniqueSymptoms.forEach(s => {
+        if (articleMap[s]) recommendedArticles.push(...articleMap[s]);
+      });
+      recommendedArticles = [...new Set(recommendedArticles)]; // убираем дубли
+
+      // Подбор товаров
+      const productMap = {
+        'no_ssd': { name: "SSD-накопитель на 240 ГБ", desc: "Самый мощный апгрейд для ноутбука.", price: "от 1 500 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", icon: "💾", store: "AliExpress" },
+        'virus': { name: "Kaspersky Antivirus", desc: "Защита без замедления системы.", price: "30 дней бесплатно", link: "https://dhwnh.com/g/f6b07970c655e5527e74e5a65aad3a/?erid=5jtCeReLm1S3Xx3LfA8QF84", icon: "🛡️", store: "Kaspersky" },
+        'overheat': { name: "Охлаждающая подставка", desc: "Снижает температуру ноутбука.", price: "от 800 ₽", link: "https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J", icon: "❄️", store: "Joom" }
+      };
+
+      let recommendedProducts = [];
+      uniqueSymptoms.forEach(s => {
+        if (productMap[s]) recommendedProducts.push(productMap[s]);
+      });
+
+      // Если ничего не подобрали, даём базовые рекомендации
+      if (recommendedArticles.length === 0) recommendedArticles = ['instruction', 'programs'];
+      if (recommendedProducts.length === 0) recommendedProducts.push(
+        { name: "CCleaner Professional", desc: "Глубокая очистка системы.", price: "Бесплатный пробный период", link: "https://www.ccleaner.com/ru-ru/ccleaner/download", icon: "🧹", store: "CCleaner" }
+      );
+
+      // Рендер результатов
+      const articleData = (typeof allArticleData !== 'undefined') ? allArticleData : {};
+      document.getElementById('diagArticles').innerHTML = recommendedArticles.map(id => {
+        const a = articleData[id] || { title: id, desc: '', url: `/article/${id}.html`, icon: '📄' };
+        return `
+          <div class="product-card">
+            <div class="product-icon">${a.icon || '📄'}</div>
+            <h4>${a.title}</h4>
+            <p>${a.desc || ''}</p>
+            <a href="${a.url}" class="btn-tilda">Читать</a>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('diagProducts').innerHTML = recommendedProducts.map(p => `
+        <div class="product-card">
+          <div class="product-icon">${p.icon}</div>
+          <h4>${p.name}</h4>
+          <p>${p.desc}</p>
+          <div class="product-price">${p.price}</div>
+          <a href="${p.link}" class="btn-tilda affiliate-link" target="_blank">Купить на ${p.store}</a>
+        </div>
+      `).join('');
+
+      // Отслеживание кликов
+      document.querySelectorAll('.affiliate-link').forEach(link => {
+        link.addEventListener('click', function() {
+          if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
+        });
+      });
+    }
+
+    diagNext.addEventListener('click', () => {
+      const selected = document.querySelector('.diag-answer-btn.selected');
+      if (!selected) return;
+
+      const answerIndex = parseInt(selected.dataset.index);
+      symptoms.push(questions[currentDiagStep].answers[answerIndex].symptom);
+
+      if (currentDiagStep < questions.length - 1) {
+        currentDiagStep++;
+        diagNext.disabled = true;
+        renderQuestion();
+      } else {
+        // Показываем результаты
+        diagnosticWidget.style.display = 'none';
+        diagResults.style.display = 'block';
+        generateResults();
+      }
+    });
+
+    diagPrev.addEventListener('click', () => {
+      if (currentDiagStep > 0) {
+        symptoms.pop();
+        currentDiagStep--;
+        diagNext.disabled = false;
+        renderQuestion();
+      }
+    });
+
+    // Запуск
+    renderQuestion();
+  </script>
+
+  <!-- Стили для теста -->
+  <style>
+    .diag-answers { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .diag-answer-btn {
+      padding: 12px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+      text-align: left;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .diag-answer-btn:hover { border-color: #ff6b35; background: #fff5f0; }
+    .diag-answer-btn.selected { border-color: #ff6b35; background: #ff6b35; color: white; }
+    body.dark .diag-answer-btn { background: #2a2a4a; border-color: #555; color: #ddd; }
+    body.dark .diag-answer-btn:hover { border-color: #ff9f6e; background: #3d2a2a; }
+    body.dark .diag-answer-btn.selected { background: #ff9f6e; color: #1a1d2e; border-color: #ff9f6e; }
+    .diag-controls { display: flex; gap: 10px; margin-top: 20px; }
+  </style>
+</body>
+</html>
