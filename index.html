@@ -226,6 +226,28 @@ renderCategories();
         if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
       });
     });
+    // Популярные товары (первые 4 из каталога)
+const popularItems = [
+  { name: "SSD-накопитель на 240 ГБ", desc: "Самый мощный апгрейд для ноутбука.", price: "от 1 500 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", icon: "💾", store: "AliExpress" },
+  { name: "Kaspersky Antivirus", desc: "Защита без замедления системы.", price: "30 дней бесплатно", link: "https://dhwnh.com/g/f6b07970c655e5527e74e5a65aad3a/?erid=5jtCeReLm1S3Xx3LfA8QF84", icon: "🛡️", store: "Kaspersky" },
+  { name: "Игровые ключи GGSel", desc: "Игры и бусты по выгодным ценам.", price: "от 100 ₽", link: "https://xnmik.com/g/ngv70om7ow55e5527e74768e16fdce/?erid=2bL9aMPo2e49hMef4phyrMWkN2", icon: "🎁", store: "GGSel" },
+  { name: "Охлаждающая подставка", desc: "Снижает температуру ноутбука.", price: "от 800 ₽", link: "https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J", icon: "❄️", store: "Joom" }
+];
+
+function renderPopular() {
+  const grid = document.getElementById('popularGrid');
+  if (!grid) return;
+  grid.innerHTML = popularItems.map(item => `
+    <div class="product-card">
+      <div class="product-icon">${item.icon}</div>
+      <h4>${item.name}</h4>
+      <p>${item.desc}</p>
+      <div class="product-price">${item.price}</div>
+      <a href="${item.link}" class="btn-tilda affiliate-link" target="_blank">Купить на ${item.store}</a>
+    </div>
+  `).join('');
+}
+renderPopular();
   </script>
 </body>
 </html>
