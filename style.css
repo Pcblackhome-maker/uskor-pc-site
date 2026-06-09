@@ -707,3 +707,31 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   .scroll-top-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 20px; }
   .product-grid { grid-template-columns: 1fr; }
 }
+/* Стилизованный логотип */
+.site-header .logo {
+  position: relative;
+  background: linear-gradient(135deg, #ff6b35, #ff7e5f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+.site-header .logo::before {
+  content: '🚀';
+  -webkit-text-fill-color: initial;
+  background: none;
+  font-size: 28px;
+  margin-right: 6px;
+  display: inline-block;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+body.dark .site-header .logo {
+  background: linear-gradient(135deg, #ff9f6e, #ffb08c);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
