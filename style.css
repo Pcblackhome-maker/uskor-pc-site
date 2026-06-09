@@ -696,6 +696,46 @@ body.dark .catalog-card:hover {
   padding: 14px 0;
   font-size: 16px;
 }
+/* Блок категорий */
+.categories-section {
+  margin: 40px 0 20px;
+}
+.categories-section h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+body.dark .categories-section h3 { color: #f0f0f0; }
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+.category-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.category-card:hover {
+  border-color: #ff6b35;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255,107,53,0.15);
+}
+body.dark .category-card { background: #232640; color: #d0d0d0; }
+body.dark .category-card:hover { border-color: #ff9f6e; box-shadow: 0 10px 25px rgba(255,159,110,0.25); }
+.category-card .cat-icon { font-size: 36px; margin-bottom: 10px; }
+.category-card h4 { font-size: 16px; margin-bottom: 5px; color: #1a1a1a; }
+body.dark .category-card h4 { color: #f0f0f0; }
+.category-card p { font-size: 13px; color: #666; }
+body.dark .category-card p { color: #aaa; }
+.category-card.active { border-color: #ff6b35; background: #fff5f0; }
+body.dark .category-card.active { border-color: #ff9f6e; background: #3d2a2a; }
 
 /* =========================================
    МОБИЛЬНАЯ АДАПТАЦИЯ (горизонтальный скролл меню)
