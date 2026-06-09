@@ -1,4 +1,4 @@
-// Централизованные данные для блока "Похожие статьи" и категорий
+// Централизованные данные для категорий и блока "Похожие статьи"
 const articleCategories = {
   'system': { title: '⚡ Ускорение системы', desc: 'Чистка, оптимизация, обновления', articles: ['instruction', 'disk-cleanup', 'slow-after-update', 'win10-slow', 'windows11'] },
   'hardware': { title: '💻 Железо и апгрейд', desc: 'SSD, мониторы, сборка ПК', articles: ['ssd', 'monitor', 'build'] },
