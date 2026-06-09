@@ -25,11 +25,6 @@
   <header class="site-header">
     <a href="/" class="logo">🚀 Ускорь ПК</a>
     <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
-    <button class="burger-btn" id="burgerBtn" onclick="toggleMenu()">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
     <!-- Централизованная навигация -->
     <nav id="site-nav"></nav>
   </header>
@@ -75,12 +70,12 @@
       </div>
     </div>
 
-    <!-- Карточки статей (добавлена disk-cleanup, без ошибок) -->
+    <!-- Карточки статей -->
     <div class="articles-preview" id="articlesPreview"></div>
 
     <div class="affiliate-banner">
-  <a target="_blank" rel="nofollow" href="https://xnmik.com/g/oljrvlrrh055e5527e74768e16fdce/?i=4&erid=2bL9aMPo2e49hMef4rqUSTYKg3"><img width="728" height="90" border="0" src="https://aflink.ru/b/oljrvlrrh055e5527e74768e16fdce/" alt="GGSel.Net [CPS] RU"/></a>
-</div>
+      <a target="_blank" rel="nofollow" href="https://rzekl.com/g/wnclfjadg155e5527e7416525dc3e8/?i=4&subid=alik"><img width="728" height="90" border="0" src="https://ad.admitad.com/b/wnclfjadg155e5527e7416525dc3e8/" alt="AliExpress WW"/></a>
+    </div>
 
     <!-- Форма обратной связи с исправленными label и autocomplete -->
     <div class="contact-form" id="contact-form">
@@ -124,11 +119,11 @@
   </div>
 
   <!-- Подключение скриптов -->
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
+  <script src="/js/navigation.js"></script>
   <script src="/js/articles-data.js"></script>
-<script src="/js/common.js"></script>
-<script src="/js/search.js"></script>
-<script src="/js/admin-panel.js"></script>
-<script src="/js/navigation.js"></script>
 
   <script>
     // Плавный скролл к карточкам
@@ -137,19 +132,19 @@
       document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Карточки статей (исправленный массив)
+    // Карточки статей (все 12 статей, запятые расставлены верно)
     const articles = [
       { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
       { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
       { id: "ssd", icon: "💾", title: "Как выбрать SSD", desc: "Какой диск купить, чтобы ноутбук летал: типы, объёмы, бренды." },
       { id: "monitor", icon: "🖥️", title: "Как выбрать монитор", desc: "Герцы, разрешение, матрицы – выбор для игр и работы." },
-      { id: "win10-slow", icon: "🐢", title: "Тормозит ноутбук", desc: "7 причин медленной работы и пошаговые решения." }
       { id: "windows11", icon: "🪟", title: "Секреты Windows 11", desc: "Визуальные эффекты, автозагрузка, схема питания." },
       { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
       { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
       { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." },
       { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." },
-      { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." }
+      { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." },
+      { id: "win10-slow", icon: "🐢", title: "Тормозит ноутбук", desc: "7 причин медленной работы и пошаговые решения." }
     ];
     document.getElementById('articlesPreview').innerHTML = articles.map(a => `
       <a href="/article/${a.id}.html" class="preview-card">
@@ -187,31 +182,19 @@
       updateStepper(savedProgress);
     }
 
-    // Виджет закладок (использует данные из articles-data.js)
-function renderBookmarks() {
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-  const widget = document.getElementById('bookmarksWidget');
-  const list = document.getElementById('bookmarksList');
-  if (!widget || !list) return;
-
-  if (bookmarks.length === 0) {
-    widget.style.display = 'none';
-    return;
-  }
-  widget.style.display = 'block';
-  list.innerHTML = bookmarks.map(b => {
-    const data = (typeof allArticleData !== 'undefined' && allArticleData[b.id]) 
-      ? allArticleData[b.id] 
-      : { title: b.title || b.id, icon: '📄' };
-    return `<li class="bookmark-item">
-      <a href="/article/${b.id}.html">
-        <span class="bm-icon">${data.icon || '📄'}</span>
-        <span>${data.title}</span>
-      </a>
-    </li>`;
-  }).join('');
-}
-renderBookmarks();
+    // Виджет закладок
+    function renderBookmarks() {
+      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+      const widget = document.getElementById('bookmarksWidget');
+      const list = document.getElementById('bookmarksList');
+      if (bookmarks.length === 0) {
+        widget.style.display = 'none';
+      } else {
+        widget.style.display = 'block';
+        list.innerHTML = bookmarks.map(b => `<li><a href="/article/${b.id}.html">${b.title}</a></li>`).join('');
+      }
+    }
+    renderBookmarks();
 
     // Отслеживание партнёрских кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
