@@ -47,7 +47,18 @@ function renderRelatedArticles() {
     `;
   }).join('');
 
-  const list = document.getElementById('quickTipsList');
+  // Находим или создаём контейнер для списка
+  let list = document.getElementById('quickTipsList');
+  if (!list) {
+    // Если списка нет, создаём его внутри .quick-tips
+    const tipsBlock = document.querySelector('.quick-tips');
+    if (tipsBlock) {
+      list = document.createElement('ul');
+      list.id = 'quickTipsList';
+      tipsBlock.appendChild(list);
+    }
+  }
+
   if (list && html) {
     list.innerHTML = html;
   } else if (list) {
