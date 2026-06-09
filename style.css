@@ -1,6 +1,6 @@
 /* =========================================
    ПОЛНЫЙ CSS ДЛЯ uskor-pc.ru
-   (анимированный фон, стеклянные карточки, меню со скроллом, аккордеоны, баннеры)
+   (анимированный фон, стеклянные карточки, анимации, шрифты, тени)
    ========================================= */
 
 /* ---------- ГЛОБАЛЬНЫЕ СТИЛИ ---------- */
@@ -76,9 +76,9 @@ body.dark .site-header nav a.active { background: #ff9f6e; color: #1a1d2e; }
 /* ---------- ГЛАВНАЯ И ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
 .landing { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
 
-/* Hero с анимацией */
+/* Hero с анимацией появления и непрерывным переливанием */
 .hero {
-  text-align: center; padding: 50px 20px 40px;
+  text-align: center; padding: 60px 20px 50px;
   background: linear-gradient(135deg, #ff7e5f, #ff6b35, #ff7e5f);
   background-size: 200% 200%;
   border-radius: 24px; color: white; margin-bottom: 40px;
@@ -93,7 +93,7 @@ body.dark .site-header nav a.active { background: #ff9f6e; color: #1a1d2e; }
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
-.hero h1 { font-size: 38px; font-weight: 700; margin-bottom: 15px; cursor: default; }
+.hero h1 { font-size: 38px; font-weight: 700; margin-bottom: 15px; cursor: default; letter-spacing: -0.5px; }
 .hero p { font-size: 18px; opacity: 0.95; max-width: 550px; margin: 0 auto 30px; line-height: 1.5; }
 
 /* Пульсирующая кнопка */
@@ -142,13 +142,13 @@ body.dark .guide-btn { background: #2a2a4a; color: #ff9f6e; border-color: #ff9f6
 
 /* ---------- КОНТЕНТ-БЛОКИ ---------- */
 .content-box {
-  background: white; border-radius: 24px; padding: 35px 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06); margin-top: 30px;
+  background: white; border-radius: 24px; padding: 40px 35px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08); margin-top: 30px;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.content-box:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-body.dark .content-box { background: #232640; color: #d0d0d0; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-body.dark .content-box:hover { box-shadow: 0 15px 35px rgba(255,159,110,0.15); }
+.content-box:hover { transform: translateY(-3px); box-shadow: 0 20px 45px rgba(0,0,0,0.12); }
+body.dark .content-box { background: #232640; color: #d0d0d0; box-shadow: 0 15px 35px rgba(0,0,0,0.25); }
+body.dark .content-box:hover { box-shadow: 0 20px 45px rgba(255,159,110,0.2); }
 .content-box h2 { font-size: 28px; font-weight: 700; margin-bottom: 35px; color: #1a1a1a; }
 body.dark .content-box h2 { color: #f0f0f0; }
 
@@ -172,7 +172,7 @@ body.dark .accordion-item:hover { box-shadow: 0 4px 12px rgba(255,159,110,0.15);
 .accordion-header::after {
   content: ''; display: inline-block; width: 10px; height: 10px;
   border-right: 2px solid #ff6b35; border-bottom: 2px solid #ff6b35;
-  transform: rotate(45deg); transition: transform 0.3s ease;
+  transform: rotate(45deg); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   margin-left: auto; flex-shrink: 0;
 }
 .accordion-header.active { background: #fff5f0; color: #e55a2b; }
@@ -526,11 +526,11 @@ body.dark .breadcrumbs { color: #aaa; }
 body.dark .breadcrumbs a { color: #ff9f6e; }
 body.dark .breadcrumbs span { color: #ddd; }
 
-/* ---------- GLASS-КАРТОЧКИ НА ГЛАВНОЙ (ВСЕГДА ВИДИМЫ) ---------- */
+/* ---------- GLASS-КАРТОЧКИ НА ГЛАВНОЙ (ВСЕГДА ВИДИМЫ, С ПАРЯЩИМИ ИКОНКАМИ) ---------- */
 .articles-preview {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 25px;
   margin: 40px 0;
 }
 .preview-card {
@@ -539,7 +539,7 @@ body.dark .breadcrumbs span { color: #ddd; }
   -webkit-backdrop-filter: blur(14px);
   border-radius: 20px;
   padding: 25px 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s, background 0.3s;
   text-decoration: none;
   color: #2c3e50;
@@ -552,22 +552,26 @@ body.dark .breadcrumbs span { color: #ddd; }
 }
 .preview-card:hover {
   background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 40px rgba(255,107,53,0.25);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(255,107,53,0.25);
   border-color: #ff6b35;
 }
 body.dark .preview-card {
   background: rgba(35, 38, 64, 0.8);
   border-color: rgba(255,255,255,0.15);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 body.dark .preview-card:hover {
   background: rgba(35, 38, 64, 0.95);
-  box-shadow: 0 25px 40px rgba(255,159,110,0.3);
+  box-shadow: 0 25px 50px rgba(255,159,110,0.3);
   border-color: #ff9f6e;
 }
-.preview-card .icon { font-size: 34px; margin-bottom: 12px; transition: transform 0.3s ease; }
-.preview-card:hover .icon { transform: scale(1.15) rotate(-5deg); }
+.preview-card .icon { font-size: 34px; margin-bottom: 12px; transition: transform 0.3s ease; animation: floatIcon 3s ease-in-out infinite; }
+.preview-card:hover .icon { animation: none; transform: scale(1.15) rotate(-5deg); }
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
 .preview-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1a1a1a; }
 body.dark .preview-card h3 { color: #f0f0f0; }
 .preview-card p { font-size: 14px; color: #555; line-height: 1.5; flex: 1; }
@@ -585,7 +589,7 @@ body.dark .checklist-widget { background: #232640; }
 .quick-tips { background: #fff5f0; border-radius: 12px; padding: 15px 20px; margin-bottom: 25px; font-size: 14px; }
 body.dark .quick-tips { background: #2a2a4a; }
 
-/* ---------- КАРТОЧКИ ТОВАРОВ ---------- */
+/* ---------- КАРТОЧКИ ТОВАРОВ (С АНИМАЦИЕЙ ИКОНОК) ---------- */
 .product-section { margin: 40px 0; }
 .product-section h3 { font-size: 24px; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ff6b35; display: flex; align-items: center; gap: 8px; }
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
@@ -596,7 +600,21 @@ body.dark .quick-tips { background: #2a2a4a; }
   border: 2px solid transparent; position: relative; overflow: hidden;
 }
 .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 30px rgba(255,107,53,0.15); border-color: #ff6b35; }
-.product-card .product-icon { font-size: 42px; margin-bottom: 15px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: #fff5f0; border-radius: 16px; }
+.product-card .product-icon {
+  font-size: 42px; margin-bottom: 15px; width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff5f0; border-radius: 16px;
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+.product-card:hover .product-icon {
+  transform: scale(1.1) rotate(-5deg);
+  background: #ff6b35;
+  color: white;
+}
+body.dark .product-card:hover .product-icon {
+  background: #ff9f6e;
+  color: #1a1d2e;
+}
 .product-card h4 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
 .product-card p { font-size: 14px; color: #555; line-height: 1.6; flex: 1; margin-bottom: 15px; }
 .product-price { font-weight: 800; color: #ff6b35; margin-bottom: 15px; font-size: 20px; background: #fff5f0; padding: 6px 14px; border-radius: 20px; }
@@ -654,24 +672,4 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   .contact-form { padding: 25px 18px; }
   .scroll-top-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 20px; }
   .product-grid { grid-template-columns: 1fr; }
-}
-/* Больше воздуха и глубины */
-.content-box {
-  padding: 40px 35px;
-}
-.articles-preview {
-  gap: 25px;
-}
-.preview-card {
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-}
-.preview-card:hover {
-  box-shadow: 0 25px 50px rgba(255,107,53,0.25);
-  transform: translateY(-10px);
-}
-.hero {
-  padding: 60px 20px 50px;
-}
-.hero h1 {
-  letter-spacing: -0.5px;
 }
