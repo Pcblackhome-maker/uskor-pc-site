@@ -18,9 +18,6 @@
     ym(109547393, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="reading-progress" id="readingProgress"></div>
@@ -36,7 +33,7 @@
     <div class="hero">
       <h1>🚀 Ускорь свой ПК без мастера</h1>
       <p>Выбери, что нужно именно сейчас. Все инструкции проверены на сотнях компьютеров.</p>
-      <a href="#articlesPreview" class="nav-btn" style="display:inline-flex; margin-top:15px;"><span>👇</span> Смотреть все инструкции</a>
+      <a href="#categoriesSection" class="nav-btn" style="display:inline-flex; margin-top:15px;"><span>👇</span> Смотреть все инструкции</a>
     </div>
 
     <div class="bookmarks-widget" id="bookmarksWidget" style="display:none;">
@@ -73,24 +70,34 @@
       </div>
     </div>
 
+    <!-- Категории -->
+    <div class="categories-section" id="categoriesSection">
+      <h3>📂 Категории</h3>
+      <div class="categories-grid" id="categoriesGrid">
+        <!-- Заполняется JS -->
+      </div>
+    </div>
+
     <!-- Карточки статей -->
     <div class="articles-preview" id="articlesPreview"></div>
-    <!-- Блок категорий -->
-<div class="categories-section" id="categoriesSection">
-  <h3>📂 Категории</h3>
-  <div class="categories-grid" id="categoriesGrid">
-    <!-- Заполняется JS -->
-  </div>
-</div>
 
-<!-- Кнопка "Показать все статьи" -->
-<button id="showAllArticles" class="btn-tilda" style="display:none; margin-top:20px; width:100%;">👁 Показать все статьи</button>
+    <!-- Кнопка "Показать все статьи" -->
+    <button id="showAllArticles" class="btn-tilda" style="display:none; margin-top:20px; width:100%;">👁 Показать все статьи</button>
+
+    <!-- Популярные товары -->
+    <div class="popular-products" id="popularProducts">
+      <h3>🛒 Популярные товары</h3>
+      <div class="product-grid" id="popularGrid">
+        <!-- Заполняется JS -->
+      </div>
+      <a href="/catalog.html" class="btn-tilda" style="display:inline-block; margin-top:15px;">🛍 Смотреть все товары</a>
+    </div>
 
     <div class="affiliate-banner">
-  <a target="_blank" rel="nofollow" href="https://xnmik.com/g/oljrvlrrh055e5527e74768e16fdce/?i=4&erid=2bL9aMPo2e49hMef4rqUSTYKg3"><img width="728" height="90" border="0" src="https://aflink.ru/b/oljrvlrrh055e5527e74768e16fdce/" alt="GGSel.Net [CPS] RU"/></a>
-</div>
+      <a target="_blank" rel="nofollow" href="https://rzekl.com/g/wnclfjadg155e5527e7416525dc3e8/?i=4&subid=alik"><img width="728" height="90" border="0" src="https://ad.admitad.com/b/wnclfjadg155e5527e7416525dc3e8/" alt="AliExpress WW"/></a>
+    </div>
 
-    <!-- Форма обратной связи с исправленными label и autocomplete -->
+    <!-- Форма обратной связи -->
     <div class="contact-form" id="contact-form">
       <h2>📩 Не нашли ответа?</h2>
       <p>Опишите проблему – я отвечу лично в течение дня.</p>
@@ -139,78 +146,143 @@
   <script src="/js/articles-data.js"></script>
 
   <script>
-    // Плавный скролл к карточкам
-    document.querySelector('a[href="#articlesPreview"]')?.addEventListener('click', function(e) {
+    // Плавный скролл к категориям
+    document.querySelector('a[href="#categoriesSection"]')?.addEventListener('click', function(e) {
       e.preventDefault();
-      document.getElementById('articlesPreview')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('categoriesSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
- // Карточки статей (полный список)
-const allArticles = [
-  { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
-  { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
-  { id: "ssd", icon: "💾", title: "Как выбрать SSD", desc: "Какой диск купить, чтобы ноутбук летал: типы, объёмы, бренды." },
-  { id: "monitor", icon: "🖥️", title: "Как выбрать монитор", desc: "Герцы, разрешение, матрицы – выбор для игр и работы." },
-  { id: "windows11", icon: "🪟", title: "Секреты Windows 11", desc: "Визуальные эффекты, автозагрузка, схема питания." },
-  { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
-  { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
-  { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." },
-  { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." },
-  { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." },
-  { id: "win10-slow", icon: "🐢", title: "Тормозит ноутбук", desc: "7 причин медленной работы и пошаговые решения." }
-];
+    // Категории (берутся из articles-data.js, если он загружен, иначе используем локальную заглушку)
+    const articleCategories = (typeof articleCategories !== 'undefined') ? articleCategories : {
+      'system': { title: '⚡ Ускорение системы', desc: 'Чистка, оптимизация, обновления', articles: ['instruction', 'disk-cleanup', 'slow-after-update', 'win10-slow', 'windows11'] },
+      'hardware': { title: '💻 Железо и апгрейд', desc: 'SSD, мониторы, сборка ПК', articles: ['ssd', 'monitor', 'build'] },
+      'security': { title: '🛡️ Безопасность и чистка', desc: 'Вирусы, антивирусы, конфиденциальность', articles: ['virus', 'programs'] },
+      'gaming': { title: '🎮 Игры', desc: 'FPS, игровые товары, ключи', articles: ['gaming'] }
+    };
 
-// Рендер карточек статей
-function renderArticles(articleIds = null) {
-  const articles = articleIds
-    ? allArticles.filter(a => articleIds.includes(a.id))
-    : allArticles;
-  document.getElementById('articlesPreview').innerHTML = articles.map(a => `
-    <a href="/article/${a.id}.html" class="preview-card">
-      <span class="icon">${a.icon}</span>
-      <h3>${a.title}</h3>
-      <p>${a.desc}</p>
-      <span class="read-link">Читать →</span>
-    </a>
-  `).join('');
+    // Карточки статей (полный список)
+    const allArticles = [
+      { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
+      { id: "programs", icon: "⚡", title: "Программы и железо", desc: "Проверенные утилиты и недорогие аксессуары для ускорения." },
+      { id: "ssd", icon: "💾", title: "Как выбрать SSD", desc: "Какой диск купить, чтобы ноутбук летал: типы, объёмы, бренды." },
+      { id: "monitor", icon: "🖥️", title: "Как выбрать монитор", desc: "Герцы, разрешение, матрицы – выбор для игр и работы." },
+      { id: "windows11", icon: "🪟", title: "Секреты Windows 11", desc: "Визуальные эффекты, автозагрузка, схема питания." },
+      { id: "virus", icon: "🛡️", title: "Чистка от вирусов", desc: "Встроенные средства, безопасный режим, Kaspersky." },
+      { id: "gaming", icon: "🎮", title: "Ускорение для игр", desc: "Настройки Windows, видеокарты, охлаждение, драйверы." },
+      { id: "build", icon: "🔧", title: "Сборка ПК", desc: "Выбор деталей, установка процессора, первый запуск." },
+      { id: "slow-after-update", icon: "🐌", title: "После обновления", desc: "Тормозит после обновления Windows? Пошаговая инструкция." },
+      { id: "disk-cleanup", icon: "🧹", title: "Очистка диска C", desc: "Куда пропадают гигабайты и как освободить место на системном диске." },
+      { id: "win10-slow", icon: "🐢", title: "Тормозит ноутбук", desc: "7 причин медленной работы и пошаговые решения." }
+    ];
 
-  // Показываем/скрываем кнопку "Все статьи"
-  document.getElementById('showAllArticles').style.display = articleIds ? 'block' : 'none';
-}
+    // Рендер карточек статей
+    function renderArticles(articleIds = null) {
+      const articles = articleIds
+        ? allArticles.filter(a => articleIds.includes(a.id))
+        : allArticles;
+      document.getElementById('articlesPreview').innerHTML = articles.map(a => `
+        <a href="/article/${a.id}.html" class="preview-card">
+          <span class="icon">${a.icon}</span>
+          <h3>${a.title}</h3>
+          <p>${a.desc}</p>
+          <span class="read-link">Читать →</span>
+        </a>
+      `).join('');
 
-// Рендер категорий
-function renderCategories() {
-  const grid = document.getElementById('categoriesGrid');
-  grid.innerHTML = Object.entries(articleCategories).map(([key, cat]) => `
-    <div class="category-card" data-category="${key}">
-      <div class="cat-icon">${cat.title.split(' ')[0]}</div>
-      <h4>${cat.title}</h4>
-      <p>${cat.desc} (${cat.articles.length})</p>
-    </div>
-  `).join('');
+      document.getElementById('showAllArticles').style.display = articleIds ? 'block' : 'none';
+    }
 
-  // Обработчики кликов
-  document.querySelectorAll('.category-card').forEach(card => {
-    card.addEventListener('click', function() {
-      const category = this.dataset.category;
-      // Подсвечиваем активную
+    // Рендер категорий
+    function renderCategories() {
+      const grid = document.getElementById('categoriesGrid');
+      if (!grid) return;
+      grid.innerHTML = Object.entries(articleCategories).map(([key, cat]) => `
+        <div class="category-card" data-category="${key}">
+          <div class="cat-icon">${cat.title.split(' ')[0]}</div>
+          <h4>${cat.title}</h4>
+          <p>${cat.desc} (${cat.articles.length})</p>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+          const category = this.dataset.category;
+          document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          renderArticles(articleCategories[category].articles);
+        });
+      });
+    }
+
+    // Кнопка "Показать все"
+    document.getElementById('showAllArticles').addEventListener('click', function(e) {
+      e.preventDefault();
       document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
-      this.classList.add('active');
-      // Фильтруем статьи
-      renderArticles(articleCategories[category].articles);
+      renderArticles();
     });
-  });
-}
 
-// Кнопка "Показать все"
-document.getElementById('showAllArticles').addEventListener('click', function() {
-  document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
-  renderArticles();
-});
+    // Популярные товары
+    const popularItems = [
+      { name: "SSD-накопитель на 240 ГБ", desc: "Самый мощный апгрейд для ноутбука.", price: "от 1 500 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", icon: "💾", store: "AliExpress" },
+      { name: "Kaspersky Antivirus", desc: "Защита без замедления системы.", price: "30 дней бесплатно", link: "https://dhwnh.com/g/f6b07970c655e5527e74e5a65aad3a/?erid=5jtCeReLm1S3Xx3LfA8QF84", icon: "🛡️", store: "Kaspersky" },
+      { name: "Игровые ключи GGSel", desc: "Игры и бусты по выгодным ценам.", price: "от 100 ₽", link: "https://xnmik.com/g/ngv70om7ow55e5527e74768e16fdce/?erid=2bL9aMPo2e49hMef4phyrMWkN2", icon: "🎁", store: "GGSel" },
+      { name: "Охлаждающая подставка", desc: "Снижает температуру ноутбука.", price: "от 800 ₽", link: "https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J", icon: "❄️", store: "Joom" }
+    ];
 
-// Первичная отрисовка
-renderArticles();
-renderCategories();
+    function renderPopular() {
+      const grid = document.getElementById('popularGrid');
+      if (!grid) return;
+      grid.innerHTML = popularItems.map(item => `
+        <div class="product-card">
+          <div class="product-icon">${item.icon}</div>
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+          <div class="product-price">${item.price}</div>
+          <a href="${item.link}" class="btn-tilda affiliate-link" target="_blank">Купить на ${item.store}</a>
+        </div>
+      `).join('');
+    }
+
+    // Степпер
+    function completeStep(stepNum) {
+      let progress = parseInt(localStorage.getItem('checklistProgress') || '0');
+      if (stepNum > progress) {
+        progress = stepNum;
+        localStorage.setItem('checklistProgress', progress);
+      }
+      updateStepper(progress);
+    }
+    function updateStepper(progress) {
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById('step' + i).style.display = (i === progress + 1 && progress < 5) ? 'block' : 'none';
+      }
+      document.getElementById('progressFill').style.width = (progress / 5) * 100 + '%';
+      if (progress >= 5) {
+        document.getElementById('doneMessage').style.display = 'block';
+        for (let i = 1; i <= 5; i++) document.getElementById('step' + i).style.display = 'none';
+      }
+    }
+    const savedProgress = parseInt(localStorage.getItem('checklistProgress') || '0');
+    if (savedProgress >= 5) {
+      document.getElementById('doneMessage').style.display = 'block';
+      document.getElementById('progressFill').style.width = '100%';
+    } else {
+      updateStepper(savedProgress);
+    }
+
+    // Виджет закладок
+    function renderBookmarks() {
+      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+      const widget = document.getElementById('bookmarksWidget');
+      const list = document.getElementById('bookmarksList');
+      if (bookmarks.length === 0) {
+        widget.style.display = 'none';
+      } else {
+        widget.style.display = 'block';
+        list.innerHTML = bookmarks.map(b => `<li><a href="/article/${b.id}.html">${b.title}</a></li>`).join('');
+      }
+    }
 
     // Отслеживание партнёрских кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
@@ -218,6 +290,12 @@ renderCategories();
         if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
       });
     });
+
+    // Стартуем всё
+    renderArticles();
+    renderCategories();
+    renderPopular();
+    renderBookmarks();
   </script>
 </body>
 </html>
