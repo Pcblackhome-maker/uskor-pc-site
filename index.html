@@ -41,34 +41,27 @@
       <ul id="bookmarksList"></ul>
     </div>
 
-    <div class="checklist-widget" id="checklistWidget">
-      <h3>🚀 Ускорь ПК за 5 шагов</h3>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="step active" id="step1">
-        <p><strong>Шаг 1:</strong> Отключить лишнее в автозагрузке</p>
-        <button onclick="completeStep(1)">✅ Готово, дальше</button>
-      </div>
-      <div class="step" id="step2" style="display:none;">
-        <p><strong>Шаг 2:</strong> Очистить временные файлы</p>
-        <button onclick="completeStep(2)">✅ Сделано, далее</button>
-      </div>
-      <div class="step" id="step3" style="display:none;">
-        <p><strong>Шаг 3:</strong> Проверить диск на ошибки</p>
-        <button onclick="completeStep(3)">✅ Проверил, дальше</button>
-      </div>
-      <div class="step" id="step4" style="display:none;">
-        <p><strong>Шаг 4:</strong> Удалить вирусы и шпионское ПО</p>
-        <button onclick="completeStep(4)">✅ Очистил, далее</button>
-      </div>
-      <div class="step" id="step5" style="display:none;">
-        <p><strong>Шаг 5:</strong> Обновить драйверы и систему</p>
-        <button onclick="completeStep(5)">✅ Обновил, завершить</button>
-      </div>
-      <div class="step done-message" id="doneMessage" style="display:none;">
-        <h4>🎉 Поздравляем! Ваш ПК должен летать!</h4>
-        <p>Если стало лучше — <a href="https://boosty.to/igrip/donate" target="_blank">угостите автора кофе</a>.</p>
-      </div>
-    </div>
+    <!-- Новый степпер "Ускорь ПК за 5 шагов" -->
+<div class="stepper-widget" id="stepperWidget">
+  <div class="stepper-header">
+    <h3>🚀 Ускорь ПК за 5 шагов</h3>
+    <span class="stepper-counter" id="stepperCounter">Шаг 1 из 5</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="stepper-steps" id="stepperSteps">
+    <!-- Шаги генерируются JS -->
+  </div>
+  <div class="stepper-controls">
+    <button id="stepperPrev" class="stepper-btn" disabled>← Назад</button>
+    <button id="stepperNext" class="stepper-btn primary">Далее →</button>
+  </div>
+  <div class="stepper-done" id="stepperDone" style="display:none;">
+    <h4>🎉 Поздравляем! Ваш ПК должен летать!</h4>
+    <p>Если стало лучше — <a href="https://boosty.to/igrip/donate" target="_blank">угостите автора кофе</a>.</p>
+  </div>
+</div>
 
     <!-- Категории -->
     <div class="categories-section" id="categoriesSection">
