@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Каталог товаров для ускорения ПК | Ускорь ПК</title>
-  <meta name="description" content="Все проверенные товары для апгрейда компьютера в одном месте: SSD, мониторы, коврики, антивирусы, ключи GGSel.">
+  <title>🛒 Каталог товаров для ускорения ПК | Ускорь ПК</title>
+  <meta name="description" content="Все проверенные товары для апгрейда и ускорения компьютера: SSD, мониторы, коврики, антивирусы, ключи GGSel и другое.">
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/style.css">
   <!-- Яндекс.Метрика -->
@@ -40,12 +40,14 @@
   </div>
 
   <div class="landing">
-    <div class="content-box" style="display:block;">
-      <h2>🛒 Каталог товаров для ускорения ПК</h2>
-      <p style="margin-bottom:25px; color:#555;">Все проверенные товары из наших статей в одном месте. Используйте фильтры, чтобы быстро найти нужное.</p>
+    <div class="catalog-hero">
+      <h1>🛒 Каталог товаров для ускорения ПК</h1>
+      <p>Здесь собраны все товары из наших статей. Удобные фильтры помогут быстро найти нужное, а кнопки приведут в проверенные магазины.</p>
+    </div>
 
+    <div class="catalog-container">
       <!-- Фильтры -->
-      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:25px;">
+      <div class="catalog-filters">
         <button class="filter-btn active" data-category="all">Все</button>
         <button class="filter-btn" data-category="ssd">💾 SSD</button>
         <button class="filter-btn" data-category="monitor">🖥️ Мониторы</button>
@@ -56,7 +58,7 @@
 
       <!-- Сетка товаров -->
       <div class="product-grid" id="catalogGrid">
-        <!-- Товары будут вставлены через JS -->
+        <!-- Заполняется JS -->
       </div>
     </div>
 
@@ -83,33 +85,26 @@
   <script src="/js/search.js"></script>
   <script src="/js/admin-panel.js"></script>
   <script src="/js/navigation.js"></script>
-  <script src="/js/articles-data.js"></script>
   <script>
     // Товары из статей
     const catalogItems = [
-      // SSD
       { name: "SSD-накопитель на 240 ГБ", desc: "Замена HDD на SSD — самый мощный апгрейд.", price: "от 1 500 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", category: "ssd", icon: "💾", store: "AliExpress" },
       { name: "Игровой NVMe SSD 500 ГБ", desc: "Скорость чтения до 3500 МБ/с.", price: "от 3 000 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", category: "ssd", icon: "💾", store: "AliExpress" },
-      // Мониторы
       { name: "Игровой монитор 24\" 144 Гц", desc: "Плавный геймплей без разрывов.", price: "от 8 000 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", category: "monitor", icon: "🖥️", store: "AliExpress" },
-      // Аксессуары
       { name: "Коврик для мыши с RGB", desc: "Яркий коврик улучшает скольжение.", price: "от 400 ₽", link: "https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J", category: "accessories", icon: "🖱️", store: "Joom" },
       { name: "Охлаждающая подставка", desc: "Снижает температуру ноутбука на 10–15°C.", price: "от 800 ₽", link: "https://aflink.ru/g/18vhi6r5cvf10c2e97fc79deb39b46/?erid=5jtCeReNwxHpfQTFuc3CS5J", category: "accessories", icon: "❄️", store: "Joom" },
       { name: "ОЗУ 16 ГБ (2×8) DDR4", desc: "Избавьтесь от фризов из-за нехватки памяти.", price: "от 4 000 ₽", link: "https://rzekl.com/c/1e8d11449455e5527e7416525dc3e8/", category: "accessories", icon: "🖥️", store: "AliExpress" },
-      // Софт
       { name: "Kaspersky Antivirus", desc: "Защита от вирусов, шпионского ПО и онлайн-угроз.", price: "30 дней бесплатно", link: "https://dhwnh.com/g/f6b07970c655e5527e74e5a65aad3a/?erid=5jtCeReLm1S3Xx3LfA8QF84", category: "software", icon: "🛡️", store: "Kaspersky" },
       { name: "CCleaner Professional", desc: "Глубокая очистка реестра и временных файлов.", price: "Бесплатный пробный период", link: "https://www.ccleaner.com/ru-ru/ccleaner/download", category: "software", icon: "🧹", store: "CCleaner" },
-      // Игры
       { name: "Игровые ключи и бусты GGSel", desc: "Подними скилл или получи новую игру.", price: "от 100 ₽", link: "https://xnmik.com/g/ngv70om7ow55e5527e74768e16fdce/?erid=2bL9aMPo2e49hMef4phyrMWkN2", category: "games", icon: "🎁", store: "GGSel" },
       { name: "Пополнение Steam без комиссии", desc: "Пополните кошелёк и покупайте игры без переплат.", price: "0% комиссии", link: "https://xnmik.com/g/ngv70om7ow55e5527e74768e16fdce0d1d2654a9/?erid=2bL9aMPo2e49hMef4phyrMWkN2", category: "games", icon: "💳", store: "GGSel" }
     ];
 
-    // Рендер товаров
     function renderCatalog(filter = 'all') {
       const grid = document.getElementById('catalogGrid');
       const filtered = filter === 'all' ? catalogItems : catalogItems.filter(item => item.category === filter);
       grid.innerHTML = filtered.map(item => `
-        <div class="product-card" itemscope itemtype="https://schema.org/Product">
+        <div class="product-card catalog-card" itemscope itemtype="https://schema.org/Product">
           <div class="product-icon">${item.icon}</div>
           <h4 itemprop="name">${item.name}</h4>
           <p itemprop="description">${item.desc}</p>
@@ -121,7 +116,6 @@
       `).join('');
     }
 
-    // Обработчики фильтров
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -130,35 +124,13 @@
       });
     });
 
-    // Первичная отрисовка
     renderCatalog();
 
-    // Отслеживание кликов
     document.querySelectorAll('.affiliate-link').forEach(link => {
       link.addEventListener('click', function() {
         if (typeof ym !== 'undefined') ym(109547393, 'reachGoal', 'partner_click');
       });
     });
-
-    // Стили для кнопок фильтров (если ещё не добавлены)
-    const filterStyle = document.createElement('style');
-    filterStyle.textContent = `
-      .filter-btn {
-        padding: 8px 16px;
-        border: 2px solid #ff6b35;
-        background: white;
-        border-radius: 20px;
-        cursor: pointer;
-        font-weight: 500;
-        color: #ff6b35;
-        transition: all 0.2s;
-      }
-      .filter-btn:hover { background: #fff5f0; }
-      .filter-btn.active { background: #ff6b35; color: white; }
-      body.dark .filter-btn { background: #232640; border-color: #ff9f6e; color: #ff9f6e; }
-      body.dark .filter-btn.active { background: #ff9f6e; color: #1a1d2e; }
-    `;
-    document.head.appendChild(filterStyle);
   </script>
 </body>
 </html>
