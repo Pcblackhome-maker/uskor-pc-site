@@ -785,3 +785,14 @@ body.dark .category-card.active { border-color: #ff9f6e; background: #3d2a2a; }
   .scroll-top-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 20px; }
   .product-grid { grid-template-columns: 1fr; }
 }
+/* Популярные товары на главной */
+.popular-products {
+  margin: 40px 0;
+}
+.popular-products h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+body.dark .popular-products h3 { color: #f0f0f0; }
