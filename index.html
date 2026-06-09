@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <!-- Категории -->
+    <!-- Категории (данные из articles-data.js) -->
     <div class="categories-section" id="categoriesSection">
       <h3>📂 Категории</h3>
       <div class="categories-grid" id="categoriesGrid"></div>
@@ -126,14 +126,6 @@
       document.getElementById('categoriesSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Категории (заглушка, если articles-data.js не загрузился)
-    const articleCategories = (typeof articleCategories !== 'undefined') ? articleCategories : {
-      'system': { title: '⚡ Ускорение системы', desc: 'Чистка, оптимизация, обновления', articles: ['instruction', 'disk-cleanup', 'slow-after-update', 'win10-slow', 'windows11'] },
-      'hardware': { title: '💻 Железо и апгрейд', desc: 'SSD, мониторы, сборка ПК', articles: ['ssd', 'monitor', 'build'] },
-      'security': { title: '🛡️ Безопасность и чистка', desc: 'Вирусы, антивирусы, конфиденциальность', articles: ['virus', 'programs'] },
-      'gaming': { title: '🎮 Игры', desc: 'FPS, игровые товары, ключи', articles: ['gaming'] }
-    };
-
     // Все статьи
     const allArticles = [
       { id: "instruction", icon: "📋", title: "Пошаговая инструкция", desc: "Ускорение за 30 минут: автозагрузка, временные файлы, дефрагментация." },
@@ -163,8 +155,9 @@
       document.getElementById('showAllArticles').style.display = articleIds ? 'block' : 'none';
     }
 
-    // Рендер категорий
+    // Рендер категорий (использует articleCategories из articles-data.js)
     function renderCategories() {
+      if (typeof articleCategories === 'undefined') return;
       const grid = document.getElementById('categoriesGrid');
       if (!grid) return;
       grid.innerHTML = Object.entries(articleCategories).map(([key, cat]) => `
