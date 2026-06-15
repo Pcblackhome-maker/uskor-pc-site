@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны с отладкой)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, FAQ, мобильное меню)
 // =========================================
 
 function getBookmarks() {
@@ -101,50 +101,25 @@ function initScrollTopButton() {
   btn.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
 }
 
-// --- АККОРДЕОНЫ (прямая инициализация с отладкой) ---
-function initAccordions() {
-  const headers = document.querySelectorAll('.accordion-header');
-  console.log('Найдено элементов .accordion-header:', headers.length);
-  if (headers.length === 0) {
-    console.warn('Не найдено ни одного .accordion-header. Проверьте HTML-разметку.');
-    return;
-  }
+// --- АККОРДЕОНЫ (делегированная версия, работает на мобильных) ---
+document.addEventListener('click', function(e) {
+  const header = e.target.closest('.accordion-header');
+  if (!header) return;
 
-  headers.forEach((header, index) => {
-    const body = header.nextElementSibling;
-    if (!body || !body.classList.contains('accordion-body')) {
-      console.warn(`Элемент #${index} не имеет следующего .accordion-body`, header);
-      return;
-    }
+  const body = header.nextElementSibling;
+  if (!body || !body.classList.contains('accordion-body')) return;
 
-    // Удаляем старый обработчик, чтобы не дублировался
-    header.removeEventListener('click', accordionClickHandler);
-    header.addEventListener('click', accordionClickHandler);
-    console.log(`Обработчик добавлен к элементу #${index}`, header.textContent.trim());
-  });
-}
-
-function accordionClickHandler() {
-  console.log('Клик по заголовку:', this.textContent.trim());
-  const body = this.nextElementSibling;
-  if (!body || !body.classList.contains('accordion-body')) {
-    console.warn('Не найден .accordion-body для:', this);
-    return;
-  }
+  e.stopPropagation();
 
   const isOpen = body.classList.contains('open');
-  console.log('Состояние до клика:', isOpen ? 'открыто' : 'закрыто');
-
   if (isOpen) {
     body.classList.remove('open');
-    this.classList.remove('active');
-    console.log('Закрыто');
+    header.classList.remove('active');
   } else {
     body.classList.add('open');
-    this.classList.add('active');
-    console.log('Открыто');
+    header.classList.add('active');
   }
-}
+});
 
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
@@ -222,16 +197,28 @@ function checkMaintenance() {
   document.body.appendChild(msg);
 }
 
+// --- Мобильное меню: открытие/закрытие выпадающих категорий по клику ---
+function initMobileMenu() {
+  document.querySelectorAll('.nav-dropbtn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        this.parentElement.classList.toggle('open');
+      }
+    });
+  });
+}
+
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   checkMaintenance();
-  initAccordions();        // ← теперь с консоль-логом
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
   initScrollTopButton();
   initFAQ();
   initStarRatings();
+  initMobileMenu();
   incrementPageCounter();
   updateFooterYear();
 });
