@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📘 Глоссарий компьютерных терминов | Ускорь ПК</title>
+  <meta name="description" content="Словарь компьютерных терминов простыми словами: троттлинг, сокет, NVMe, DDR4 и другие. Узнайте значение и посмотрите связанные статьи.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
+    <nav id="site-nav"></nav>
+  </header>
+
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">📘 Глоссарий</span>
+      <meta itemprop="position" content="2">
+    </span>
+  </div>
+
+  <div class="landing">
+    <div class="content-box" style="display:block;">
+      <h2>📘 Глоссарий компьютерных терминов</h2>
+      <p style="margin-bottom:25px; color:#555;">Простым языком объясняем сложные термины, которые встречаются в наших статьях. Кликните на термин, чтобы увидеть его определение, или перейдите к связанным материалам.</p>
+
+      <div class="glossary-filter" style="margin-bottom:20px;">
+        <input type="text" id="glossarySearch" placeholder="🔍 Поиск по терминам..." style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:12px; font-size:16px;">
+      </div>
+
+      <div class="glossary-list" id="glossaryList">
+        <!-- Термины вставляются JS -->
+      </div>
+    </div>
+
+    <div class="site-footer">
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script>
+    const glossaryTerms = [
+      {
+        term: "Троттлинг",
+        definition: "Автоматическое снижение частоты процессора или видеокарты при перегреве, чтобы избежать повреждения. Проявляется в виде резкого падения FPS в играх.",
+        related: ["gaming", "build"]
+      },
+      {
+        term: "Сокет",
+        definition: "Разъём на материнской плате, в который устанавливается процессор. Сокет должен соответствовать модели процессора, иначе он физически не подойдёт.",
+        related: ["build"]
+      },
+      {
+        term: "NVMe",
+        definition: "Современный протокол для SSD-накопителей, обеспечивающий скорость чтения до 3500 МБ/с и выше. Используется в разъёме M.2.",
+        related: ["ssd", "build"]
+      },
+      {
+        term: "DDR4",
+        definition: "Тип оперативной памяти, который используется в большинстве современных компьютеров. Обеспечивает более высокую скорость и меньшее энергопотребление по сравнению с DDR3.",
+        related: ["programs", "build"]
+      },
+      {
+        term: "Термопаста",
+        definition: "Специальный теплопроводящий состав, который наносится между процессором и кулером для улучшения отвода тепла. Со временем высыхает и требует замены.",
+        related: ["gaming", "build"]
+      },
+      {
+        term: "BIOS / UEFI",
+        definition: "Базовая система ввода-вывода, которая запускается при включении компьютера. Позволяет настраивать оборудование и порядок загрузки.",
+        related: ["build", "windows11"]
+      }
+    ];
+
+    const glossaryList = document.getElementById('glossaryList');
+    const glossarySearch = document.getElementById('glossarySearch');
+
+    function renderGlossary(filter = '') {
+      const filtered = glossaryTerms.filter(item => 
+        item.term.toLowerCase().includes(filter.toLowerCase())
+      );
+      glossaryList.innerHTML = filtered.map(item => `
+        <div class="glossary-item">
+          <div class="glossary-term" onclick="this.parentElement.classList.toggle('open')">
+            ${item.term} <span class="glossary-arrow">▼</span>
+          </div>
+          <div class="glossary-definition">
+            <p>${item.definition}</p>
+            <div class="glossary-related">
+              <strong>Связанные статьи:</strong>
+              ${item.related.map(id => {
+                const article = (typeof allArticleData !== 'undefined' && allArticleData[id]) ? allArticleData[id] : { title: id, url: `/article/${id}.html` };
+                return `<a href="${article.url}">${article.title}</a>`;
+              }).join(', ')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    glossarySearch.addEventListener('input', () => renderGlossary(glossarySearch.value));
+    renderGlossary();
+  </script>
+
+  <style>
+    .glossary-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    body.dark .glossary-item { border-color: #444; }
+    .glossary-term {
+      padding: 15px 20px;
+      background: #fafafa;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    body.dark .glossary-term { background: #2a2a4a; }
+    .glossary-arrow { transition: transform 0.3s; }
+    .glossary-item.open .glossary-arrow { transform: rotate(180deg); }
+    .glossary-definition {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 20px;
+      background: white;
+    }
+    body.dark .glossary-definition { background: #1a1d2e; }
+    .glossary-item.open .glossary-definition {
+      max-height: 200px;
+      padding: 15px 20px;
+    }
+    .glossary-related { margin-top: 10px; font-size: 14px; }
+    .glossary-related a { color: #ff6b35; text-decoration: none; margin-right: 10px; }
+    .glossary-related a:hover { text-decoration: underline; }
+  </style>
+</body>
+</html>
