@@ -43,6 +43,7 @@
     { href: '/news.html', icon: '📰', label: 'Новости' },
     { href: '/diagnostic.html', icon: '🔍', label: 'Диагностика' },
     { href: '/pages/about.html', icon: '👨‍💻', label: 'О проекте' },
+    { href: "/glossary.html", icon: "📘", label: "Глоссарий" },
     { href: '/pages/guide.html', icon: '📘', label: 'Платный гайд' }
   ];
 
