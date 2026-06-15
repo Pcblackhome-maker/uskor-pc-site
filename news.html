@@ -81,11 +81,9 @@
   <script src="/js/navigation.js"></script>
 
   <script>
-    // === ЗАГРУЗКА НОВОСТЕЙ ===
     const newsContainer = document.getElementById('newsContainer');
     const filterButtons = document.querySelectorAll('.filter-btn');
 
-    // RSS-ленты через rss2json (бесплатный API)
     const feeds = [
       { url: 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2F3dnews.ru%2Fnews%2Frss', source: '3dnews', name: '3DNews' },
       { url: 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fhabr.com%2Fru%2Frss%2Fall%2F%3Ffl%3Dru', source: 'habr', name: 'Хабр' },
@@ -93,32 +91,6 @@
     ];
 
     let allNews = [];
-
-    async function loadAllFeeds() {
-      newsContainer.innerHTML = '<p style="text-align:center; padding:40px;">Загрузка новостей...</p>';
-      const promises = feeds.map(feed =>
-        fetch(feed.url)
-          .then(res => res.json())
-          .then(data => {
-            if (data.status === 'ok' && data.items) {
-              return data.items.slice(0, 10).map(item => ({
-                title: item.title,
-                link: item.link,
-                description: stripHtml(item.description).substring(0, 200) + '...',
-                pubDate: new Date(item.pubDate).toLocaleDateString('ru-RU'),
-                source: feed.source,
-                sourceName: feed.name
-              }));
-            }
-            return [];
-          })
-          .catch(() => [])
-      );
-
-      const results = await Promise.all(promises);
-      allNews = results.flat().sort((a, b) => new Date(b.pubDate.split('.')[2] + '-' + b.pubDate.split('.')[1] + '-' + b.pubDate.split('.')[0]) - new Date(a.pubDate.split('.')[2] + '-' + a.pubDate.split('.')[1] + '-' + a.pubDate.split('.')[0]));
-      renderNews('all');
-    }
 
     function stripHtml(html) {
       const tmp = document.createElement('div');
@@ -144,7 +116,40 @@
       `).join('');
     }
 
-    // Фильтры
+    async function loadFeed(feed) {
+      try {
+        const response = await fetch(feed.url);
+        if (!response.ok) throw new Error('Ошибка сети');
+        const data = await response.json();
+        if (data.status === 'ok' && data.items) {
+          return data.items.slice(0, 10).map(item => ({
+            title: item.title,
+            link: item.link,
+            description: stripHtml(item.description).substring(0, 200) + '...',
+            pubDate: new Date(item.pubDate).toLocaleDateString('ru-RU'),
+            source: feed.source,
+            sourceName: feed.name
+          }));
+        }
+      } catch (err) {
+        console.warn(`Не удалось загрузить ${feed.name}:`, err);
+      }
+      return [];
+    }
+
+    async function loadAllFeeds() {
+      newsContainer.innerHTML = '<p style="text-align:center; padding:40px;">Загрузка новостей...</p>';
+      const results = await Promise.all(feeds.map(feed => loadFeed(feed)));
+      allNews = results.flat().sort((a, b) => {
+        const parseDate = (str) => {
+          const parts = str.split('.');
+          return new Date(parts[2], parts[1] - 1, parts[0]);
+        };
+        return parseDate(b.pubDate) - parseDate(a.pubDate);
+      });
+      renderNews('all');
+    }
+
     filterButtons.forEach(btn => {
       btn.addEventListener('click', function() {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -153,7 +158,6 @@
       });
     });
 
-    // Запуск
     loadAllFeeds();
   </script>
 
