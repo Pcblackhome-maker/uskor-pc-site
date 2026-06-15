@@ -197,8 +197,25 @@ function checkMaintenance() {
   document.body.appendChild(msg);
 }
 
-// --- Мобильное меню: открытие/закрытие выпадающих категорий по клику ---
+// --- МОБИЛЬНОЕ МЕНЮ (бургер) ---
 function initMobileMenu() {
+  // Создаём кнопку-бургер, если её ещё нет
+  if (!document.querySelector('.burger-btn')) {
+    const btn = document.createElement('button');
+    btn.className = 'burger-btn';
+    btn.setAttribute('aria-label', 'Меню');
+    btn.innerHTML = '☰';
+    const header = document.querySelector('.site-header');
+    if (header) {
+      const nav = header.querySelector('nav');
+      header.insertBefore(btn, nav);
+      btn.addEventListener('click', () => {
+        nav.classList.toggle('show');
+      });
+    }
+  }
+
+  // Открытие/закрытие выпадающих категорий по клику (если есть .nav-dropbtn)
   document.querySelectorAll('.nav-dropbtn').forEach(btn => {
     btn.addEventListener('click', function(e) {
       if (window.innerWidth <= 768) {
@@ -212,13 +229,13 @@ function initMobileMenu() {
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   checkMaintenance();
+  initMobileMenu();
   initBookmarkButtons();
   initCookieBanner();
   initReadingProgress();
   initScrollTopButton();
   initFAQ();
   initStarRatings();
-  initMobileMenu();
   incrementPageCounter();
   updateFooterYear();
 });
