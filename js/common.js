@@ -1,5 +1,5 @@
 // =========================================
-// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, FAQ)
+// ОБЩИЕ ФУНКЦИИ (закладки, тосты, тема, счётчики, звёздочки, аккордеоны, FAQ, мобильное меню)
 // =========================================
 
 function getBookmarks() {
@@ -197,6 +197,59 @@ function checkMaintenance() {
   document.body.appendChild(msg);
 }
 
+// --- МОБИЛЬНОЕ МЕНЮ: создание кнопки "Меню" и управление выпадающими категориями ---
+function initMobileMenu() {
+  // Создаём кнопку "Меню" для мобильных
+  function createMenuToggle() {
+    if (document.querySelector('.menu-toggle')) return;
+    const header = document.querySelector('.site-header');
+    const nav = document.getElementById('site-nav');
+    if (!header || !nav) return;
+
+    const menuBtn = document.createElement('button');
+    menuBtn.className = 'menu-toggle';
+    menuBtn.innerHTML = '☰ Меню';
+    header.insertBefore(menuBtn, nav);
+
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('show');
+    });
+  }
+
+  // Управление выпадающими категориями на мобильных
+  function handleDropdowns() {
+    document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+      const btn = dropdown.querySelector('.nav-dropbtn');
+      if (!btn) return;
+
+      btn.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('open');
+        }
+      });
+    });
+  }
+
+  if (window.innerWidth <= 768) {
+    createMenuToggle();
+  }
+  handleDropdowns();
+
+  // При ресайзе скрываем меню и управляем видимостью кнопки
+  window.addEventListener('resize', () => {
+    const nav = document.getElementById('site-nav');
+    const btn = document.querySelector('.menu-toggle');
+    if (window.innerWidth > 768) {
+      if (nav) nav.classList.remove('show');
+      if (btn) btn.style.display = 'none';
+    } else {
+      if (btn) btn.style.display = 'flex';
+      else createMenuToggle();
+    }
+  });
+}
+
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   checkMaintenance();
@@ -206,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollTopButton();
   initFAQ();
   initStarRatings();
+  initMobileMenu();
   incrementPageCounter();
   updateFooterYear();
 });
