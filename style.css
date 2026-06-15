@@ -1,6 +1,6 @@
 /* =========================================
    ПОЛНЫЙ CSS ДЛЯ uskor-pc.ru
-   (оптимизированный, без дубликатов, все улучшения)
+   (меш-градиент, мобильное меню, все улучшения)
    ========================================= */
 
 /* ---------- ГЛОБАЛЬНЫЕ СТИЛИ ---------- */
@@ -16,7 +16,7 @@ body {
 }
 body.dark { background: #1a1d2e !important; color: #d0d0d0; }
 
-/* ---------- АНИМИРОВАННЫЙ ФОН ---------- */
+/* ---------- МЕШ-ГРАДИЕНТНЫЙ ФОН ---------- */
 body::before {
   content: '';
   position: fixed;
@@ -24,21 +24,27 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 20% 30%, rgba(255,107,53,0.25) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(255,140,80,0.20) 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(100,160,255,0.15) 0%, transparent 50%);
-  animation: slowMove 25s ease-in-out infinite alternate;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255,107,53,0.3) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(78,205,196,0.25) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(168,85,247,0.2) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(251,191,36,0.15) 0%, transparent 40%);
+  animation: meshMove 20s ease-in-out infinite alternate;
   z-index: 0;
   pointer-events: none;
 }
 body.dark::before {
-  background: radial-gradient(circle at 20% 30%, rgba(255,159,110,0.20) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(255,180,140,0.15) 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(100,160,255,0.10) 0%, transparent 50%);
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255,159,110,0.25) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(129,199,132,0.2) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(186,104,200,0.2) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255,213,79,0.15) 0%, transparent 40%);
 }
-@keyframes slowMove {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  100% { transform: translate(-2%, 2%) rotate(5deg); }
+@keyframes meshMove {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-1%, 1%) scale(1.05); }
+  66% { transform: translate(1%, -1%) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 .landing, .site-header, .reading-progress { position: relative; z-index: 1; }
 
@@ -49,7 +55,7 @@ body.dark::before {
 }
 body.dark .reading-progress { background: linear-gradient(90deg, #ff9f6e, #ffb08c); }
 
-/* ---------- НАВИГАЦИЯ ---------- */
+/* ---------- НАВИГАЦИЯ (ДЕСКТОП + БУРГЕР) ---------- */
 .site-header {
   background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   position: sticky; top: 0; z-index: 1000;
@@ -61,7 +67,28 @@ body.dark .site-header { background: #232640; box-shadow: 0 4px 12px rgba(0,0,0,
 .site-header .logo { font-size: 22px; font-weight: 700; color: #ff6b35; text-decoration: none; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 body.dark .site-header .logo { color: #ff9f6e; }
 .search-icon { cursor: pointer; font-size: 20px; flex-shrink: 0; order: 1; }
-.site-header nav { display: flex; flex-wrap: wrap; gap: 6px; order: 2; }
+
+/* Бургер-кнопка */
+.burger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #ff6b35;
+  padding: 5px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+body.dark .burger-btn { color: #ff9f6e; }
+
+/* Меню */
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  order: 2;
+}
 .site-header nav a {
   background: #f5f5f5; color: #2c3e50; padding: 8px 14px; border-radius: 20px;
   text-decoration: none; font-size: 14px; font-weight: 500;
@@ -597,11 +624,6 @@ body.dark .category-card p { color: #aaa; }
 .category-card.active { border-color: #ff6b35; background: #fff5f0; }
 body.dark .category-card.active { border-color: #ff9f6e; background: #3d2a2a; }
 
-/* ---------- ПОПУЛЯРНЫЕ ТОВАРЫ НА ГЛАВНОЙ ---------- */
-.popular-products { margin: 40px 0; }
-.popular-products h3 { font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #1a1a1a; }
-body.dark .popular-products h3 { color: #f0f0f0; }
-
 /* ---------- СТЕППЕР (НОВЫЙ) ---------- */
 .stepper-widget {
   background: white; border-radius: 20px; padding: 30px;
@@ -677,88 +699,39 @@ body.dark .product-card:hover .product-icon {
 .back-btn { display: inline-flex; align-items: center; gap: 8px; background: white; color: #ff6b35; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.2s; }
 .back-btn:hover { background: #fff5f0; transform: translateX(-3px); }
 body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
-/* Выпадающее меню */
-.nav-dropdown {
-  position: relative;
-  display: inline-block;
-}
-.nav-dropbtn {
-  background: #f5f5f5;
-  color: #2c3e50;
-  padding: 8px 14px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  border: none;
-  font-family: inherit;
-}
-.nav-dropbtn:hover { background: #ff6b35; color: white; }
-.nav-dropbtn.active { background: #ff6b35; color: white; }
-body.dark .nav-dropbtn { background: #2a2a4a; color: #d0d0d0; }
-body.dark .nav-dropbtn:hover { background: #ff9f6e; color: #1a1d2e; }
-
-.nav-dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  min-width: 220px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  border-radius: 12px;
-  padding: 8px 0;
-  z-index: 1001;
-  margin-top: 5px;
-}
-body.dark .nav-dropdown-content { background: #232640; }
-
-.nav-dropdown-content a {
-  display: block;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: #2c3e50;
-  font-size: 14px;
-  white-space: nowrap;
-  transition: background 0.2s;
-  border-radius: 0;
-  background: transparent;
-}
-.nav-dropdown-content a:hover { background: #fff5f0; color: #ff6b35; }
-.nav-dropdown-content a.active { background: #fff5f0; color: #ff6b35; font-weight: 600; }
-body.dark .nav-dropdown-content a { color: #d0d0d0; }
-body.dark .nav-dropdown-content a:hover { background: #3d2a2a; color: #ff9f6e; }
-
-/* Показываем выпадашку при наведении (на ПК) */
-.nav-dropdown:hover .nav-dropdown-content { display: block; }
-
-/* На мобильных: выпадашка по клику (JS добавит класс) */
-.nav-dropdown.open .nav-dropdown-content { display: block; }
 
 /* =========================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ
+   МОБИЛЬНАЯ АДАПТАЦИЯ (бургер-меню)
    ========================================= */
 @media (max-width: 768px) {
-  .site-header { flex-wrap: wrap; padding: 10px 15px; gap: 5px; }
-  .site-header .logo { font-size: 20px; }
-  .search-icon { order: 1; margin-left: auto; font-size: 22px; }
-  .site-header nav {
-    order: 3; width: 100%; overflow-x: auto; overflow-y: visible;
-    -webkit-overflow-scrolling: touch; scrollbar-width: none;
-    -ms-overflow-style: none; display: flex; flex-wrap: nowrap;
-    gap: 6px; padding-bottom: 5px; margin-top: 8px;
+  .burger-btn {
+    display: block;
+    order: 2;
+    margin-left: auto;
   }
-  .site-header nav::-webkit-scrollbar { display: none; }
-  .site-header nav a { font-size: 13px; padding: 7px 12px; white-space: nowrap; flex-shrink: 0; background: #f0f0f0; color: #333; }
-  body.dark .site-header nav a { background: #2a2a4a; color: #ddd; }
-  .site-header nav a:hover, .site-header nav a.active { background: #ff6b35; color: white; }
-  body.dark .site-header nav a:hover, body.dark .site-header nav a.active { background: #ff9f6e; color: #1a1d2e; }
+  .site-header nav {
+    display: none; /* скрываем по умолчанию */
+    flex-direction: column;
+    width: 100%;
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-top: 10px;
+    order: 3;
+  }
+  body.dark .site-header nav {
+    background: #232640;
+  }
+  .site-header nav.show {
+    display: flex;
+  }
+  .site-header nav a {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 16px;
+  }
 
   .landing { padding: 20px 12px 40px; }
   .hero { padding: 30px 15px 25px; }
@@ -769,32 +742,4 @@ body.dark .nav-dropdown-content a:hover { background: #3d2a2a; color: #ff9f6e; }
   .contact-form { padding: 25px 18px; }
   .scroll-top-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 20px; }
   .product-grid { grid-template-columns: 1fr; }
-}
-/* Стилизованный логотип */
-.site-header .logo {
-  position: relative;
-  background: linear-gradient(135deg, #ff6b35, #ff7e5f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 24px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-}
-.site-header .logo::before {
-  content: '🚀';
-  -webkit-text-fill-color: initial;
-  background: none;
-  font-size: 28px;
-  margin-right: 6px;
-  display: inline-block;
-  animation: floatIcon 3s ease-in-out infinite;
-}
-body.dark .site-header .logo {
-  background: linear-gradient(135deg, #ff9f6e, #ffb08c);
-  -webkit-background-clip: text;
-  background-clip: text;
 }
