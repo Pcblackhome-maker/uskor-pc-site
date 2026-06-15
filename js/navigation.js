@@ -17,6 +17,7 @@
     { href: "/catalog.html", icon: "🛒", label: "Каталог" },
     { href: "/diagnostic.html", icon: "🔍", label: "Диагностика" },
     { href: "/news.html", icon: "📰", label: "Новости" }
+    { href: "/pages/about.html", icon: "👨‍💻", label: "О проекте" }
     { href: "/pages/guide.html", icon: "📘", label: "Платный гайд" }
   ];
 
