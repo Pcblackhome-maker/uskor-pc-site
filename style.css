@@ -89,19 +89,84 @@ body.dark .site-header .logo { color: #ff9f6e; }
 #site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   order: 2;
 }
-#site-nav a {
+
+/* Выпадающая категория */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.nav-dropbtn {
+  background: #f5f5f5;
+  color: #2c3e50;
+  padding: 8px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav-dropbtn:hover { background: #ff6b35; color: white; transform: translateY(-1px); }
+body.dark .nav-dropbtn { background: #2a2a4a; color: #d0d0d0; }
+body.dark .nav-dropbtn:hover { background: #ff9f6e; color: #1a1d2e; }
+
+/* Выпадающий список */
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 10px;
+  z-index: 10;
+  flex-direction: column;
+  gap: 4px;
+}
+body.dark .nav-dropdown-content { background: #232640; }
+.nav-dropdown:hover .nav-dropdown-content { display: flex; }
+.nav-dropdown-content a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.nav-dropdown-content a:hover { background: #fff5f0; }
+.nav-dropdown-content a.active { background: #ff6b35; color: white; }
+body.dark .nav-dropdown-content a { color: #ddd; }
+body.dark .nav-dropdown-content a:hover { background: #3a3a5a; }
+body.dark .nav-dropdown-content a.active { background: #ff9f6e; color: #1a1d2e; }
+
+/* Отдельные ссылки (как раньше) */
+.nav-single {
   background: #f5f5f5; color: #2c3e50; padding: 8px 14px; border-radius: 20px;
-  text-decoration: none; font-size: 14px; font-weight: 500;
+  text-decoration: none; font-size: 14px; font-weight: 600;
   transition: all 0.2s; display: flex; align-items: center; gap: 4px; white-space: nowrap;
 }
-#site-nav a:hover { background: #ff6b35; color: white; transform: translateY(-1px); }
-#site-nav a.active { background: #ff6b35; color: white; }
-body.dark #site-nav a { background: #2a2a4a; color: #d0d0d0; }
-body.dark #site-nav a:hover { background: #ff9f6e; color: #1a1d2e; }
-body.dark #site-nav a.active { background: #ff9f6e; color: #1a1d2e; }
+.nav-single:hover { background: #ff6b35; color: white; transform: translateY(-1px); }
+.nav-single.active { background: #ff6b35; color: white; }
+body.dark .nav-single { background: #2a2a4a; color: #d0d0d0; }
+body.dark .nav-single:hover { background: #ff9f6e; color: #1a1d2e; }
+body.dark .nav-single.active { background: #ff9f6e; color: #1a1d2e; }
 
 /* ---------- ГЛАВНАЯ И ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
 .landing { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
@@ -704,7 +769,7 @@ body.dark .product-card:hover .product-icon {
 body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
 
 /* =========================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ (горизонтальный скролл меню)
+   МОБИЛЬНАЯ АДАПТАЦИЯ (меню по категориям + бургер)
    ========================================= */
 @media (max-width: 768px) {
   .site-header {
@@ -714,32 +779,71 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   }
   .site-header .logo { font-size: 20px; }
   .search-icon { order: 1; margin-left: auto; font-size: 22px; }
+
+  /* Мобильное меню */
   #site-nav {
     order: 3;
     width: 100%;
-    overflow-x: auto;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: none; /* скрыто по умолчанию, показывается при добавлении класса show */
+  }
+  body.dark #site-nav { background: #232640; }
+  #site-nav.show { display: flex; }
+
+  .nav-dropdown {
+    width: 100%;
+  }
+  .nav-dropbtn {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+  .nav-dropdown-content {
+    position: static;
+    box-shadow: none;
+    display: none;
+    width: 100%;
+    padding: 0 10px;
+    background: transparent;
+  }
+  .nav-dropdown.open .nav-dropdown-content {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 6px;
-    padding-bottom: 5px;
-    margin-top: 8px;
   }
-  #site-nav::-webkit-scrollbar { display: none; }
-  #site-nav a {
-    font-size: 13px;
-    padding: 7px 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    background: #f0f0f0;
-    color: #333;
+  .nav-dropdown-content a {
+    padding: 10px 15px;
+    font-size: 15px;
   }
-  body.dark #site-nav a { background: #2a2a4a; color: #ddd; }
-  #site-nav a:hover, #site-nav a.active { background: #ff6b35; color: white; }
-  body.dark #site-nav a:hover, body.dark #site-nav a.active { background: #ff9f6e; color: #1a1d2e; }
+
+  .nav-single {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  /* Кнопка "Меню" (бургер) */
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ff6b35;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    order: 2;
+    margin-left: auto;
+    margin-right: 10px;
+  }
 
   .landing { padding: 20px 12px 40px; }
   .hero { padding: 30px 15px 25px; }
