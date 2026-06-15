@@ -16,6 +16,7 @@
     { href: "/article/win10-slow.html", icon: "🐢", label: "Тормозит ноутбук" },
     { href: "/catalog.html", icon: "🛒", label: "Каталог" },
     { href: "/diagnostic.html", icon: "🔍", label: "Диагностика" },
+    { href: "/news.html", icon: "📰", label: "Новости" }
     { href: "/pages/guide.html", icon: "📘", label: "Платный гайд" }
   ];
 
