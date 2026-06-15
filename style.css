@@ -677,6 +677,69 @@ body.dark .product-card:hover .product-icon {
 .back-btn { display: inline-flex; align-items: center; gap: 8px; background: white; color: #ff6b35; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.2s; }
 .back-btn:hover { background: #fff5f0; transform: translateX(-3px); }
 body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
+/* Выпадающее меню */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.nav-dropbtn {
+  background: #f5f5f5;
+  color: #2c3e50;
+  padding: 8px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  font-family: inherit;
+}
+.nav-dropbtn:hover { background: #ff6b35; color: white; }
+.nav-dropbtn.active { background: #ff6b35; color: white; }
+body.dark .nav-dropbtn { background: #2a2a4a; color: #d0d0d0; }
+body.dark .nav-dropbtn:hover { background: #ff9f6e; color: #1a1d2e; }
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 220px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  padding: 8px 0;
+  z-index: 1001;
+  margin-top: 5px;
+}
+body.dark .nav-dropdown-content { background: #232640; }
+
+.nav-dropdown-content a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: background 0.2s;
+  border-radius: 0;
+  background: transparent;
+}
+.nav-dropdown-content a:hover { background: #fff5f0; color: #ff6b35; }
+.nav-dropdown-content a.active { background: #fff5f0; color: #ff6b35; font-weight: 600; }
+body.dark .nav-dropdown-content a { color: #d0d0d0; }
+body.dark .nav-dropdown-content a:hover { background: #3d2a2a; color: #ff9f6e; }
+
+/* Показываем выпадашку при наведении (на ПК) */
+.nav-dropdown:hover .nav-dropdown-content { display: block; }
+
+/* На мобильных: выпадашка по клику (JS добавит класс) */
+.nav-dropdown.open .nav-dropdown-content { display: block; }
 
 /* =========================================
    МОБИЛЬНАЯ АДАПТАЦИЯ
