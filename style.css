@@ -855,3 +855,28 @@ body.dark .back-btn { background: #2a2a4a; color: #ff9f6e; }
   .scroll-top-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 20px; }
   .product-grid { grid-template-columns: 1fr; }
 }
+/* Всплывающие подсказки (глоссарий) */
+.glossary-term-text {
+  border-bottom: 1px dashed #ff6b35;
+  cursor: help;
+  position: relative;
+}
+.glossary-term-text:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  background: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  max-width: 280px;
+  white-space: normal;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+body.dark .glossary-term-text:hover::after {
+  background: #555;
+}
