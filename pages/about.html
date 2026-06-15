@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О проекте — Ускорь ПК</title>
+  <meta name="description" content="Кто стоит за проектом Ускорь ПК. Почему мы помогаем пользователям ускорять и чинить компьютеры бесплатно.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109547393, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109547393" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="site-header">
+    <a href="/" class="logo">🚀 Ускорь ПК</a>
+    <span class="search-icon" onclick="document.getElementById('searchModal').classList.add('open')">🔍</span>
+    <nav id="site-nav"></nav>
+  </header>
+
+  <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+      <meta itemprop="position" content="1">
+    </span>
+    →
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">👨‍💻 О проекте</span>
+      <meta itemprop="position" content="2">
+    </span>
+  </div>
+
+  <div class="landing">
+    <div class="content-box" style="display:block;">
+      <h2>👨‍💻 О проекте «Ускорь ПК»</h2>
+      
+      <div style="display:flex; gap:30px; align-items:flex-start; flex-wrap:wrap; margin-bottom:30px;">
+        <div style="flex-shrink:0; width:120px; height:120px; background:linear-gradient(135deg, #ff6b35, #ff7e5f); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:60px; color:white;">🚀</div>
+        <div style="flex:1; min-width:200px;">
+          <p style="font-size:18px; line-height:1.7; margin-bottom:15px;">Привет! Меня зовут Игорь, и я создал этот сайт, чтобы помочь обычным пользователям ускорять свои компьютеры без вызова дорогих мастеров.</p>
+          <p style="font-size:16px; line-height:1.7; margin-bottom:15px; color:#555;">Я занимаюсь ремонтом и настройкой ПК уже более 10 лет. За это время я понял: 90% проблем с медленной работой можно решить самостоятельно за 15–30 минут. Нужны только правильные инструкции.</p>
+        </div>
+      </div>
+
+      <h3>Почему этот сайт бесплатный?</h3>
+      <p style="font-size:16px; line-height:1.7; margin-bottom:20px; color:#555;">Все статьи и гайды на сайте доступны бесплатно. Мы зарабатываем на партнёрских ссылках, чтобы поддерживать сайт и создавать новый контент. Вы не платите ни копейки, а просто покупаете проверенные товары по нашим рекомендациям.</p>
+
+      <h3>Что я могу вам гарантировать?</h3>
+      <ul style="font-size:16px; line-height:1.7; margin-bottom:20px; color:#555;">
+        <li>Все советы проверены на реальных компьютерах и ноутбуках.</li>
+        <li>Я не рекламирую то, чем не пользуюсь сам.</li>
+        <li>На сайте нет скрытых платежей или подписок.</li>
+        <li>Я лично отвечаю на вопросы через форму обратной связи.</li>
+      </ul>
+
+      <h3>Связаться со мной</h3>
+      <p style="font-size:16px; line-height:1.7; color:#555;">Если у вас есть вопросы, предложения или вы хотите заказать персональную консультацию, напишите мне через <a href="/#contact-form">форму обратной связи</a>. Я отвечаю в течение дня.</p>
+    </div>
+
+    <div class="site-footer">
+      © <span id="currentYear">2026</span> <span>Ускорь ПК</span> · <span>Сделано с заботой о вашем компьютере</span> · <a href="/pages/privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn"><span>↑</span></button>
+  <div class="cookie-consent" id="cookieConsent">
+    <span>🍪 Мы используем куки и Яндекс.Метрику. <a href="/pages/privacy.html">Подробнее</a></span>
+    <button onclick="acceptCookies()">Принимаю</button>
+  </div>
+
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button onclick="document.getElementById('searchModal').classList.remove('open')">✕</button>
+      <ul id="searchResults"></ul>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/admin-panel.js"></script>
+  <script src="/js/navigation.js"></script>
+</body>
+</html>
